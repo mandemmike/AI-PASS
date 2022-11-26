@@ -7,7 +7,9 @@
 <body>
 <button onclick="history.back()">Go Back</button>
 
-<h1>Dataset upload</h1>
+<h1>Admin UI</h1>
+
+<h3>Dataset upload</h3>
 
 <form action="#" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
@@ -18,6 +20,35 @@
 
     <input type="submit" value="Upload" required>
 </form>
+
+<h3>Model</h3>
+
+<p>Please pick the model to train:</p>
+
+<form action="">
+    <input type="radio" id="model1" name="model1" value="model1">
+    <label for="model1">Model 1</label>
+    <br>
+    <input type="radio" id="model2" name="model2" value="model2">
+    <label for="model2">Model 2</label>
+    <br>
+
+</form>
+
+
+<br>
+<br>
+
+<button>Train</button>
+
+<br>
+<br>
+
+<button>Save</button>
+<button>Cancel</button>
+
+
+
 
 
 </body>
