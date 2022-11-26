@@ -9,7 +9,11 @@
 <h1>Dataset upload</h1>
 <form action="#" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <input type="file" name="dataset">
+    <div>
+        <input type="file" name="file">
+        {{ errors.file }}
+    </div>
+
     <input type="submit" value="Upload" required>
 </form>
 
