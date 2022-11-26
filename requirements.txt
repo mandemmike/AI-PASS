@@ -160,3 +160,6 @@ Whoosh==2.7.4
 wrapt==1.14.1
 xattr==0.9.9
 zipp==3.10.0
+celery~=5.2
+redis~=4.3
+
