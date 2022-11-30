@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Face Recognition</title>
+</head>
+
+<body>
+
+  <h1>Welcome to Age recognition</h1>
+
+  <form action="#" method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {{ form.as_table }}
+
+    <input type="submit" value="upload">
+
+  </form>
+
+
+  {% if upload %}
+      <div>
+          <img src="/media/ml_output/process.jpg" alt="">
+      </div>
+
+      <table>
+        <tr>
+          <td>Face</td>
+          {% for c in results.count %}
+          <td>
+            <img src="/media/ml_output/roi_{{ c }}.jpg" alt="">
+          </td>
+          {% endfor %}
+        </tr>
+        <!---
+        <tr>
+          <td>Face Detection Score</td>
+          {% for detect_score in results.face_detect_score %}
+          <td>{{ detect_score }}</td>
+          {% endfor %}
+        </tr>
+        <tr>
+          <td>Name</td>
+          {% for name in results.face_name %}
+          <td>{{ name }}</td>
+          {% endfor %}
+        </tr>
+        <tr>
+          <td>Face Score</td>
+          {% for name_score in results.face_name_score %}
+          <td>{{ name_score }}</td>
+          {% endfor %}
+        </tr>
+        <tr>
+          <td>Emotion Name</td>
+          {% for emotion_name in results.emotion_name %}
+          <td>{{ emotion_name }}</td>
+          {% endfor %}
+        </tr>
+
+        <tr>
+          <td>Emotion Score</td>
+          {% for emotion_score in results.emotion_name_score %}
+          <td>{{ emotion_score }}</td>
+          {% endfor %}
+        </tr>
+        !-->
+
+         <tr>
+          <td>Age</td>
+          {% for age in results.age %}
+          <td>{{ age }}</td>
+          {% endfor %}
+        </tr>
+
+        <tr>
+          <td>Gender</td>
+          {% for gender in results.gender %}
+          <td>{{ gender }}</td>
+          {% endfor %}
+        </tr>
+      </table>
+  {% endif %}
+
+
+
+  <!--<img src="/static/blue-eye-logo.png" alt="" width="500" height="600">-->
+
+  <!-- <p>The recommended method is below</p>-->
+  <!-- <img src="{% static 'blue-eye-logo.png' %}" alt="" width="500" height="600"> -->
+  <br>
+  <br>
+
+  <a href="dataset/#">I am an admin</a>
+
+</body>
+
+</html>
