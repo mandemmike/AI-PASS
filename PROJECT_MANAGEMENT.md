@@ -82,15 +82,16 @@ Received feedback from Peter regarding project, ways of working, recommendations
 ### **Week 48**
 #### Meeting 1
 
-**Date:**  2022-11- <br>
+**Date:**  2022-11-29 <br>
 **Type:** Group Meeting <br>
 **Present:** All <br>
 **Notes:**<br>
 
-| Task | Responsible |
-|------|-------------|
-|      |             |
-|      |             |
+| Task              | Responsible   |
+|-------------------|---------------|
+| Unit testing      | Ediz, Michael |
+| Front-end         | Olga, Renyuan |
+| Docker, Kubernets | Ediz, Zubeen  |
 
 
 
