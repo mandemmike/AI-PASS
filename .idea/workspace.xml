@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="49882319-a232-4241-b638-f0cf27b344fe" name="Changes" comment="solving merge conflict" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Jupyter Notebook" />
+        <option value="HTML File" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2HoXp1SaOu6ukI8YQsAMU9WX9wY" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/olga/PycharmProjects/dit825-age-detection",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "vcs.Git"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/models" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/static/models" />
+      <recent name="$PROJECT_DIR$/app" />
+      <recent name="$PROJECT_DIR$/etc" />
+      <recent name="$PROJECT_DIR$/main" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="49882319-a232-4241-b638-f0cf27b344fe" name="Changes" comment="" />
+      <created>1668952591266</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1668952591266</updated>
+      <workItem from="1668952592603" duration="17751000" />
+      <workItem from="1669121270123" duration="7394000" />
+      <workItem from="1669202210107" duration="2329000" />
+      <workItem from="1669210426754" duration="5511000" />
+      <workItem from="1669224420655" duration="1651000" />
+      <workItem from="1669281305368" duration="16000" />
+      <workItem from="1669281329373" duration="1095000" />
+      <workItem from="1669282628211" duration="5008000" />
+      <workItem from="1669293313232" duration="2294000" />
+      <workItem from="1669315685490" duration="1014000" />
+      <workItem from="1669390091789" duration="1638000" />
+      <workItem from="1669392520112" duration="108000" />
+      <workItem from="1669392821165" duration="5165000" />
+      <workItem from="1669468711889" duration="3064000" />
+      <workItem from="1669480701484" duration="11815000" />
+      <workItem from="1669560202113" duration="16651000" />
+      <workItem from="1669808590654" duration="888000" />
+      <workItem from="1669809490090" duration="177000" />
+    </task>
+    <task id="LOCAL-00001" summary="the first draft of front-end (uploading picture)">
+      <created>1669286184749</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1669286184749</updated>
+    </task>
+    <task id="LOCAL-00002" summary="start for dataset uploading">
+      <created>1669468900415</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1669468900415</updated>
+    </task>
+    <task id="LOCAL-00003" summary="uploading dataset in zip file done">
+      <created>1669488899133</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1669488899133</updated>
+    </task>
+    <task id="LOCAL-00004" summary="connected user and admin view">
+      <created>1669503834767</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1669503834767</updated>
+    </task>
+    <task id="LOCAL-00005" summary="some html tags for admin view">
+      <created>1669505068903</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1669505068903</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added project management file">
+      <created>1669556006266</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1669556006266</updated>
+    </task>
+    <task id="LOCAL-00007" summary="some attempts to save models">
+      <created>1669758334021</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1669758334022</updated>
+    </task>
+    <task id="LOCAL-00008" summary="pulling">
+      <created>1669808893174</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1669808893174</updated>
+    </task>
+    <task id="LOCAL-00009" summary="solving merge conflict">
+      <created>1669809369254</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1669809369254</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="requirements.txt" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="olga-branch-1" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="the first draft of front-end (uploading picture)" />
+    <MESSAGE value="start for dataset uploading" />
+    <MESSAGE value="uploading dataset in zip file done" />
+    <MESSAGE value="connected user and admin view" />
+    <MESSAGE value="some html tags for admin view" />
+    <MESSAGE value="Added project management file" />
+    <MESSAGE value="some attempts to save models" />
+    <MESSAGE value="pulling" />
+    <MESSAGE value="solving merge conflict" />
+    <option name="LAST_COMMIT_MESSAGE" value="solving merge conflict" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/dit825_age_detection$Faces_Detection_and_Tracking.coverage" NAME="Faces_Detection_and_Tracking Coverage Results" MODIFIED="1669196770404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main" />
+    <SUITE FILE_PATH="coverage/dit825_age_detection$manage.coverage" NAME="manage Coverage Results" MODIFIED="1669204169553" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
