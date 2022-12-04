@@ -17,7 +17,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
-MEDIA_DIR = os.path.join(BASE_DIR,'media')
+MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -125,23 +125,23 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
-#media
+# media
 
 MEDIA_ROOT = MEDIA_DIR
 MIDEA_URL = '/media/'
 
 
-#Celery
-REDIS_URL = "redis://localhost:6379"
+# Celery
+# REDIS_URL = "redis://localhost:6379"
 
 
-CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', REDIS_URL)
-CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', REDIS_URL)
+# CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', REDIS_URL)
+# CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', REDIS_URL)
 
-CELERY_TIMEZONE = os.environ.get('TZ', 'UTC')
+# CELERY_TIMEZONE = os.environ.get('TZ', 'UTC')
 
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
