@@ -24,20 +24,20 @@
 
 
   {% if upload %}
-      <div>
-          <img src="/media/ml_output/process.jpg" alt="">
-      </div>
+  <div>
+    <img src="/media/mloutput/process.jpg" alt="">
+  </div>
 
-      <table>
-        <tr>
-          <td>Face</td>
-          {% for c in results.count %}
-          <td>
-            <img src="/media/ml_output/roi_{{ c }}.jpg" alt="">
-          </td>
-          {% endfor %}
-        </tr>
-        <!---
+  <table>
+    <tr>
+      <td>Face</td>
+      {% for c in results.count %}
+      <td>
+        <img src="/media/mloutput/roi_{{ c }}.jpg" alt="">
+      </td>
+      {% endfor %}
+    </tr>
+    <!---
         <tr>
           <td>Face Detection Score</td>
           {% for detect_score in results.face_detect_score %}
@@ -69,22 +69,22 @@
           <td>{{ emotion_score }}</td>
           {% endfor %}
         </tr>
-        !-->
+        ! -->
 
-         <tr>
-          <td>Age</td>
-          {% for age in results.age %}
-          <td>{{ age }}</td>
-          {% endfor %}
-        </tr>
+    <tr>
+      <td>Age</td>
+      {% for age in results.age %}
+      <td>{{ age }}</td>
+      {% endfor %}
+    </tr>
 
-        <tr>
-          <td>Gender</td>
-          {% for gender in results.gender %}
-          <td>{{ gender }}</td>
-          {% endfor %}
-        </tr>
-      </table>
+    <tr>
+      <td>Gender</td>
+      {% for gender in results.gender %}
+      <td>{{ gender }}</td>
+      {% endfor %}
+    </tr>
+  </table>
   {% endif %}
 
 

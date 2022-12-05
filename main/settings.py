@@ -128,7 +128,7 @@ STATICFILES_DIRS = [
 # media
 
 MEDIA_ROOT = MEDIA_DIR
-MIDEA_URL = '/media/'
+MEDIA_URL = '/media/'
 
 
 # Celery
