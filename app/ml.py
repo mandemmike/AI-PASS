@@ -12,13 +12,15 @@ face_detector_model = cv2.dnn.readNetFromCaffe(os.path.join(STATIC_DIR, 'models/
                                                os.path.join(STATIC_DIR,
                                                             'models/res10_300x300_ssd_iter_140000.caffemodel'))
 # feature extraction
-face_feature_model = cv2.dnn.readNetFromTorch(os.path.join(STATIC_DIR, 'models/openface.nn4.small2.v1.t7'))
+face_feature_model = cv2.dnn.readNetFromTorch(
+    os.path.join(STATIC_DIR, 'models/openface.nn4.small2.v1.t7'))
 
 # face recognition
 face_recognition_model = pickle.load(open(os.path.join(STATIC_DIR, 'models/machinelearning_face_person_identity.pkl'),
                                           mode='rb'))
 # emotion recognition model
-emotion_recognition_model = pickle.load(open(os.path.join(STATIC_DIR, 'models/machinelearning_face_emotion.pkl'), mode='rb'))
+emotion_recognition_model = pickle.load(open(os.path.join(
+    STATIC_DIR, 'models/machinelearning_face_emotion.pkl'), mode='rb'))
 
 
 # TODO: connect age and gender models here
@@ -37,7 +39,8 @@ def pipeline_model(path):
     image = img.copy()
     h, w = img.shape[:2]
     # face detection
-    img_blob = cv2.dnn.blobFromImage(img, 1, (300, 300), (104, 177, 123), swapRB=False, crop=False)
+    img_blob = cv2.dnn.blobFromImage(
+        img, 1, (300, 300), (104, 177, 123), swapRB=False, crop=False)
     face_detector_model.setInput(img_blob)
     detections = face_detector_model.forward()
 
@@ -57,40 +60,48 @@ def pipeline_model(path):
                 box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
                 startx, starty, endx, endy = box.astype(int)
 
-                cv2.rectangle(image, (startx, starty), (endx, endy), (0, 255, 0))
+                cv2.rectangle(image, (startx, starty),
+                              (endx, endy), (0, 255, 0))
 
                 # feature extraction
                 face_roi = img[starty:endy, startx:endx]
-                face_blob = cv2.dnn.blobFromImage(face_roi, 1 / 255, (96, 96), (0, 0, 0), swapRB=True, crop=True)
+                face_blob = cv2.dnn.blobFromImage(
+                    face_roi, 1 / 255, (96, 96), (0, 0, 0), swapRB=True, crop=True)
                 face_feature_model.setInput(face_blob)
                 vectors = face_feature_model.forward()
 
                 # predict with machine learning
                 face_name = face_recognition_model.predict(vectors)[0]
-                face_score = face_recognition_model.predict_proba(vectors).max()
+                face_score = face_recognition_model.predict_proba(
+                    vectors).max()
                 # EMOTION
                 emotion_name = emotion_recognition_model.predict(vectors)[0]
-                emotion_score = emotion_recognition_model.predict_proba(vectors).max()
+                emotion_score = emotion_recognition_model.predict_proba(
+                    vectors).max()
 
                 age = age_estimation_model.predict(vectors)[0]
                 gender = gender_estimation_model.predict_proba(vectors).max()
 
-
-
                 text_face = '{} : {:.0f} %'.format(face_name, 100 * face_score)
-                text_emotion = '{} : {:.0f} %'.format(emotion_name, 100 * emotion_score)
-                cv2.putText(image, text_face, (startx, starty), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
-                cv2.putText(image, text_emotion, (startx, endy), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
+                text_emotion = '{} : {:.0f} %'.format(
+                    emotion_name, 100 * emotion_score)
+                cv2.putText(image, text_face, (startx, starty),
+                            cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
+                cv2.putText(image, text_emotion, (startx, endy),
+                            cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
 
-                cv2.imwrite(os.path.join(settings.MEDIA_ROOT, 'ml_output/process.jpg'), image)
-                cv2.imwrite(os.path.join(settings.MEDIA_ROOT, 'ml_output/roi_{}.jpg'.format(count)), face_roi)
+                cv2.imwrite(os.path.join(settings.MEDIA_ROOT,
+                            'mloutput/process.jpg'), image)
+                cv2.imwrite(os.path.join(settings.MEDIA_ROOT,
+                            'mloutput/roi_{}.jpg'.format(count)), face_roi)
 
                 machinlearning_results['count'].append(count)
                 machinlearning_results['face_detect_score'].append(confidence)
                 machinlearning_results['face_name'].append(face_name)
                 machinlearning_results['face_name_score'].append(face_score)
                 machinlearning_results['emotion_name'].append(emotion_name)
-                machinlearning_results['emotion_name_score'].append(emotion_score)
+                machinlearning_results['emotion_name_score'].append(
+                    emotion_score)
                 machinlearning_results['age'].append(age)
                 machinlearning_results['gender'].append(gender)
 
