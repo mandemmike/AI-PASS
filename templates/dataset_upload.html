@@ -24,34 +24,88 @@
         <h3>Model upload</h3>
         {% csrf_token %}
         {{ Model.as_p }}
-        <input type="submit" name="uploadModel" value="Upload and Evaluation" required>
+        <input type="submit" name="uploadModel" value="Upload" required>
     </form>
 
-    <h3>Model</h3>
+    <h3>Available Models</h3>
+    {% if ModelInfo %}
+    <table border="1">
+        <tr>
+            <th>Model Name</th>
+            <th>Model Format</th>
+            <th>Update Time</th>
+            <th>Location</th>
+            <th>Select</th>
+        </tr>
+        {% for x in ModelInfo %}
+        <tr>
+            <td>
+                {{x.name}}
+            </td>
+            <td>
+                {{x.format}}
+            </td>
+            <td>
+                {{x.timestamp}}
+            </td>
+            <td>
+                {{x.file}}
+            </td>
+            <td> <input type="radio" id={{x.id}} name="selectedModel" value={{x.file}}>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No saved model are available. Please upload a model first</p>
+    {% endif %}
+    <input type="submit" name="selectModel" value="Select" required>
+    <input type="submit" name="evaluateModel" value="Evaluate the Model" required>
 
-    <p>Please pick the model to Predict:</p>
 
-    <form action="">
-        <input type="radio" id="model1" name="model1" value="model1">
-        <label for="model1">Model 1</label>
-        <br>
-        <input type="radio" id="model2" name="model2" value="model2">
-        <label for="model2">Model 2</label>
-        <br>
+    <h3>Model in Use</h3>
+    <table border="1">
+        <tr>
+            <th>Model Name</th>
+            <th>Model Format</th>
+            <th>Update Time</th>
+            <th>Location</th>
+        <tr>
+            {{CurrentModel}}
+        <tr>
+            <td>
+                {{CurrentModel.name}}
+            </td>
+            <td>
+                {{CurrentModel.format}}
+            </td>
+            <td>
+                {{CurrentModel.timestamp}}
+            </td>
+            <td>
+                {{CurrentModel.file}}
+            </td>
+        </tr>
+    </table>
+    <h4>Performance</h4>
+    <table border="1">
+        <tr>
+            <th>Parameter1</th>
+            <th>Parameter2</th>
 
-    </form>
+        <tr>
+            {{CurrentModelPerformance}}
+        <tr>
+            <td>
+                99%
+            </td>
+            <td>
+                100%
+            </td>
 
+        </tr>
+    </table>
 
-    <br>
-    <br>
-
-    <button>Train</button>
-
-    <br>
-    <br>
-
-    <button>Save</button>
-    <button>Cancel</button>
 
 
 

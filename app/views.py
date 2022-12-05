@@ -1,14 +1,14 @@
 import os.path
 
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.views import View
 
 from .tasks import dataset_preparation
 from app.forms import FaceRecognitionForm, DataSetUploadForm, ModelUploadForm
 from app.ml import pipeline_model
 from django.conf import settings
-from app.models import FaceRecognition
+from app.models import FaceRecognition, MLModel
 
 
 def index(request):
@@ -38,8 +38,9 @@ class DatasetUploadView(View):
     mlform = ModelUploadForm
 
     def get(self, request):
-
-        return render(request, self.template_name, {'Model': self.mlform})
+        modelinfo = MLModel.objects.all().values()
+        print(modelinfo[0])
+        return render(request, self.template_name, {'Model': self.mlform, 'ModelInfo': modelinfo, })
 
     def post(self, request):
         if 'uploadDataSet' in request.POST:
@@ -56,10 +57,11 @@ class DatasetUploadView(View):
         elif 'uploadModel' in request.POST:
             model = self.mlform(request.POST, request.FILES)
             if model.is_valid():
-                print('invoke2')
                 model.save()
                 print('File upload successfully')
             else:
                 model = ModelUploadForm()
-                print('invoke3')
-            return render(request, self.template_name, {'Model': self.mlform})
+            modelinfo = MLModel.objects.all().values()
+
+            return render(request, self.template_name, {'Model': self.mlform, 'ModelInfo': modelinfo
+                                                        })

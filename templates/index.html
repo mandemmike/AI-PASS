@@ -25,7 +25,7 @@
 
   {% if upload %}
   <div>
-    <img src="/media/mloutput/process.jpg" alt="">
+    <img src="/media/mloutput/process.jpg" alt="" width="200" height="300">
   </div>
 
   <table>
@@ -33,7 +33,7 @@
       <td>Face</td>
       {% for c in results.count %}
       <td>
-        <img src="/media/mloutput/roi_{{ c }}.jpg" alt="">
+        <img src="/media/mloutput/roi_{{ c }}.jpg" alt="" width="200" height="300">
       </td>
       {% endfor %}
     </tr>

@@ -10,10 +10,10 @@ class FaceRecognition(models.Model):
 
 
 class MLModel(models.Model):
-    model_name = models.CharField("Model's name", max_length=50)
-    model_format = models.CharField("Model's format", max_length=50)
-    model_timestamp = models.DateTimeField(auto_now_add=True)
-    model_file = models.FileField(upload_to='models/')
+    name = models.CharField("Model's name", max_length=50)
+    format = models.CharField("Model's format", max_length=50)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    file = models.FileField(upload_to='models/')
 
     def __str__(self) -> str:
         return str(self.model_timestamp)
