@@ -1,7 +1,7 @@
 from django import forms
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
-from app.models import FaceRecognition, TrainingDatasetFile
+from app.models import FaceRecognition, TrainingDatasetFile, MLModel, CurrentModel
 
 
 class FaceRecognitionForm(forms.ModelForm):
@@ -20,8 +20,24 @@ class DataSetUploadForm(forms.ModelForm):
             raise forms.ValidationError('Only zip files')
         return file
 
-
-
     class Meta:
         model = TrainingDatasetFile
         fields = ['file']
+
+
+# class TrainedDatasetUploadForm(forms.ModelForm):
+#     class Meta:
+#         model = TrainedDataset
+#         fields = ['file']
+
+
+class ModelUploadForm(forms.ModelForm):
+    class Meta:
+        model = MLModel
+        fields = "__all__"
+
+
+class CurrentModelForm(forms.ModelForm):
+    class Meta:
+        model = CurrentModel
+        fields = "__all__"
