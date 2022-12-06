@@ -19,6 +19,16 @@ class MLModel(models.Model):
         return str(self.model_timestamp)
 
 
+class CurrentModel(models.Model):
+    name = models.CharField("Model's name", max_length=50)
+    format = models.CharField("Model's format", max_length=50)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    file = models.FileField(upload_to='currentModel/')
+
+    def __str__(self) -> str:
+        return str(self.model_timestamp)
+
+
 class TrainedDataset(models.Model):
     # predicted_age = models.FloatField()
     # predicted_gender = models.FloatField()
