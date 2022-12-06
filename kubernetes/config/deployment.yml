@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: age-app
+  labels:
+    app: age
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: age
+  template:
+    metadata:
+      labels:
+        app: age
+    spec:
+      containers:
+        - image: python-django
+          name: age
+          envFrom:
+          - configMapRef:
+              name: age-config
+          ports:
+            - containerPort: 8000
+              name: gunicorn

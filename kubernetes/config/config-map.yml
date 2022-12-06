@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: age-config
+data:
+  DEBUG: "True"
+  REDIS_HOST: age-redis
+  DB_HOST: age-db
