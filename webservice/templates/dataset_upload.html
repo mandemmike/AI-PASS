@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dataset upload</title>
+</head>
+
+<body>
+    <button onclick="history.back()">Go Back</button>
+
+    <h1>Admin UI</h1>
+
+    <h3>Dataset upload</h3>
+
+    <form action="#" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <input type="file" name="file">
+            {{ errors.file }}
+        </div>
+
+        <input type="submit" name="uploadDataSet" value="Upload" required>
+        <h3>Model upload</h3>
+        {% csrf_token %}
+        {{ Model.as_p }}
+        <input type="submit" name="uploadModel" value="Upload" required>
+    </form>
+
+    <h3>Available Models</h3>
+    <form action="selectModel" method="POST" enctype="multipart/form-data">
+        {% if ModelInfo %}
+        <table border="1">
+            <tr>
+                <th>Model Name</th>
+                <th>Model Format</th>
+                <th>Update Time</th>
+                <th>Location</th>
+                <th>Select</th>
+            </tr>
+            {% for x in ModelInfo %}
+            <tr>
+                <td>
+                    {{x.name}}
+                </td>
+                <td>
+                    {{x.format}}
+                </td>
+                <td>
+                    {{x.timestamp}}
+                </td>
+                <td>
+                    {{x.file}}
+                </td>
+                <td> <input type="radio" id={{x.id}} name="selectedModel" value={{x}}>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>No saved model are available. Please upload a model first</p>
+        {% endif %}
+        <input type="submit" name="selectModel" value="Select" required>
+        <input type="submit" name="evaluateModel" value="Evaluate the Model" required>
+    </form>
+
+
+    <h3>Model in Use</h3>
+    {% if CurrentModel %}
+
+    <table border="1">
+        <tr>
+            <th>Model Name</th>
+            <th>Model Format</th>
+            <th>Update Time</th>
+            <th>Location</th>
+        <tr>
+        <tr>
+            <td>
+                {{CurrentModel.name}}
+            </td>
+            <td>
+                {{CurrentModel.format}}
+            </td>
+            <td>
+                {{CurrentModel.timestamp}}
+            </td>
+            <td>
+                {{CurrentModel.file}}
+            </td>
+        </tr>
+    </table>
+    <h4>Performance</h4>
+    <table border="1">
+        <tr>
+            <th>Parameter1</th>
+            <th>Parameter2</th>
+
+        <tr>
+            {{CurrentModelPerformance}}
+        <tr>
+            <td>
+                99%
+            </td>
+            <td>
+                100%
+            </td>
+
+        </tr>
+    </table>
+    {% else %}
+    <p>No model Selected. Please choose a model first.</p>
+    {% endif %}
+
+
+
+
+
+
+</body>
+
+</html>
