@@ -1,0 +1,75 @@
+body {
+  font-family: 'Roboto', 'Noto', sans-serif;
+}
+
+@font-face {
+   font-family: appFont;
+   src: url(fonts/Amaranth_Bold.ttf);
+}
+
+.footer-sticky {
+  height: 100px;
+  width: 100%;
+  font-weight: bold;
+
+}
+.footer-sticky.fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0; right: 0;
+}
+.admin_button {
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.container-logo {
+  padding: 12px 16px;
+}
+
+.container-adminui {
+   margin: 50px 50px;
+}
+
+/* Darker background on mouse-over */
+.admin_button:hover {
+  background-color: #102E70;
+}
+nav {
+  background-color: #102E44;
+}
+
+nav-link-admin {
+  margin: 10px 0;
+}
+
+
+
+.navbar-inverse {
+  border-color: #102E44;
+  background-color: #102E44;
+}
+
+
+
+
+.vid {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+
+.vid iframe,
+.vid object,
+.vid embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
