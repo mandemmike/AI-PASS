@@ -4,6 +4,7 @@ from django.db import models
 class FaceRecognition(models.Model):
     record_date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='images/')
+    #recognized_image = models.ImageField(upload_to='ml_output/')
 
     def __str__(self):
         return str(self.record_date)

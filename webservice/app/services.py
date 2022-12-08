@@ -8,8 +8,6 @@ import re
 
 class Resnet:
 
-
-
     def __init__(self, path: str):
         self.datadir = os.path.join(path, 'UTK')
         self.pattern = self._image_pattern()

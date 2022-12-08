@@ -41,12 +41,9 @@ class IndexView(View):
     def post(self, request):
         form = FaceRecognitionForm(request.POST, request.FILES)
         if form.is_valid():
-            save = form.save(commit=True)
-
+            instance = form.save(commit=True)
             # extract the image object from database
-            primary_key = save.pk
-            imgobj = FaceRecognition.objects.get(pk=primary_key)
-            fileroot = str(imgobj.image)
+            fileroot = instance.image.path
             filepath = os.path.join(settings.MEDIA_ROOT, fileroot)
             results = pipeline_model(filepath)
             return render(request, self.template_name, {'form': form, 'upload': True, 'results': results})
