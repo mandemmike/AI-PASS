@@ -9,28 +9,30 @@
 {% endblock header %}
 
 {% block container %}
-        <br>
-        <h3>Please upload photo</h3>
 
-        <div class="file-upload">
-            <form action="#" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="input-group">
-                    <label for="{{ form.image.id_for_label }}"></label>
-                    {{ form.image }}
-                    <input type="submit" value="Upload Image" class="btn btn-outline-secondary">
-                </div>
-            </form>
+    <h1>Welcome to Age recognition</h1>
+<div class ="center-upload">
+    <div class="file-upload">
+        <form action="#" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="input-group">
+                <label for="{{ form.image.id_for_label }}"></label>
+                {{ form.image }}
+                <input type="submit" value="Upload Image" class="btn btn-outline-secondary">
+            </div>
+        </form>
+    </div>
+</div>
 
-        </div>
 
 
-        {% if upload %}
-            <br><br>
-            <div class="row">
+
+    {% if upload %}
+        <br><br>
+        <div class="row">
             <div class="col">
 
-                <img class="img-fluid" src="/media/mloutput/process.jpg" alt="PROCESS">
+                <img class="img-fluid" src="/media/ml_output/process.jpg" alt="PROCESS">
             </div>
 
             <div class="col">
@@ -41,7 +43,7 @@
                         <td>Face Image</td>
                         {% for c in results.count %}
                             <td>
-                                <img class="img-fluid" src="/media/mloutput/roi_{{ c }}.jpg" alt="ROI" width="150" ,
+                                <img class="img-fluid" src="/media/ml_output/roi_{{ c }}.jpg" alt="ROI" width="150" ,
                                      height="200">
                             </td>
                         {% endfor %}
@@ -56,6 +58,8 @@
                             <td>{{ detect_score }}</td>
                         {% endfor %}
                     </tr>
+
+                <!--
                     <tr>
                         <td>Name</td>
                         {% for name in results.face_name %}
@@ -79,14 +83,27 @@
                         {% for emotion_score in results.emotion_name_score %}
                             <td>{{ emotion_score }}</td>
                         {% endfor %}
+                    </tr> -->
+
+
+                    <tr>
+                        <td>Age</td>
+                        {% for age in results.age %}
+                            <td>{{ age }}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td>Gender</td>
+                        {% for gender in results.gender %}
+                            <td>{{ gender }}</td>
+                        {% endfor %}
                     </tr>
 
                 </table>
             </div>
-            </div>
-        {% endif %}
-
-
+        </div>
+    {% endif %}
 
 
 {% endblock container %}

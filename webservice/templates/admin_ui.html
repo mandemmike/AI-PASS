@@ -2,28 +2,30 @@
 
 {% block container %}
 
-    <div class="container-adminui">
+    <div class="container">
 
-        <button onclick="history.back()">Go Back</button>
-        <div class="container-adminui">
-            <div class="row gx-1 justify-content-center">
+        <div class="user">
+            <div class="row gx-5 justify-content-center">
 
-                <div class="col-md-6">
+                <div class="col-md-4">
+
+
                     <h3>Dataset upload</h3>
 
                     <form action="#" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <div>
-                            <input type="file" name="file">
+                        <div class="d-flex">
+                            <input type="file" name="file" class="form-control">
                             {{ errors.file }}
+                            <input type="submit" name="uploadDataSet" value="Upload" required>
                         </div>
 
-                        <input type="submit" name="uploadDataSet" value="Upload" required>
+
                     </form>
                 </div>
                 <br>
 
-                <div class="col-md-6">
+                <div class="col-md-8">
 
 
                     <h3>Model upload</h3>
@@ -31,17 +33,20 @@
                         {% csrf_token %}
 
                         <div>
-                            <input type="file" name="file">
+                            <p><input type="file" name="file" class="form-control"></p>
+
                             {{ Model.as_p }}
+                            <input type="submit" name="uploadModel" value="Upload" required>
                         </div>
-                        <input type="submit" name="uploadModel" value="Upload" required>
+
                     </form>
 
-
+                    <br><br>
                     <h3>Available Models</h3>
-                    <form action="selectModel" method="POST" enctype="multipart/form-data">
+                    <form action="selectModel" class="models-form" method="POST" enctype="multipart/form-data">
                         {% if ModelInfo %}
-                            <table border="1">
+                            <p>
+                                <table border="1">
                                 <tr>
                                     <th>Model Name</th>
                                     <th>Model Format</th>
@@ -68,14 +73,17 @@
                                     </tr>
                                 {% endfor %}
                             </table>
+                            </p>
+
                         {% else %}
                             <p>No saved model are available. Please upload a model first</p>
                         {% endif %}
-                        <input type="submit" name="selectModel" value="Select" required>
-                        <input type="submit" name="evaluateModel" value="Evaluate the Model" required>
+                        <input type="submit" class="btn btn-outline-secondary btn-sm" name="selectModel" value="Select" required>
+                        <input type="submit" class="btn btn-outline-secondary btn-sm" name="evaluateModel" value="Evaluate the Model" required>
+
                     </form>
 
-
+                    <br><br>
                     <h3>Model in Use</h3>
                     {% if CurrentModel %}
 

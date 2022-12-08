@@ -50,8 +50,8 @@ def pipeline_model(path):
                                   face_name_score=[],
                                   emotion_name=[],
                                   emotion_name_score=[],
-                                  age=["test"],
-                                  gender=["test"],
+                                  age=[],
+                                  gender=[],
                                   count=[])
     count = 1
     if len(detections) > 0:

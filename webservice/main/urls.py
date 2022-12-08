@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.IndexView.as_view(), name='index'),
-    #path('dataset/', views.DatasetListView.as_view(), name='datasets'),
+    # path('dataset/', views.DatasetListView.as_view(), name='datasets'),
     path('admin_ui/', views.DatasetUploadView.as_view(), name='admin_ui'),
 ]
 if settings.DEBUG:
