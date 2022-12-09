@@ -10,6 +10,7 @@ stages:
   - build
 
 before_script:
+  - whoami
   - rvm "Defaults        env_askpass=/usr/bin/askpass" >> /usr/bin/askpass
   - rvm usermod -aG docker gitlab-runner 
  # - systemctl status docker
