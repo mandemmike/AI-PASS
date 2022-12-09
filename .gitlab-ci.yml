@@ -2,7 +2,7 @@ image: ubuntu-latest
    
 
 before_script:
-  - echo $ROOT_PASSWORD | sudo -S sleep 1 && sudo su - apt-get update
+  - echo $ROOT_PASSWORD | sudo -S sleep 1 && sudo apt-get update
 stages:
   - build
   - test
@@ -10,7 +10,7 @@ stages:
 setup:
   stage: build
   script:
-    - sudo chmod -R a+rwx /var/lib/dpkg/lock-frontend
+    - echo $ROOT_PASSWORD | sudo -S sleep 1 && sudo su - chmod -R a+rwx /var/lib/dpkg/lock-frontend
     - sudo apt-get install python3
     - sudo python --version
     - cd ./webservice
