@@ -2,7 +2,7 @@ image: ubuntu-latest
    
 
 before_script:
-  - echo $ROOT_PASSWORD | sudo -S apt-get update
+  - su apt-get update
 stages:
   - build
   - test
