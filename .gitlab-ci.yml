@@ -1,4 +1,4 @@
-image: python:3.8
+image: alpine:latest
 
 variables:
   DJANGO_SETTINGS_MODULE: myproject.settings
