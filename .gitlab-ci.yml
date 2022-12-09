@@ -1,5 +1,6 @@
 
-name: Application Pipeline
+image: ubuntu-latest
+
 on:
   push:
     branches:
@@ -11,6 +12,7 @@ stages:
 
 build:
   stage: build
+  tags: docker
   script:
     - sudo apt-get install python3
     - sudo python --version
@@ -21,6 +23,7 @@ build:
 
 test:
   stage: test
+  tags: docker
   script:
     - sudo python3 manage.py test
 
