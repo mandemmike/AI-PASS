@@ -10,8 +10,8 @@ stages:
   - build
 
 before_script:
-  - echo "Defaults        env_askpass=/usr/bin/askpass" >> /usr/bin/askpass
-  - sudo usermod -aG docker gitlab-runner 
+  - rvm "Defaults        env_askpass=/usr/bin/askpass" >> /usr/bin/askpass
+  - rvm usermod -aG docker gitlab-runner 
  # - systemctl status docker
   #- systemctl start docker
  # - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
