@@ -6,16 +6,6 @@ stages:
 
 setup:
   stage: build
-  before_script: |
-    ssh -o -i ID_RSA -tt mmm@Michaels-MacBook-Air.local << EOF
-    sudo -E my_command
-    EOF
-    exit 0
-  script:
-    - sudo chmod 755 /etc/sudoers
-    - 'echo "admin ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers'
-    - sudo usermod -a -G sudo root
-    - apt-get install python3
     - python --version
     - cd ./webservice
     - pip3 install -r requirements.txt
