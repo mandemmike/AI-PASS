@@ -40,3 +40,12 @@ class TrainingDatasetFile(models.Model):
     file = models.FileField()
     dataset = models.OneToOneField(TrainedDataset, on_delete=models.CASCADE, related_name="dataset_file",
                                    null=True, blank=True)
+
+class DatasetElementFormat(models.Model):
+    filename = models.CharField(max_length=124)
+
+
+    def isValid():
+        
+        return True
+

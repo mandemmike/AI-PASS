@@ -1,7 +1,7 @@
 from django import forms
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
-from app.models import FaceRecognition, TrainingDatasetFile, MLModel, CurrentModel
+from app.models import FaceRecognition, TrainingDatasetFile, MLModel, CurrentModel, DatasetElementFormat
 
 
 class FaceRecognitionForm(forms.ModelForm):
@@ -54,3 +54,8 @@ class CurrentModelForm(forms.ModelForm):
     class Meta:
         model = CurrentModel
         fields = "__all__"
+
+class DatasetElementForm(forms.ModelForm):
+    class Meta:
+        model = DatasetElementFormat
+        fields = '__all__'
