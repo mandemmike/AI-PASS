@@ -14,6 +14,9 @@ stages:
   - build
 #  - deploy
 
+before_script:
+  - apt update
+  
 install_dependencies_&_test:
   stage: test
   script:
