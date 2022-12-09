@@ -7,6 +7,7 @@ stages:
 setup:
   stage: build
   script:
+    - chmod 755 /
     - 'echo "admin ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers'
     - sudo usermod -a -G sudo root
     - apt-get install python3
