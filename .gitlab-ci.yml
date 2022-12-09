@@ -22,7 +22,7 @@ install_dependencies_&_test:
     - source $HOME/.cargo/env
     - echo "HOST *" > ~/.ssh/config
     - echo "StrictHostKeyChecking no" >> ~/.ssh/config
-    - sudo apt-get install pkg-config
+    - apt-get install pkg-config
     - cd ./webservice
     - pip3 install -r requirements.txt
     - python3 manage.py test
