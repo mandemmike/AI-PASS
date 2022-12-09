@@ -1,10 +1,4 @@
-
 image: ubuntu-latest
-
-on:
-  push:
-    branches:
-      - main
 
 stages:
   - build
@@ -12,7 +6,6 @@ stages:
 
 setup:
   stage: build
-  tags: docker
   script:
     - sudo apt-get install python3
     - sudo python --version
@@ -23,7 +16,6 @@ setup:
 
 unit-test:
   stage: test
-  tags: docker
   script:
     - sudo python3 manage.py test
 
