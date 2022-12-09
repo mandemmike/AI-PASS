@@ -10,7 +10,7 @@ stages:
   - build
 
 before_script:
-  - usermod -aG docker gitlab-runner 
+  - sudo usermod -aG docker gitlab-runner 
  # - systemctl status docker
   #- systemctl start docker
  # - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
