@@ -9,12 +9,12 @@ setup:
   script:
     - python --version
     - cd ./webservice
-    - -m pip install -r requirements.txt
-    - python3 manage.py makemigrations
-    - python3 manage.py migrate
+    - pip install -r requirements.txt
+    - python manage.py makemigrations
+    - python manage.py migrate
 
 unit-test:
   stage: test
   script:
-    - python3 manage.py test
+    - python manage.py test
 
