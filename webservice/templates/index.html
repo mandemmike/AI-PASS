@@ -10,7 +10,8 @@
 
 {% block container %}
 
-    <h1>Welcome to Age recognition</h1>
+    <h2>Welcome to Age and gender recognition</h2>
+    <br>
 <div class ="center-upload">
     <div class="file-upload">
         <form action="#" method="POST" enctype="multipart/form-data">
@@ -104,6 +105,30 @@
             </div>
         </div>
     {% endif %}
+
+
+    <br>
+  <br>
+  {% if not user.is_authenticated %}
+  <p>Please login to access admin page.</p>
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <label for="username">username: </label>
+    <input id="username" type="text" name="username" >
+
+    <label for="username">password: </label>
+    <input id="password" type="password" name="password" >
+
+    </table>
+    <input type="submit" value="login">
+    <input type="hidden" name="next" value="{{ request.path }}">
+</form>
+{% else %}
+<br><br>
+<button onclick="location.href='{% url 'logout' %}'" >Log out</button>
+<button onclick="location.href='{% url 'AdminUI' %}'" >Admin UI</button>
+{% endif %}
+
 
 
 {% endblock container %}
