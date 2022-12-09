@@ -2,7 +2,7 @@ image: alpine:latest
    
 
 before_script:
-  - echo "$ROOT_PASSWORD"m | sudo -S -i
+  - echo "$ROOT_PASSWORD" | sudo -S -i
   - apt-get update
 stages:
   - build
