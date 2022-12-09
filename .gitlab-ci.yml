@@ -3,7 +3,7 @@ image: alpine:latest
 
 before_script:
   - echo "$USER"
-  - echo $ROOT_PASSWORD | sudo -S sleep 1 && sudo apt-get update
+  - apt-get update
 stages:
   - build
   - test
