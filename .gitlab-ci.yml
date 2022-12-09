@@ -1,23 +1,18 @@
-name: Application Pipeline 
-
+---
+name: Application Pipeline
 on:
   push:
     branches:
       - main
-
-
 jobs:
-  build:
+  build: null
   runs-on: ubuntu-latest
   steps:
     - name: Clone
       uses: actions/checkout@v2
-    - name: Cache 
-      uses: actions/cache@v2
     - name: Setup env
       uses: actions/setup-python@v2
-      with:
-        python-version '3.x'
+      with: python-version '3.x'
     - name: Check version
       run: python --version
     - name: Install requirements
