@@ -1,15 +1,20 @@
 import os.path
-
-from django.shortcuts import render
+from django.views.generic import TemplateView
+from django.shortcuts import HttpResponseRedirect, redirect, render
 from django.http import HttpRequest, HttpResponse
+from django.urls import reverse
 from django.views import View
-
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.models import User
 from .tasks import dataset_preparation
 from app.forms import FaceRecognitionForm, DataSetUploadForm, ModelUploadForm, CurrentModelForm
 from app.ml import pipeline_model
 from django.conf import settings
 from app.models import FaceRecognition, MLModel, CurrentModel
-
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import messages
+from django.contrib.auth import logout
 
 def index(request):
     form = FaceRecognitionForm()
@@ -98,3 +103,40 @@ class DatasetUploadView(View):
             if curruntModelForm.is_valid():
                 curruntModelForm.update()
         return render(request, self.template_name, {'CurrentModel': self.mlform, 'ModelInfo': modelinfo})
+
+
+
+def LoginUser(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        user = authenticate(username=username,password=password)
+        print(user)
+        if user is not None:
+            login(request,user)
+            
+            next = request.POST.get('next', '/')
+            return HttpResponseRedirect(next)
+        else:
+            next = request.POST.get('next', '/')
+            return HttpResponseRedirect(next)
+    else:
+        form = AuthenticationForm()
+    return render(request,'index.html',{'form':form})
+
+def logoutUser(request):
+    logout(request)
+    next = request.POST.get('next', '/')
+    return HttpResponseRedirect(next)
+
+
+def AdminUI(request):
+    template_name = 'dataset_upload.html'
+
+    return render(request, template_name, context=None)
+
+
+        
+
