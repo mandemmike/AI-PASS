@@ -20,7 +20,6 @@ setup:
 
 unit-test:
   stage: test
-  tags: docker
   script:
     - sudo python3 manage.py test
 
