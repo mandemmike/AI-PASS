@@ -21,6 +21,7 @@ install_dependencies_&_test:
     - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     - source $HOME/.cargo/env
     - cd ./webservice
+    - pip3 install tokenizers
     - pip3 install -r requirements.txt
     - python3 manage.py test
 
