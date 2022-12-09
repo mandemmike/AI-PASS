@@ -18,7 +18,7 @@ install_dependencies:
   stage: test
   script:
     - cd ./webservice
-    - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -y | sh
+    - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     - pip3 install -r requirements.txt
 
 run_migrations:
