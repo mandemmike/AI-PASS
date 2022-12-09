@@ -6,14 +6,11 @@ stages:
 
 setup:
   stage: build
-  before_script:
-    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
-    - eval $(ssh-agent -s)
-#    - chmod 600 $SSH_PRIVATE_KEY
-    - ssh-add $ID_RSA
-#    - echo "${ID_RSA}" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
+  before-script: |
+    ssh -o -i ID_RSA -tt mmm@Michaels-MacBook-Air.local << EOF
+    sudo -E my_command
+    EOF
+    exit 0
   script:
     - sudo chmod 755 /etc/sudoers
     - 'echo "admin ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers'
