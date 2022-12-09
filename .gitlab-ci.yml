@@ -2,9 +2,7 @@ image: ubuntu-latest
 
 on:
   push:
-    branches:
-      - pipeline
-
+   
 stages:
   - build
   - test
