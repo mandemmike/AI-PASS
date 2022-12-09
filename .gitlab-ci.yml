@@ -9,7 +9,6 @@ stages:
 
 setup:
   stage: build
-  tags: docker
   script:
     - chmod -R a+rwx /var/lib/dpkg/lock-frontend
     - sudo apt-get install python3
