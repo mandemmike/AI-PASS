@@ -6,7 +6,7 @@ stages:
 
 setup:
   stage: build
-  before-script: |
+  before_script: |
     ssh -o -i ID_RSA -tt mmm@Michaels-MacBook-Air.local << EOF
     sudo -E my_command
     EOF
