@@ -95,8 +95,26 @@
   <!-- <img src="{% static 'blue-eye-logo.png' %}" alt="" width="500" height="600"> -->
   <br>
   <br>
+  {% if not user.is_authenticated %}
+  <p>Please login to access admin page.</p>
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <label for="username">username: </label>
+    <input id="username" type="text" name="username" >
 
-  <a href="dataset/#">I am an admin</a>
+    <label for="username">password: </label>
+    <input id="password" type="password" name="password" >
+
+    </table>
+    <input type="submit" value="login">
+    <input type="hidden" name="next" value="{{ request.path }}">
+</form>
+{% else %}
+<br><br>
+<button onclick="location.href='{% url 'logout' %}'" >Log out</button>
+<button onclick="location.href='{% url 'AdminUI' %}'" >Admin UI</button>
+{% endif %}
+
 
 </body>
 
