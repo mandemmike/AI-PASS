@@ -21,10 +21,7 @@ install_dependencies_&_test:
     - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     - source $HOME/.cargo/env
     - echo "HOST *" > ~/.ssh/config
-    - echo "StrictHostKeyChecking no" >> ~/.ssh/config
-    - ps -A | grep dpkg | awk '{print $1}' | xargs -n1
-    - kill -9 $1
-    - apt-get install pkg-config
+    - sudo apt-get install pkg-config
     - cd ./webservice
     - pip3 install -r requirements.txt
     - python3 manage.py test
