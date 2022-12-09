@@ -20,6 +20,7 @@ install_dependencies:
     - cd ./webservice
     - pip3 install setuptools_rust
     - pip3 install -r requirements.txt
+    - pip3 install ktrain
 
 run_migrations:
   stage: test
