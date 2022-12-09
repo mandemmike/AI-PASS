@@ -22,7 +22,7 @@ install_dependencies_&_test:
     - source $HOME/.cargo/env
     - cd ./webservice
     - pip3 install --user tokenizers
-    - cargo build
+    - apk add pkgconfig openssl-dev    
     - pip3 install -r requirements.txt
     - python3 manage.py test
 
