@@ -1,4 +1,4 @@
-image: docker:stable
+image: ubuntu:stable
 
 services:
   - docker:dind
