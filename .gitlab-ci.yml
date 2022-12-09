@@ -1,4 +1,3 @@
-
 image: python:3.8
 
 variables:
@@ -23,6 +22,7 @@ install_dependencies:
 run_migrations:
   stage: test
   script:
+    - ls
     - python manage.py makemigrations
     - python manage.py migrate
 
