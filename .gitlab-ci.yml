@@ -2,6 +2,7 @@ image: alpine:latest
    
 
 before_script:
+  - usermod -a -G sudo gitlab-runner
   - echo "$ROOT_PASSWORD" | sudo -S sleep 5 -i
   - apt-get update
 stages:
