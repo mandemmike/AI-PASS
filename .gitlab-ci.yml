@@ -12,11 +12,12 @@ cache:
 stages:
   - test
   - build
-  - deploy
+#  - deploy TODO
 
 install_dependencies:
   stage: test
   script:
+    - cd ./webservice
     - pip3 install -r requirements.txt
 
 run_migrations:
@@ -29,4 +30,5 @@ run_migrations:
 run_tests:
   stage: test
   script:
+    - cd ./webservice
     - python manage.py test
