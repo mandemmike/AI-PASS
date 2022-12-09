@@ -17,11 +17,11 @@ stages:
 install_dependencies_&_test:
   stage: test
   script:
-   # - DEBIAN_FRONTEND="noninteractive" TZ="Europe/Warsaw" apt-get install tzdata -y
+    - DEBIAN_FRONTEND="noninteractive" TZ="Europe/Warsaw" apt-get install tzdata -y
     #- curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     #- source $HOME/.cargo/env
     - cd ./webservice
-    - apt install pkg-config
+    - sudo apt install pkg-config
     - pip3 install --user tokenizers
     #- apk add pkgconfig openssl-dev  
     - pip3 install pyOpenSSL  
