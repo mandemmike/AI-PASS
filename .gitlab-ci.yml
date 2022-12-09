@@ -18,6 +18,7 @@ install_dependencies_&_test:
   stage: test
   script:
     - cd ./webservice
+    - pip3 install pkg-config
     - pip3 install -r requirements.txt
     - python manage.py test
 
