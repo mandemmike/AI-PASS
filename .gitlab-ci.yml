@@ -20,6 +20,7 @@ install_dependencies_&_test:
     - cd ./webservice
     - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     - source $HOME/.cargo/env
+    - ssh gitlab-runner -t "sudo apt-get install"
     - sudo apt-get install pkg-config
     - pip3 install -r requirements.txt
     - python3 manage.py test
