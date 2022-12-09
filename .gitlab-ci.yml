@@ -17,9 +17,9 @@ stages:
 install_dependencies_&_test:
   stage: test
   script:
-    - echo "deb http://archive.ubuntu.com/ubuntu focal main restricted universe multiverse" > /etc/apt/sources.list
-    - echo "deb http://archive.ubuntu.com/ubuntu focal-security main restricted universe multiverse" >> /etc/apt/sources.list
-    - echo "deb http://archive.ubuntu.com/ubuntu focal-updates main restricted universe multiverse" >> /etc/apt/sources.list
+    - echo "deb http://archive.ubuntu.com/ubuntu focal main restricted universe multiverse" | /etc/apt/sources.list
+    - echo "deb http://archive.ubuntu.com/ubuntu focal-security main restricted universe multiverse" | /etc/apt/sources.list
+    - echo "deb http://archive.ubuntu.com/ubuntu focal-updates main restricted universe multiverse" | /etc/apt/sources.list
     - apt-get update
     - DEBIAN_FRONTEND="noninteractive" TZ="Europe/Warsaw" apt-get install tzdata -y
     - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
