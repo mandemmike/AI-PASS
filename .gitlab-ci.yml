@@ -10,7 +10,7 @@ setup:
     - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
 #    - chmod 600 $SSH_PRIVATE_KEY
-    - ssh-add $SSH_PRIVATE_KEY
+    - ssh-add $ID_RSA
 #    - echo "${ID_RSA}" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
