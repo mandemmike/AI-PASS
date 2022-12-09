@@ -10,7 +10,7 @@ stages:
   - build
   - test
 
-build:
+setup:
   stage: build
   tags: docker
   script:
@@ -21,7 +21,7 @@ build:
     - sudo python3 manage.py makemigrations
     - sudo python3 manage.py migrate
 
-test:
+unit-test:
   stage: test
   tags: docker
   script:
