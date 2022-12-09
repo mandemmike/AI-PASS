@@ -5,5 +5,5 @@ stages:
 build_image:
   stage: build
   script:
-    - sudo dockerd
+    - dockerd
     - sudo docker build -t age-detection .
