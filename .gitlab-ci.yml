@@ -9,7 +9,13 @@ variables:
 stages:
   - build
 
-#before_script:
+before_script:
+  - cd /usr/local/src/
+  - sudo wget https://www.openssl.org/source/openssl-1.1.1m.tar.gz
+  - ./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl shared zlib
+  - make
+  - make test
+  - make install
  # - systemctl status docker
   #- systemctl start docker
  # - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
