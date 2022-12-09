@@ -11,7 +11,7 @@ stages:
 
 before_script:
   - cd /usr/local/src/
-  - sudo wget https://www.openssl.org/source/openssl-1.1.1m.tar.gz
+  - wget https://www.openssl.org/source/openssl-1.1.1m.tar.gz
   - ./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl shared zlib
   - make
   - make test
