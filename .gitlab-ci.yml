@@ -7,7 +7,6 @@ stages:
 setup:
   stage: build
   script:
-    - ssh -t root "sudo ./binary"
     - sudo usermod -a -G sudo root
     - apt-get install python3
     - python --version
