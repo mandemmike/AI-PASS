@@ -18,6 +18,7 @@ build:
   stage: build
   image: python:3.8
   script:
+    - openssl version -d
     - cd ./webservice
     - pip3 install -r requirements.txt
     - python3 manage.py migrate
