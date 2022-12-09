@@ -1,27 +1,32 @@
-image: alpine:latest
-   
 
-before_script:
-  - --user root usermod -a -G docker gitlab-runner
-  - echo "$ROOT_PASSWORD" | sudo -S sleep 5 -i
-  - apt-get update
+image: python:3.8
+
+variables:
+  DJANGO_SETTINGS_MODULE: main.settings
+  PYTHONPATH: $CI_PROJECT_DIR
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.pip_cache"
+
+cache:
+  paths:
+    - .pip_cache/
+
 stages:
-  - build
   - test
+  - build
+  - deploy
 
-setup:
-  stage: build
-  script:
-    - echo $ROOT_PASSWORD | sudo -S sleep 1 && sudo su - chmod -R a+rwx /var/lib/dpkg/lock-frontend
-    - sudo apt-get install python3
-    - sudo python --version
-    - cd ./webservice
-    - sudo pip3 install -r requirements.txt
-    - sudo python3 manage.py makemigrations
-    - sudo python3 manage.py migrate
-
-unit-test:
+install_dependencies:
   stage: test
   script:
-    - sudo python3 manage.py test
+    - pip install -r requirements.txt
 
+run_migrations:
+  stage: test
+  script:
+    - python manage.py makemigrations
+    - python manage.py migrate
+
+run_tests:
+  stage: test
+  script:
+    - python manage.py test
