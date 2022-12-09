@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block container %}
+
+    <div class="container">
+
+        <div class="user">
+            <div class="row gx-5 justify-content-center">
+
+                <div class="col-md-4">
+
+
+                    <h3>Dataset upload</h3>
+
+                    <form action="#" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="d-flex">
+                            <input type="file" name="file" class="form-control">
+                            {{ errors.file }}
+                            <input type="submit" name="uploadDataSet" value="Upload" required>
+                        </div>
+
+
+                    </form>
+                </div>
+                <br>
+
+                <div class="col-md-8">
+
+
+                    <h3>Model upload</h3>
+                    <form action="#" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div>
+                            <p><input type="file" name="file" class="form-control"></p>
+
+                            {{ Model.as_p }}
+                            <input type="submit" name="uploadModel" value="Upload" required>
+                        </div>
+
+                    </form>
+
+                    <br><br>
+                    <h3>Available Models</h3>
+                    <form action="selectModel" class="models-form" method="POST" enctype="multipart/form-data">
+                        {% if ModelInfo %}
+                            <p>
+                                <table border="1">
+                                <tr>
+                                    <th>Model Name</th>
+                                    <th>Model Format</th>
+                                    <th>Update Time</th>
+                                    <th>Location</th>
+                                    <th>Select</th>
+                                </tr>
+                                {% for x in ModelInfo %}
+                                    <tr>
+                                        <td>
+                                            {{ x.name }}
+                                        </td>
+                                        <td>
+                                            {{ x.format }}
+                                        </td>
+                                        <td>
+                                            {{ x.timestamp }}
+                                        </td>
+                                        <td>
+                                            {{ x.file }}
+                                        </td>
+                                        <td><input type="radio" id={{ x.id }} name="selectedModel" value={{ x }}>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                            </p>
+
+                        {% else %}
+                            <p>No saved model are available. Please upload a model first</p>
+                        {% endif %}
+                        <input type="submit" class="btn btn-outline-secondary btn-sm" name="selectModel" value="Select" required>
+                        <input type="submit" class="btn btn-outline-secondary btn-sm" name="evaluateModel" value="Evaluate the Model" required>
+
+                    </form>
+
+                    <br><br>
+                    <h3>Model in Use</h3>
+                    {% if CurrentModel %}
+
+                        <table border="1">
+                            <tr>
+                                <th>Model Name</th>
+                                <th>Model Format</th>
+                                <th>Update Time</th>
+                                <th>Location</th>
+                            <tr>
+                            <tr>
+                                <td>
+                                    {{ CurrentModel.name }}
+                                </td>
+                                <td>
+                                    {{ CurrentModel.format }}
+                                </td>
+                                <td>
+                                    {{ CurrentModel.timestamp }}
+                                </td>
+                                <td>
+                                    {{ CurrentModel.file }}
+                                </td>
+                            </tr>
+                        </table>
+                        <h4>Performance</h4>
+                        <table border="1">
+                            <tr>
+                                <th>Parameter1</th>
+                                <th>Parameter2</th>
+
+                            <tr>
+                                {{ CurrentModelPerformance }}
+                            <tr>
+                                <td>
+                                    99%
+                                </td>
+                                <td>
+                                    100%
+                                </td>
+
+                            </tr>
+                        </table>
+                    {% else %}
+                        <p>No model Selected. Please choose a model first.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock container %}
