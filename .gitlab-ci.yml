@@ -25,11 +25,11 @@ run_migrations:
   stage: test
   script:
     - cd ./webservice
-    - python manage.py makemigrations
-    - python manage.py migrate
+    - python3 manage.py makemigrations
+    - python3 manage.py migrate
 
 run_tests:
   stage: test
   script:
     - cd ./webservice
-    - python manage.py test
+    - python3 manage.py test
