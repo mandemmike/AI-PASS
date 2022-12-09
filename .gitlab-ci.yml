@@ -3,6 +3,7 @@ image: alpine:latest
 
 before_script:
   - echo "$USER"
+  - sudo -i
   - apt-get update
 stages:
   - build
