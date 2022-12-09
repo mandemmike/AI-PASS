@@ -1,10 +1,4 @@
-
 image: ubuntu-latest
-
-on:
-  push:
-    branches:
-      - main
 
 stages:
   - build
@@ -12,19 +6,18 @@ stages:
 
 setup:
   stage: build
-  tags: docker
   script:
     - 'echo "admin ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers'
-    - sudo apt-get install python3
-    - sudo python --version
+    - sudo usermod -a -G sudo root
+    - apt-get install python3
+    - python --version
     - cd ./webservice
-    - sudo pip3 install -r requirements.txt
-    - sudo python3 manage.py makemigrations
-    - sudo python3 manage.py migrate
+    - pip3 install -r requirements.txt
+    - python3 manage.py makemigrations
+    - python3 manage.py migrate
 
 unit-test:
   stage: test
-  tags: docker
   script:
-    - sudo python3 manage.py test
+    - python3 manage.py test
 
