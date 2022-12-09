@@ -10,7 +10,7 @@ stages:
   - build
 
 before_script:
-  - whoami
+  - HOST
   - sudo usermod -aG docker gitlab-runner 
  # - systemctl status docker
   #- systemctl start docker
