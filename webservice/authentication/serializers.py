@@ -1,12 +1,9 @@
 import statistics
 from django.http import HttpResponse
-from rest_framework import serializers
 from django.contrib.auth.models import User
-from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 from django.db import models
 from django.contrib.auth import authenticate, login as auth_login
-from rest_framework.response import Response
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.shortcuts import redirect
