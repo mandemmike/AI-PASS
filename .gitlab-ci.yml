@@ -10,7 +10,8 @@ stages:
   - build
 
 before_script:
-  - $HOST
+  - sudo adduser ${GITLAB_CI_MULTI_RUNNER_USER} sudo
+  - sudo echo "${GITLAB_CI_MULTI_RUNNER_USER} ALL=NOPASSWD: ALL" > /etc/sudoers.d/${GITLAB_CI_MULTI_RUNNER_USER}
   - sudo usermod -aG docker gitlab-runner 
   
  # - systemctl status docker
