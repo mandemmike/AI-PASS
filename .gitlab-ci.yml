@@ -4,28 +4,31 @@ services:
   - docker:dind
 # $CI_REGISTRY_USER
 before_script:
-  - - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.gitlab.com
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 stages:
   - build
   - test
   - deploy
-
-build:
+# This section describes what shall be done to build and test the project.
+build-and-test:
+  tags:
+    - docker-build
   stage: build
-  tags: 
-    - docker-build
   script:
-    - docker build -t app:latest .
-    - docker push app
+    - docker build -f Dockerfile .
 
+# This section describes what shall be done to deploy artefacts from the project.
 test:
-  stage: test
-  tags: 
+  tags:
     - docker-build
+  stage: deploy
   script:
-    - docker pull app:latest
+    - docker build -f Dockerfile -t "$CI_REGISTRY_IMAGE":"$CI_COMMIT_TAG" .
+    - docker push "$CI_REGISTRY_IMAGE":"$CI_COMMIT_TAG"
     - docker run -t app:latest python manage.py test
+
+
 #deploy:
  # stage: deploy
   #script:
