@@ -17,7 +17,7 @@ build:
     - docker-build
   script:
     - docker build -t app:latest .
-    - docker push app:latest
+    - docker push $CI_REGISTRY_USER/app:latest
 
 test:
   stage: test
