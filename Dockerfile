@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.9.12-slim
 
 ENV PYTHONUNBUFFERED 1
 
@@ -9,13 +9,14 @@ RUN apt install -y libgl1-mesa-glx
 
 COPY ./webservice/requirements.txt .
 
-RUN pip3 install --upgrade setuptools &&\
-    pip3 install cmake &&\
-    pip3 install opencv-python-headless &&\
-    pip3 install cython &&\
-    pip3 install tensorflow &&\
-    pip3 install -r requirements.txt 
+RUN python -m pip install --upgrade setuptools &&\
+    python -m pip install cmake &&\
+    pip install opencv-python-headless &&\
+    pip install cython &&\
+    pip install tensorflow &&\
+    pip install -r requirements.txt
+
 
 COPY . .
 
-CMD ["python3","manage.py","runserver"]
+CMD ["python","manage.py","runserver"]
