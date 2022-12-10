@@ -36,9 +36,27 @@ def index(request):
 
     return render(request, 'index.html', {'form': form, 'upload': False})
 
+class IndexView(View):
+    template_name = 'index.html'
+
+    def get(self, request):
+        form = FaceRecognitionForm()
+        return render(request, self.template_name, {'form': form, 'upload': False})
+
+    def post(self, request):
+        form = FaceRecognitionForm(request.POST, request.FILES)
+        if form.is_valid():
+            instance = form.save(commit=True)
+            # extract the image object from database
+            fileroot = instance.image.path
+            filepath = os.path.join(settings.MEDIA_ROOT, fileroot)
+            results = pipeline_model(filepath)
+            return render(request, self.template_name, {'form': form, 'upload': True, 'results': results})
+        return render(request, self.template_name, {'form': form, 'upload': False})
+
 
 class DatasetUploadView(View):
-    template_name = 'dataset_upload.html'
+    template_name = 'admin_ui.html'
     form = DataSetUploadForm
     mlform = ModelUploadForm
     currentform = CurrentModelForm

@@ -50,8 +50,8 @@ def pipeline_model(path):
                                   face_name_score=[],
                                   emotion_name=[],
                                   emotion_name_score=[],
-                                  age=["test"],
-                                  gender=["test"],
+                                  age=[],
+                                  gender=[],
                                   count=[])
     count = 1
     if len(detections) > 0:
@@ -91,9 +91,9 @@ def pipeline_model(path):
                             cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
 
                 cv2.imwrite(os.path.join(settings.MEDIA_ROOT,
-                            'mloutput/process.jpg'), image)
+                            'ml_output/process.jpg'), image)
                 cv2.imwrite(os.path.join(settings.MEDIA_ROOT,
-                            'mloutput/roi_{}.jpg'.format(count)), face_roi)
+                            'ml_output/roi_{}.jpg'.format(count)), face_roi)
 
                 machinlearning_results['count'].append(count)
                 machinlearning_results['face_detect_score'].append(confidence)
