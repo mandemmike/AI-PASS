@@ -3,8 +3,8 @@ image: docker:latest
 services:
   - docker:dind
 
-before_script:
-  - docker login registry.gitlab.com/
+#before_script:
+ # - docker login registry.gitlab.com/
 
 stages:
   - build
