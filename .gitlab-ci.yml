@@ -20,7 +20,7 @@ build-and-test:
     - docker build -t app:latest .
     - docker images
     #- docker push app:latest
-    - docker run -t app:latest /bin/bash
+    # - docker run -t app:latest /bin/bash
     
     - exit
 
