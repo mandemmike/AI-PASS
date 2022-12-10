@@ -13,6 +13,7 @@ RUN python -m pip install --upgrade setuptools &&\
     python -m pip install cmake &&\
     pip install opencv-python-headless &&\
     pip install cython &&\
+    pip install tensorflow &&\
     pip install -r requirements.txt 
 
 COPY . .
