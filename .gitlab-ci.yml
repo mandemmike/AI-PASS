@@ -20,7 +20,7 @@ build-and-test:
     - docker build -t app:latest .
     - docker images
     #- docker push app:latest
-    - docker run -c "python manage.py test" app:latest
+    - docker run -t app:latest -c "python manage.py test"
 
 # This section describes what shall be done to deploy artefacts from the project.
 test:
