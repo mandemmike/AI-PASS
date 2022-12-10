@@ -7,6 +7,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from rest_framework import generics
+from rest_framework.permissions import AllowAny
+
 
 def registerUser(request):
     if request.method == 'POST':
