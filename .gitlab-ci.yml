@@ -1,34 +1,30 @@
-image: ubuntu:stable
+image: docker:latest
 
 services:
   - docker:dind
 
-variables:
-  DOCKER_HOST: 188.148.171.29
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
 
 stages:
   - build
-
-before_script:
-  - echo $CI_BUILD_TOKEN
-  - sudo adduser ${GITLAB_CI_MULTI_RUNNER_USER} sudo
-  - 'sudo echo "${GITLAB_CI_MULTI_RUNNER_USER} ALL=NOPASSWD: ALL" > /etc/sudoers.d/${GITLAB_CI_MULTI_RUNNER_USER}'
-  - sudo usermod -aG docker gitlab-runner 
-  
- # - systemctl status docker
-  #- systemctl start docker
- # - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+  - test
+  - deploy
 
 build:
   stage: build
-  image: python:3.8
   script:
-    - echo "export OPENSSL_DIR=/usr/lib/ssl/include" >> ~/.bashrc
-    - source ~/.bashrc
-    - cd ./webservice
-    - pip3 install -r requirements.txt
-    - python3 manage.py migrate
-    - python3 manage.py collectstatic
-    - python3 manage.py test
-  #only:
-   # - master
+    - docker build -t app:latest .
+    - docker push app:latest
+
+test:
+  stage: test
+  script:
+    - docker pull app:latest
+    - docker run -it app:latest python manage.py test
+
+#deploy:
+ # stage: deploy
+  #script:
+   # - docker pull registry.gitlab.com/<namespace>/<project-name>:latest
+    #- docker run -it -d -p 8000:8000 registry.gitlab.com/<namespace>/<project-name>:latest
