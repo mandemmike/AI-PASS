@@ -21,7 +21,8 @@ build:
 
 test:
   stage: test
-  tags: docker-build
+  tags: 
+    - docker-build
   script:
    # - docker pull app:latest
    - script -qc "docker run -it app:latest python manage.py test" /dev/null
