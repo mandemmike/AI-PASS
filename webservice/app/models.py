@@ -15,6 +15,7 @@ class MLModel(models.Model):
     format = models.CharField("Model's format", max_length=50)
     timestamp = models.DateTimeField(auto_now_add=True)
     file = models.FileField(upload_to='models/')
+    # is_active = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return str(self.model_timestamp)
@@ -44,8 +45,6 @@ class TrainingDatasetFile(models.Model):
 class DatasetElementFormat(models.Model):
     filename = models.CharField(max_length=124)
 
-
     def isValid():
-        
         return True
 

@@ -16,25 +16,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import logout
 
-def index(request):
-    form = FaceRecognitionForm()
-
-    if request.method == 'POST':
-        form = FaceRecognitionForm(request.POST or None, request.FILES or None)
-        if form.is_valid():
-            save = form.save(commit=True)
-
-            # extract the image object from database
-            primary_key = save.pk
-            imgobj = FaceRecognition.objects.get(pk=primary_key)
-            fileroot = str(imgobj.image)
-            filepath = os.path.join(settings.MEDIA_ROOT, fileroot)
-            results = pipeline_model(filepath)
-            print(results)
-
-            return render(request, 'index.html', {'form': form, 'upload': True, 'results': results})
-
-    return render(request, 'index.html', {'form': form, 'upload': False})
 
 class IndexView(View):
     template_name = 'index.html'
@@ -62,10 +43,6 @@ class DatasetUploadView(View):
     currentform = CurrentModelForm
     selectModel = 'selectedModel'
 
-    def get(self, request):
-        modelinfo = MLModel.objects.all().values()
-        return render(request, self.template_name, {'Model': self.mlform, 'ModelInfo': modelinfo, })
-
     def post(self, request):
         if 'uploadDataSet' in request.POST:
             form = self.form(request.POST, request.FILES)
@@ -77,7 +54,7 @@ class DatasetUploadView(View):
             else:
                 print('not valid', type(form.errors))
 
-            return render(request, self.template_name, context={'errors': form.errors})
+            # return render(request, self.template_name, context={'errors': form.errors})
         elif 'uploadModel' in request.POST:
             model = self.mlform(request.POST, request.FILES)
             if model.is_valid():
@@ -87,8 +64,9 @@ class DatasetUploadView(View):
                 model = ModelUploadForm()
             modelinfo = MLModel.objects.all().values()
 
-            return render(request, self.template_name, {'Model': self.mlform, 'ModelInfo': modelinfo
-                                                        })
+            #return render(request, self.template_name, {'Model': self.mlform, 'ModelInfo': modelinfo})
+        return redirect("admin-ui")
+
 
     def selectModel(request, pk):
         currentModel = CurrentModel.objects.getfilter(file='Fjuk inc')
@@ -105,18 +83,44 @@ class DatasetUploadView(View):
         return render(request, self.template_name, {'CurrentModel': self.mlform, 'ModelInfo': modelinfo})
 
 
+class AdminUIView(View):
+    template_name = 'admin_ui.html'
+    form = DataSetUploadForm
+    mlform = ModelUploadForm
+
+    def get(self, request):
+        modelinfo = MLModel.objects.all().order_by("-id").values()
+        context = {
+            'Model': self.mlform,
+            'ModelInfo': modelinfo
+        }
+        return render(request, self.template_name, context)
+
+
+class ModelUploadView(View):
+    mlform = ModelUploadForm
+    def post(self, request):
+        model = self.mlform(request.POST, request.FILES)
+        if model.is_valid():
+            model.save()
+            print('File upload successfully')
+        return redirect('admin-ui')
+
+
+
+
 
 def LoginUser(request):
     if request.method == 'POST':
         form = AuthenticationForm(request.POST)
         username = request.POST['username']
         password = request.POST['password']
-        
-        user = authenticate(username=username,password=password)
+
+        user = authenticate(username=username, password=password)
         print(user)
         if user is not None:
-            login(request,user)
-            
+            login(request, user)
+
             next = request.POST.get('next', '/')
             return HttpResponseRedirect(next)
         else:
@@ -124,19 +128,12 @@ def LoginUser(request):
             return HttpResponseRedirect(next)
     else:
         form = AuthenticationForm()
-    return render(request,'index.html',{'form':form})
+    return render(request, 'index.html', {'form': form})
+
 
 def logoutUser(request):
     logout(request)
     next = request.POST.get('next', '/')
     return HttpResponseRedirect(next)
 
-
-def AdminUI(request):
-    template_name = 'admin_ui.html'
-
-    return render(request, template_name, context=None)
-
-
-        
 

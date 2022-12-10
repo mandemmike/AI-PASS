@@ -1,18 +1,16 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from app import views
 from django.conf import settings
 from django.conf.urls.static import static
-from django.conf.urls import url, include
 from authentication import views as v2
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.IndexView.as_view(), name='index'),
-    # path('dataset/', views.DatasetListView.as_view(), name='datasets'),
-    path('admin_ui/', views.DatasetUploadView.as_view(), name='admin_ui'),
-    path('', views.index, name='index'),
-    #path('AdminUI/', views.AdminUI, name='AdminUI'),
+    path('admin-ui/', views.AdminUIView.as_view(), name='admin-ui'),
+    path('upload/model', views.ModelUploadView.as_view(), name='upload-model'),
+    path('upload/dataset', views.DatasetUploadView.as_view(), name='upload-dataset' ),
     path('login/', views.LoginUser, name='login'),
     path('register/', v2.registerUser, name='register'),
     path('logout/', views.logoutUser, name='logout')
