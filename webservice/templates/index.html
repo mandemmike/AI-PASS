@@ -12,18 +12,18 @@
 
     <h2>Welcome to Age and gender recognition</h2>
     <br>
-<div class ="center-upload">
-    <div class="file-upload">
-        <form action="#" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="input-group">
-                <label for="{{ form.image.id_for_label }}"></label>
-                {{ form.image }}
-                <input type="submit" value="Upload Image" class="btn btn-outline-secondary">
-            </div>
-        </form>
+    <div class="center-upload">
+        <div class="file-upload">
+            <form action="#" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="{{ form.image.id_for_label }}"></label>
+                    {{ form.image }}
+                    <input type="submit" value="Upload Image" class="btn btn-outline-secondary">
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
 
 
@@ -60,7 +60,7 @@
                         {% endfor %}
                     </tr>
 
-                <!--
+                    <!--
                     <tr>
                         <td>Name</td>
                         {% for name in results.face_name %}
@@ -108,26 +108,25 @@
 
 
     <br>
-  <br>
-  {% if not user.is_authenticated %}
-  <p>Please login to access admin page.</p>
-  <form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <label for="username">username: </label>
-    <input id="username" type="text" name="username" >
+    <br>
+    {% if not user.is_authenticated %}
+        <p>Please login to access admin page.</p>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <label for="username">username: </label>
+            <input id="username" type="text" name="username">
 
-    <label for="username">password: </label>
-    <input id="password" type="password" name="password" >
+            <label for="username">password: </label>
+            <input id="password" type="password" name="password">
 
-    </table>
-    <input type="submit" value="login">
-    <input type="hidden" name="next" value="{{ request.path }}">
-</form>
-{% else %}
-<br><br>
-<button onclick="location.href='{% url 'logout' %}'" >Log out</button>
-<button onclick="location.href='{% url 'admin_ui' %}'" >Admin UI</button>
-{% endif %}
+            <input type="submit" value="login">
+            <input type="hidden" name="next" value="{{ request.path }}">
+        </form>
+    {% else %}
+        <br><br>
+        <button onclick="location.href='{% url 'logout' %}'">Log out</button>
+        <button onclick="location.href='{% url 'admin_ui' %}'">Admin UI</button>
+    {% endif %}
 
 
 
