@@ -44,8 +44,6 @@ class TrainingDatasetFile(models.Model):
 class DatasetElementFormat(models.Model):
     filename = models.CharField(max_length=124)
 
-
     def isValid():
-        
         return True
 
