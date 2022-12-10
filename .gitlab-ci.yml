@@ -19,8 +19,8 @@ build-and-test:
   script:
     - docker build -t app:latest .
     - docker images
-    - docker tag app:latest $CI_REGISTRY:/dit-825-age-detection:$CI_COMMIT_SHA
-    - docker push $CI_REGISTRY:/dit-825-age-detection:$CI_COMMIT_SHA
+    - docker tag app:latest $CI_REGISTRY:/dit-825-age-detection
+    - docker push $CI_REGISTRY:/dit-825-age-detection
     #- docker push app:latest
     # - docker run -t app:latest /bin/bash
     
