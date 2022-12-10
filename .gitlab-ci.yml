@@ -19,6 +19,7 @@ build-and-test:
     - docker build -t app:latest .
     - docker images
     - docker push app:latest
+    - docker push registry.gitlab.com/$CI_REGISTRY_USER/dit-825-age-detection/app:latest
 
 # This section describes what shall be done to deploy artefacts from the project.
 test:
