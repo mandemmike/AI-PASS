@@ -9,8 +9,8 @@ RUN apt install -y libgl1-mesa-glx
 
 COPY ./webservice/requirements.txt .
 
-RUN python3 -m pip3 install --upgrade setuptools &&\
-    python3 -m pip3 install cmake &&\
+RUN pip3 install --upgrade setuptools &&\
+    pip3 install cmake &&\
     pip3 install opencv-python-headless &&\
     pip3 install cython &&\
     pip3 install tensorflow &&\
