@@ -29,6 +29,8 @@ test:
   stage: test
   script:
     - docker pull app:latest
+    - docker run -t app:latest python manage.py makemigrations
+    - docker run -t app:latest python manage.py migrate
     - docker run -t app:latest python manage.py test
 
 
