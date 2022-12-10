@@ -31,7 +31,7 @@ test:
     - docker pull app:latest
     - docker run -t app:latest python manage.py makemigrations
     - docker run -t app:latest python manage.py migrate
-    - docker run -t app:latest python manage.py test
+    - echo ""docker run -t -it app:latest python3 manage.py test
 
 
 #deploy:
