@@ -4,7 +4,7 @@ services:
   - docker:dind
 # $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 before_script:
-  - docker login -u $CI_REGISTRY_USER -p $CI_USER_TOKEN $CI_REGISTRY
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_USER $CI_REGISTRY
   - echo $CI_REGISTRY_USER
   - ECHO $CI_REGISTRY
 stages:
