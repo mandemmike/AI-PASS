@@ -16,11 +16,12 @@ RUN python -m pip install --upgrade setuptools &&\
     pip install cython &&\
     pip install -r requirements.txt
 
-RUN python manage.py makemigrations &&\
-    python manage.py migrate &&\
-    python manage.py test
-
 
 COPY . .
+
+RUN ls &&\
+    python manage.py makemigrations &&\
+    python manage.py migrate &&\
+    python manage.py test
 
 CMD ["python","manage.py","runserver"]
