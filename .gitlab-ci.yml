@@ -1,21 +1,32 @@
-image: ubuntu-latest
+image: docker:latest
 
+services:
+  - docker:dind
+# $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  - echo $CI_REGISTRY_USER
+  - echo $CI_REGISTRY
 stages:
   - build
   - test
-
-setup:
+  - deploy
+# This section describes what shall be done to build and test the project.
+build-and-test:
+  tags:
+    - docker-build
   stage: build
   script:
-    - apt-get -y install python3-pip
-    - python --version
-    - cd ./webservice
-    - pip install -r requirements.txt
-    - python manage.py makemigrations
-    - python manage.py migrate
+    - docker build -t app:latest .
+    - docker images
+    #- docker push app:latest
+    # - docker run -t app:latest /bin/bash
+    
+    - exit
 
-unit-test:
-  stage: test
-  script:
-    - python manage.py test
 
+#deploy:
+ # stage: deploy
+  #script:
+   # - docker pull registry.gitlab.com/<namespace>/<project-name>:latest
+    #- docker run -it -d -p 8000:8000 registry.gitlab.com/<namespace>/<project-name>:latest

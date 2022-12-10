@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.shortcuts import redirect
+from rest_framework import serializers
 
 class RegisterSerializer(serializers.ModelSerializer):
 
