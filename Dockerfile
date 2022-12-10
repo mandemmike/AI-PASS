@@ -1,5 +1,12 @@
 # light weight linux operation system
-FROM python:3.9.0-slim-buster as build
+FROM python:3.9.0-slim-buster as compiler
+
+#Virtual environment directory path
+ENV VIRTUAL_ENV=/opt/venv
+#Create Virtual environment in the path
+RUN python3 -m venv $VIRTUAL_ENV
+# Activate venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Avoiding writing pyc files to disc by a
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -8,33 +15,36 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # creates the directory
-WORKDIR /app
+WORKDIR /app/
 
 #RUN apt-get update && \
 #    apt instalfocker runl -y libgl1-mesa-glx
 
-ENV VIRTUAL_ENV=/opt/venv
-RUN python3 -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+#echo "path" >> ~/root/.bashrc
+#ENV PYTHONPATH "${PYTHONPATH}:$VIRTUAL_ENV/lib/python3.9/"
 
-#RUN python3 -m venv /opt/venv
+#RUN . /opt/venv/bin/activate
 
-COPY requirements.txt .
+COPY ./requirements.txt /app/requirements.txt
 
-RUN . /opt/venv/bin/activate &&\
-    pip3 install --upgrade pip \
-    --upgrade setuptools \
+RUN pip install --upgrade pip \
     -r requirements.txt
+#    --upgrade setuptools \
 
-#    python -m pip install cmake && \
-#    pip install opencv-python-headless && \
-#    pip install cython && \
-COPY . .
+# To run test
+#RUN python manage.py test app
 
-FROM python:3.9.0-slim-buster as main
+#COPY . .
+
+FROM python:3.9.0-slim-buster as runner
+WORKDIR /app/
 
 #switch to project subdirectory
-COPY --from=build /app /
+COPY --from=compiler /opt/venv /opt/venv
+
+# Enable venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+COPY . /app/
 
 # It's a better practice to put the CMD in the Dockerfile to docker run the image without its Compose setup.
-CMD ["python3", "./webservice/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "./webservice/manage.py", "runserver", "0.0.0.0:8000"]

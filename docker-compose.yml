@@ -1,4 +1,4 @@
-#version: '3.9'
+#version: '3.9.0'
 #
 #services:
 #    app:
@@ -9,4 +9,4 @@
 #            - 8000:8000
 #        image: app:django
 #        container_name: django_container
-#        command: python manage.py runserver 0.0.0.0:8000
+#        command: python ./webservice/manage.py runserver 0.0.0.0:8000

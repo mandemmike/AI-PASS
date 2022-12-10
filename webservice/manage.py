@@ -2,6 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from django import get_version
 
 
 def main():
@@ -20,3 +21,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    print("Django version : " + get_version())
