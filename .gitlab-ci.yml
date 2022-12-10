@@ -19,11 +19,16 @@ build-and-test:
   script:
     - docker build -t app:latest .
     - docker images
+    - docker push $CI_REGISTRY:5000/arayam/dit-825-age-detection:$CI_COMMIT_SHA
     #- docker push app:latest
     # - docker run -t app:latest /bin/bash
     
     - exit
 
+deploy:
+  stage: deploy
+  script:
+    - kubectl apply -f kubernetes/deployment.yml
 
 #deploy:
  # stage: deploy
