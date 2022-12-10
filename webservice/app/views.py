@@ -133,7 +133,7 @@ def logoutUser(request):
 
 
 def AdminUI(request):
-    template_name = 'dataset_upload.html'
+    template_name = 'admin_ui.html'
 
     return render(request, template_name, context=None)
 
