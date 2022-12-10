@@ -6,6 +6,7 @@ WORKDIR /app
 
 RUN apt-get update
 RUN apt install -y libgl1-mesa-glx
+RUN apt-get install libglib2.0-0
 
 COPY ./webservice/requirements.txt .
 
