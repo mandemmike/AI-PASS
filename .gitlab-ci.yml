@@ -4,7 +4,7 @@ services:
   - docker:dind
 
 before_script:
-  - ssh -t gitlab-runner "sudo reboot"
+  - sudo usermod -a -G docker $USER 
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
 
 stages:
