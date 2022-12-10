@@ -16,16 +16,17 @@ build-and-test:
     - docker-build
   stage: build
   script:
-    - docker build -f Dockerfile .
+    - docker build -t app:latest .
+    - docker images
+    - docker push app:latest
 
 # This section describes what shall be done to deploy artefacts from the project.
 test:
   tags:
     - docker-build
-  stage: deploy
+  stage: test
   script:
-    - docker build -f Dockerfile -t "$CI_REGISTRY_IMAGE":"$CI_COMMIT_TAG" .
-    - docker push "$CI_REGISTRY_IMAGE":"$CI_COMMIT_TAG"
+    - docker pull app:latest
     - docker run -t app:latest python manage.py test
 
 
