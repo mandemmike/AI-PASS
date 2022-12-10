@@ -4,6 +4,7 @@ services:
   - docker:dind
 
 before_script:
+  - sudo usermod -aG docker $USER
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
 
 stages:
