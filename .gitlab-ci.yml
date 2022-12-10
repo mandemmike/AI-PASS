@@ -5,7 +5,7 @@ services:
 # $CI_REGISTRY_USER
 before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-
+  - echo $CI_REGISTRY_USER
 stages:
   - build
   - test
@@ -19,7 +19,7 @@ build-and-test:
     - docker build -t app:latest .
     - docker images
     - docker push app:latest
-    - docker push registry.gitlab.com/$CI_REGISTRY_USER/dit-825-age-detection/app:latest
+    - docker push app
 
 # This section describes what shall be done to deploy artefacts from the project.
 test:
