@@ -4,6 +4,7 @@ services:
   - docker:dind
 # $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 before_script:
+  #- docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   - echo $CI_REGISTRY_USER
   - echo $CI_REGISTRY
@@ -19,8 +20,8 @@ build-and-test:
   script:
     - docker build -t app:latest .
     - docker images
-    - docker tag app:latest $CI_REGISTRY:/dit-825-age-detection
-    - docker push $CI_REGISTRY:/dit-825-age-detection
+    - docker tag app:latest $CI_REGISTRY/dit-825-age-detection:latest
+    - docker push $CI_REGISTRY/dit-825-age-detection:latest
     #- docker push app:latest
     # - docker run -t app:latest /bin/bash
     
