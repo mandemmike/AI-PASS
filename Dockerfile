@@ -18,6 +18,3 @@ RUN python -m pip install --upgrade setuptools &&\
 COPY . .
 
 CMD ["python3","manage.py","runserver"]
-
-CACHE ["/app/requirements.txt", "/app/app.py"]
-
