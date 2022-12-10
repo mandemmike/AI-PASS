@@ -1,17 +1,16 @@
 from django import forms
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
-from app.models import FaceRecognition, TrainingDatasetFile, MLModel, CurrentModel, DatasetElementFormat
+from app.models import FaceRecognition, TrainingDatasetFile, MLModel
 
 
 class FaceRecognitionForm(forms.ModelForm):
-
     class Meta:
         model = FaceRecognition
         fields = ['image']
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args,**kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['image'].widget.attrs.update({'class': 'form-control'})
 
 
@@ -28,9 +27,8 @@ class DataSetUploadForm(forms.ModelForm):
         model = TrainingDatasetFile
         fields = ['file']
 
-
     def __init__(self, *args, **kwargs):
-        super().__init__(*args,**kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['file'].widget.attrs.update({'class': 'form-control'})
 
 
@@ -43,19 +41,8 @@ class DataSetUploadForm(forms.ModelForm):
 class ModelUploadForm(forms.ModelForm):
     class Meta:
         model = MLModel
-        fields = "__all__"
+        fields = ['id', 'name', 'format', 'file']
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args,**kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['file'].widget.attrs.update({'class': 'form-control'})
-
-
-class CurrentModelForm(forms.ModelForm):
-    class Meta:
-        model = CurrentModel
-        fields = "__all__"
-
-class DatasetElementForm(forms.ModelForm):
-    class Meta:
-        model = DatasetElementFormat
-        fields = '__all__'

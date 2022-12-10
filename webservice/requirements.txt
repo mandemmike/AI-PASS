@@ -1,11 +1,10 @@
-celery~=5.2.0b3
+celery~=5.2
 redis~=4.3
-Django==3.2.16
+Django~=3.2
 opencv-python==4.6.0.66
 scikit-learn
 numpy
-matplotlib~=3.3.4
+matplotlib~=3.3
 ktrain
-django-environ
 tensorflow
-djangorestframework
+djangorestframework~=3.14
