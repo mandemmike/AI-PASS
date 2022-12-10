@@ -1,12 +1,13 @@
 FROM python:3.9.12-slim
 
 ENV PYTHONUNBUFFERED 1
+ENV DEBIAN_FRONTEND noninteractive
 
 WORKDIR /app
 
 RUN apt-get update
 RUN apt install -y libgl1-mesa-glx
-RUN apt-get install libglib2.0-0
+RUN echo "Y" | apt-get install libglib2.0-0
 
 COPY ./webservice/requirements.txt .
 
