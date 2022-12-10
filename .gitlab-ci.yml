@@ -20,18 +20,9 @@ build-and-test:
     - docker build -t app:latest .
     - docker images
     #- docker push app:latest
-    - docker run -t app:latest
-
-# This section describes what shall be done to deploy artefacts from the project.
-test:
-  tags:
-    - docker-build
-  stage: test
-  script:
-    - docker pull app:latest
-    - docker run -t app:latest python manage.py makemigrations
-    - docker run -t app:latest python manage.py migrate
-    - docker run -t -it app:latest python3 manage.py test
+    - docker run -t app:latest /bin/bash
+    
+    - exit
 
 
 #deploy:
