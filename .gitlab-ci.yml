@@ -4,7 +4,7 @@ services:
   - docker:dind
 
 before_script:
-  - ssh -t git.ita.chalmers.se "sudo reboot"
+  - ssh -t gitlab-runner "sudo reboot"
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
 
 stages:
