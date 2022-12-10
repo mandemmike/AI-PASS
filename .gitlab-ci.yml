@@ -3,6 +3,9 @@ image: docker:latest
 services:
   - docker:dind
 
+before_script:
+  - docker login registry.gitlab.com/
+
 stages:
   - build
   - test
@@ -14,12 +17,12 @@ build:
     - docker-build
   script:
     - docker build -t app:latest .
-    - docker push app:latest
+    #- docker push app:latest
 
 test:
   stage: test
   script:
-    - docker pull app:latest
+   # - docker pull app:latest
     - docker run -it app:latest python manage.py test
 
 #deploy:
