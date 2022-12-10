@@ -14,7 +14,8 @@ stages:
 
 build:
   stage: build
-  tags: docker
+  tags: 
+    - docker
   script:
     - docker build -t app:latest .
     - docker push app:latest
