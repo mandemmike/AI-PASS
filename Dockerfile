@@ -24,4 +24,4 @@ RUN cd ./webservice &&\
     python manage.py migrate &&\
     python manage.py test
 
-CMD ["python","manage.py","runserver"]
+CMD ["python","./webservice/manage.py","runserver"]
