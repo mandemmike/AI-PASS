@@ -8,3 +8,4 @@ matplotlib~=3.3.4
 ktrain
 django-environ
 tensorflow
+djangorestframework
