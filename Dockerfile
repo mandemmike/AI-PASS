@@ -19,7 +19,7 @@ RUN python -m pip install --upgrade setuptools &&\
 
 COPY . .
 
-RUN ls &&\
+RUN cd ./webservice &&\
     python manage.py makemigrations &&\
     python manage.py migrate &&\
     python manage.py test
