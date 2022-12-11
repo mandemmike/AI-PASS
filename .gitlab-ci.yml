@@ -38,8 +38,9 @@ deploy:
   tags: 
     - docker-build
   script:
+    - kubectl config get-contexts
+    - kubectl config use-context $CI_DEPLOY_AGENT
     - kubectl get pods
-    - kubectl get all
     - kubectl get namespaces
     - kubectl apply -f deployment.yaml
  # stage: deploy
