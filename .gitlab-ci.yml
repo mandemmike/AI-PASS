@@ -5,6 +5,7 @@ services:
 # $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 before_script:
   - docker login registry.git.chalmers.se
+  - echo "$DOCKER_REGISTRY_PASS" | docker login --insecure-registry $DOCKER_REGISTRY --username $DOCKER_REGISTRY_USER --password-stdin
   - echo $CI_REGISTRY_USER
   - echo $CI_REGISTRY
 stages:
@@ -17,10 +18,10 @@ build-and-test:
     - docker-build
   stage: build
   script:
-    - docker build -t app:latest .
+    - docker build -t registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection .
     - docker images
    # - docker tag app:latest git.chalmers.se/courses/dit825/2022/group03
-    - docker push arayam/dit-825-age-detection:app
+    - docker push registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
     #- docker push app:latest
     # - docker run -t app:latest /bin/bash
     
