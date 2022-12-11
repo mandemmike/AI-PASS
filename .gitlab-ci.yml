@@ -40,12 +40,8 @@ deploy:
     - docker run alpine/k8s
   script:
     - docker pull registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
-    - docker tag registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection app:latest
-    - kubectl config get-contexts
-    - kubectl config use-context $CI_DEPLOY_AGENT
-    - kubectl get pods
-    - kubectl run docker --image=app:latest --port=8080
-
+    - docker tag registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection europe-docker.pkg.dev/ornate-bastion-371318/age-detection/app
+    - kubectl set image deployment/nginx-1 my-container=europe-docker.pkg.dev/ornate-bastion-371318/age-detection/ap:latest
 #deploy:
  # stage: deploy
   #script:
