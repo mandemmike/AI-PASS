@@ -1,12 +1,9 @@
 image: docker:latest
 
 
-#services:
- # - docker:dind
 services:
-  gitlab-runner:
-    environment:
-      - PATH=$PATH:/opt/homebrew/bin/kubectl
+  - docker:dind
+
 
 # $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 before_script:
