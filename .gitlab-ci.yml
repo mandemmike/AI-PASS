@@ -43,7 +43,7 @@ deploy:
     - kubectl get pods
     - kubectl get namespaces
     - ls
-    - kubectl apply -f /kubernetes/deployment.yaml
+    - kubectl apply -f ./kubernetes/deployement.yaml
  # stage: deploy
   #script:
    # - docker pull registry.gitlab.com/<namespace>/<project-name>:latest
