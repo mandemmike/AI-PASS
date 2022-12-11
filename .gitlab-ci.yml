@@ -32,10 +32,15 @@ stages:
    # - exit
 
 deploy:
-  image: bitnami/kubectl
+  image:
+    name: bitnami/kubectl:1.14
+    entrypoint: [""]
   tags: 
     - docker-build
   script:
+    - kubectl get pods
+    - kubectl get all
+    - kubectl get namespaces
     - kubectl apply -f deployment.yaml
  # stage: deploy
   #script:
