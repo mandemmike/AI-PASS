@@ -1,4 +1,4 @@
-image: roffe/kubectl
+image: docker:stable
 
 
 services:
