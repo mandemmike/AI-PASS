@@ -1,7 +1,10 @@
 from django.contrib import admin
 
-from app.models import FaceRecognition, TrainingDatasetFile, TrainedDataset, MLModel
+from app.models import FaceRecognition, TrainingDatasetFile, TrainedDataset, MLModel, EvaluatedModelData
 
+@admin.register(EvaluatedModelData)
+class EvaluatedModelDataAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(FaceRecognition)
 class FaceRecognitionAdmin(admin.ModelAdmin):
@@ -11,6 +14,7 @@ class FaceRecognitionAdmin(admin.ModelAdmin):
 @admin.register(MLModel)
 class MLModelAdmin(admin.ModelAdmin):
     list_display = ('name', 'format', 'is_active')
+    # inlines = [EvaluatedModelDataInline]
 
 
 @admin.register(TrainingDatasetFile)
@@ -21,3 +25,4 @@ class TrainingDatasetFileAdmin(admin.ModelAdmin):
 @admin.register(TrainedDataset)
 class TrainedDatasetAdmin(admin.ModelAdmin):
     pass
+

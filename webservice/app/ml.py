@@ -4,6 +4,7 @@ import sklearn
 import pickle
 from django.conf import settings
 import os
+from app.models import MLModel
 
 STATIC_DIR = settings.STATIC_DIR
 
@@ -22,7 +23,6 @@ face_recognition_model = pickle.load(open(os.path.join(STATIC_DIR, 'models/machi
 emotion_recognition_model = pickle.load(open(os.path.join(
     STATIC_DIR, 'models/machinelearning_face_emotion.pkl'), mode='rb'))
 
-
 # TODO: connect age and gender models here
 
 # age estimation model
@@ -31,6 +31,27 @@ age_estimation_model = pickle.load(
 
 gender_estimation_model = pickle.load(
     open(os.path.join(STATIC_DIR, 'models/machinelearning_face_emotion.pkl'), mode='rb'))
+
+
+def get_current_model() -> MLModel:
+    try:
+        ml_model = MLModel.object.get(is_active=True)
+    except (MLModel.DoesNotExist,):
+        raise RuntimeError('Please upload a model')
+    return ml_model
+
+def get_estimation_model():
+    ml_model = get_current_model()
+    file_path= os.path.join(settings.MEDIA_ROOT, ml_model.file.path)
+    print(file_path)
+    with open(file_path, mode='rb') as file:
+        if ml_model.format==MLModel.MLFormat.PICKLE:
+            return pickle.load(file)
+        else:
+            # TODO: put h5 here
+            return
+
+
 
 
 def pipeline_model(path):
@@ -79,7 +100,7 @@ def pipeline_model(path):
                 emotion_score = emotion_recognition_model.predict_proba(
                     vectors).max()
 
-                age = age_estimation_model.predict(vectors)[0]
+                age = get_estimation_model().predict(vectors)[0]
                 gender = gender_estimation_model.predict_proba(vectors).max()
 
                 text_face = '{} : {:.0f} %'.format(face_name, 100 * face_score)
@@ -91,9 +112,9 @@ def pipeline_model(path):
                             cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
 
                 cv2.imwrite(os.path.join(settings.MEDIA_ROOT,
-                            'ml_output/process.jpg'), image)
+                                         'ml_output/process.jpg'), image)
                 cv2.imwrite(os.path.join(settings.MEDIA_ROOT,
-                            'ml_output/roi_{}.jpg'.format(count)), face_roi)
+                                         'ml_output/roi_{}.jpg'.format(count)), face_roi)
 
                 machinlearning_results['count'].append(count)
                 machinlearning_results['face_detect_score'].append(confidence)

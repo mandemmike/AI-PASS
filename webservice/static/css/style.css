@@ -1,8 +1,10 @@
 body {
     font-family: 'Amaranth', sans-serif;
-    font-size: 12px;
-    line-height: 1.2;
+    font-size: 8px;
+    line-height: 1.0;
 }
+
+
 
 img {
     max-width: 100%;

@@ -11,16 +11,29 @@ class FaceRecognition(models.Model):
         return str(self.record_date)
 
 
+class EvaluatedModelData(models.Model):
+    perfomance = models.FloatField()
+    accuracy = models.FloatField()
+    loss = models.FloatField()
+
+
 class MLModel(models.Model):
     class MLFormat(models.TextChoices):
         H5 = ('h5', 'H5')
-        PICKLE = ('pickle', 'Pickle')
+        PICKLE = ('pkl', 'Pickle')
 
     name = models.CharField("Model's name", max_length=50)
     format = models.CharField("Model's format", max_length=50, choices=MLFormat.choices)
     timestamp = models.DateTimeField(auto_now_add=True)
     file = models.FileField(upload_to='models/')
     is_active = models.BooleanField(default=False)
+    evaluated_data = models.OneToOneField(
+        EvaluatedModelData,
+        on_delete=models.CASCADE,
+        related_name='ml_model',
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         return self.name

@@ -4,7 +4,7 @@ from django.views import View
 from django.contrib.auth import authenticate, login
 
 from .tasks import dataset_preparation
-from app.forms import FaceRecognitionForm, DataSetUploadForm, ModelUploadForm
+from app.forms import FaceRecognitionForm, DataSetUploadForm, ModelUploadForm, EvaluateModelForm, SelectModelForm
 from app.ml import pipeline_model
 from django.conf import settings
 from app.models import FaceRecognition, MLModel
@@ -56,11 +56,31 @@ class AdminUIView(View):
 
     def get(self, request):
         modelinfo = MLModel.objects.all().order_by("-id").values()
+        current_model = MLModel.objects.get(is_active=True)
         context = {
             'Model': self.mlform,
-            'ModelInfo': modelinfo
+            'ModelInfo': modelinfo,
+            'CurrentModel':current_model
         }
         return render(request, self.template_name, context)
+
+
+class EvaluateModelView(View):
+    @property
+    def form(self):
+        action = self.request.POST['action']
+        if action=='evaluate':
+            return EvaluateModelForm
+        else:
+            return SelectModelForm
+
+    def post(self, request):
+        form = self.form(request.POST)
+        if form.is_valid():
+            form.save(request)
+        else:
+            print('form invalid', form.errors)
+        return redirect("admin-ui")
 
 
 class ModelUploadView(View):
@@ -73,6 +93,16 @@ class ModelUploadView(View):
             print('File upload successfully')
         return redirect('admin-ui')
 
+class SelectModelView(View):
+    form = SelectModelForm
+
+    def post(self, request):
+        form = self.form(request.POST)
+        if form.is_valid():
+            form.save(request)
+        else:
+            print('form invalid', form.errors)
+        return redirect("admin-ui")
 
 def LoginUser(request):
     if request.method == 'POST':
