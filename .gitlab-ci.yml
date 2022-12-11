@@ -37,9 +37,9 @@ deploy:
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - apk add --no-cache bash
+  script:
     - curl -L https://storage.googleapis.com/kubernetes-release/release/v1.16.0/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl
     - chmod +x /usr/local/bin/kubectl
-  script:
     - docker pull registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
     - docker tag registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection app:latest
     - kubectl config get-contexts
