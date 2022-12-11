@@ -11,5 +11,25 @@
         <ul class="navbar-nav ml-auto">
             <li><a href="{% url 'admin-ui' %}" class="admin_button" aria-hidden="true"><span class="fa fa-cogs"></span>  <span class="label"> Admin</span></a></li>
         </ul>
+
+
+    {% if not user.is_authenticated %}
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <label for="username"> <span>username: </span></label>
+            <input id="username" type="text" name="username">
+
+            <label for="username"><span>password:</span> </label>
+            <input id="password" type="password" name="password">
+
+            <input type="submit" value="login">
+            <input type="hidden" name="next" value="{{ request.path }}">
+        </form>
+    {% else %}
+        <br><br>
+        <button onclick="location.href='{% url 'logout' %}'"><span>Log out</span></button>
+        <button onclick="location.href='{% url 'admin-ui' %}'"><span>Admin UI</span></button>
+    {% endif %}
+
     </nav>
 </div>
