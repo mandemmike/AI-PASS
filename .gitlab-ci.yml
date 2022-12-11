@@ -4,7 +4,7 @@ services:
   - docker:dind
 # $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 before_script:
-  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  - docker login -u $DOCKER_USER_TOKEN -p $DOCKER_USER_PASSWORD arayam/dit-825-age-detection
   - echo $CI_REGISTRY_USER
   - echo $CI_REGISTRY
 stages:
@@ -19,8 +19,8 @@ build-and-test:
   script:
     - docker build -t app:latest .
     - docker images
-    - docker tag app:latest git.chalmers.se/courses/dit825/2022/group03
-    - docker push git.chalmers.se/courses/dit825/2022/group03
+   # - docker tag app:latest git.chalmers.se/courses/dit825/2022/group03
+    - docker push arayam/dit-825-age-detection:app
     #- docker push app:latest
     # - docker run -t app:latest /bin/bash
     
