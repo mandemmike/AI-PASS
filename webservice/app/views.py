@@ -1,19 +1,14 @@
 import os.path
-from django.views.generic import TemplateView
 from django.shortcuts import HttpResponseRedirect, redirect, render
-from django.http import HttpRequest, HttpResponse
-from django.urls import reverse
 from django.views import View
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth.models import User
+
 from .tasks import dataset_preparation
-from app.forms import FaceRecognitionForm, DataSetUploadForm, ModelUploadForm, CurrentModelForm
+from app.forms import FaceRecognitionForm, DataSetUploadForm, ModelUploadForm, EvaluateModelForm, SelectModelForm
 from app.ml import pipeline_model
 from django.conf import settings
-from app.models import FaceRecognition, MLModel, CurrentModel
+from app.models import FaceRecognition, MLModel
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib import messages
 from django.contrib.auth import logout
 
 
@@ -40,47 +35,18 @@ class DatasetUploadView(View):
     template_name = 'admin_ui.html'
     form = DataSetUploadForm
     mlform = ModelUploadForm
-    currentform = CurrentModelForm
     selectModel = 'selectedModel'
 
     def post(self, request):
-        if 'uploadDataSet' in request.POST:
-            form = self.form(request.POST, request.FILES)
-            if form.is_valid():
-                instance = form.save()
-                print(instance)
-                dataset_preparation.delay(dataset_id=instance.id)
-                print('valid')
-            else:
-                print('not valid', type(form.errors))
-
-            # return render(request, self.template_name, context={'errors': form.errors})
-        elif 'uploadModel' in request.POST:
-            model = self.mlform(request.POST, request.FILES)
-            if model.is_valid():
-                model.save()
-                print('File upload successfully')
-            else:
-                model = ModelUploadForm()
-            modelinfo = MLModel.objects.all().values()
-
-            #return render(request, self.template_name, {'Model': self.mlform, 'ModelInfo': modelinfo})
-        return redirect("admin-ui")
-
-
-    def selectModel(request, pk):
-        currentModel = CurrentModel.objects.getfilter(file='Fjuk inc')
-        if not currentModel:
-            curruntModelForm = self.currentform(request.POST, request.Files)
-            if curruntModelForm.is_valid():
-                CurrentModelForm.save()
-                # The Queryset is empty ...
+        form = self.form(request.POST, request.FILES)
+        if form.is_valid():
+            instance = form.save()
+            print(instance)
+            dataset_preparation.delay(dataset_id=instance.id)
+            print('valid')
         else:
-            curruntModelForm = self.currentform(
-                request.POST, request.Files)
-            if curruntModelForm.is_valid():
-                curruntModelForm.update()
-        return render(request, self.template_name, {'CurrentModel': self.mlform, 'ModelInfo': modelinfo})
+            print('not valid', type(form.errors))
+        return redirect("admin-ui")
 
 
 class AdminUIView(View):
@@ -90,15 +56,36 @@ class AdminUIView(View):
 
     def get(self, request):
         modelinfo = MLModel.objects.all().order_by("-id").values()
+        current_model = MLModel.objects.get(is_active=True)
         context = {
             'Model': self.mlform,
-            'ModelInfo': modelinfo
+            'ModelInfo': modelinfo,
+            'CurrentModel':current_model
         }
         return render(request, self.template_name, context)
 
 
+class EvaluateModelView(View):
+    @property
+    def form(self):
+        action = self.request.POST['action']
+        if action=='evaluate':
+            return EvaluateModelForm
+        else:
+            return SelectModelForm
+
+    def post(self, request):
+        form = self.form(request.POST)
+        if form.is_valid():
+            form.save(request)
+        else:
+            print('form invalid', form.errors)
+        return redirect("admin-ui")
+
+
 class ModelUploadView(View):
     mlform = ModelUploadForm
+
     def post(self, request):
         model = self.mlform(request.POST, request.FILES)
         if model.is_valid():
@@ -106,9 +93,16 @@ class ModelUploadView(View):
             print('File upload successfully')
         return redirect('admin-ui')
 
+class SelectModelView(View):
+    form = SelectModelForm
 
-
-
+    def post(self, request):
+        form = self.form(request.POST)
+        if form.is_valid():
+            form.save(request)
+        else:
+            print('form invalid', form.errors)
+        return redirect("admin-ui")
 
 def LoginUser(request):
     if request.method == 'POST':
@@ -135,5 +129,3 @@ def logoutUser(request):
     logout(request)
     next = request.POST.get('next', '/')
     return HttpResponseRedirect(next)
-
-

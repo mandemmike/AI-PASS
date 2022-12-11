@@ -13,8 +13,8 @@ urlpatterns = [
     path('upload/dataset', views.DatasetUploadView.as_view(), name='upload-dataset' ),
     path('login/', views.LoginUser, name='login'),
     path('register/', v2.registerUser, name='register'),
-    path('logout/', views.logoutUser, name='logout')
-
+    path('logout/', views.logoutUser, name='logout'),
+    path('evaluation/', views.EvaluateModelView.as_view(), name='evaluate_model')
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
