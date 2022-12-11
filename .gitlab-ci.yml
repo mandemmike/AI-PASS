@@ -32,7 +32,7 @@ stages:
    # - exit
 
 deploy:
-  image: roffe/kubectl
+  image: bitnami/kubectl
   tags: 
     - docker-build
   script:
