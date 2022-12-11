@@ -1,4 +1,4 @@
-image: docker:latest
+image: docker:stable
 
 
 services:
@@ -36,7 +36,6 @@ deploy:
     - docker-build
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - apt-get install curl
     - apk add --no-cache bash
     - curl -L https://storage.googleapis.com/kubernetes-release/release/v1.16.0/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl
     - chmod +x /usr/local/bin/kubectl
