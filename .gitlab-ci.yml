@@ -42,7 +42,7 @@ deploy:
     - kubectl config use-context $CI_DEPLOY_AGENT
     - kubectl get pods
     - kubectl get namespaces
-    - kubectl apply -f deployment.yaml
+    - kubectl apply -f ./kubernetes/deployment.yaml
  # stage: deploy
   #script:
    # - docker pull registry.gitlab.com/<namespace>/<project-name>:latest
