@@ -36,9 +36,6 @@ deploy:
   tags: 
     - docker-build
   script:
-    - kubectl get pods
-    - kubectl get all
-    - kubectl get namespaces
     - kubectl apply -f deployment.yaml
  # stage: deploy
   #script:
