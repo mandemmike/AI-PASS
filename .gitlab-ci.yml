@@ -34,9 +34,6 @@ stages:
 deploy:
   tags: 
     - docker-build
-  image:
-    name: bitnami/kubectl:latest
-    entrypoint: ['']
   script:
     - docker pull registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
     - docker tag registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection app:latest
