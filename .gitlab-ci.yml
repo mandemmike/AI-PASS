@@ -39,7 +39,7 @@ deploy:
     entrypoint: ['']
   script:
     - kubectl config get-contexts
-    - kubectl config use-context gitlab-agent
+    - kubectl config use-context $CI_DEPLOY_AGENT
     - kubectl get pods
 
 #deploy:
