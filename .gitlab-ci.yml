@@ -19,8 +19,8 @@ build-and-test:
   script:
     - docker build -t app:latest .
     - docker images
-    - docker tag app:latest https://git.chalmers.se/courses/dit825/2022/group03
-    - docker push https://git.chalmers.se/courses/dit825/2022/group03
+    - docker tag app:latest git.chalmers.se/courses/dit825/2022/group03
+    - docker push git.chalmers.se/courses/dit825/2022/group03
     #- docker push app:latest
     # - docker run -t app:latest /bin/bash
     
