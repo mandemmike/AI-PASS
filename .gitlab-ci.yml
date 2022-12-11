@@ -28,8 +28,9 @@ build-and-test:
 
 deploy:
   stage: deploy
+  image: registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
   script:
-    - kubectl apply -f kubernetes/deployment.yml
+    - kubectl apply -f kubernetes/config/deployment.yml
 
 #deploy:
  # stage: deploy
