@@ -30,6 +30,7 @@ stages:
    # - exit
 
 deploy:
+  tags: docker-build
   image:
     name: bitnami/kubectl:latest
     entrypoint: ['']
