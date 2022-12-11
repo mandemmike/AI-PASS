@@ -20,7 +20,7 @@ stages:
    # - docker build -t registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection .
    # - docker images
    # - docker tag app:latest git.chalmers.se/courses/dit825/2022/group03
-    - docker push registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
+ #   - docker push registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
     #- docker push app:latest
     # - docker run -t app:latest /bin/bash
     
