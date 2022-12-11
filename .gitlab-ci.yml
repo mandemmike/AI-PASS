@@ -36,7 +36,6 @@ deploy:
     - docker-build
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - apk add --no-cache bash
   script:
     - docker pull registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
     - docker tag registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection app:latest
