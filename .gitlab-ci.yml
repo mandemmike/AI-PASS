@@ -33,11 +33,13 @@ stages:
    # - exit
 
 deploy:
-  stage: deploy
-  tags:
-    - docker-build
+  image:
+    name: bitnami/kubectl:latest
+    entrypoint: ['']
   script:
-    - kubectl apply -f kubernetes/config/deployment.yml
+    - kubectl config get-contexts
+    - kubectl config use-context gitlab-agent
+    - kubectl get pods
 
 #deploy:
  # stage: deploy
