@@ -12,25 +12,24 @@ stages:
   - test
   - deploy
 # This section describes what shall be done to build and test the project.
-build-and-test:
-  tags:
-    - docker-build
-  stage: build
-  script:
-    - docker build -t registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection .
-    - docker images
+#build-and-test:
+ # tags:
+  #  - docker-build
+  #stage: build
+  #script:
+   # - docker build -t registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection .
+   # - docker images
    # - docker tag app:latest git.chalmers.se/courses/dit825/2022/group03
     - docker push registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
     #- docker push app:latest
     # - docker run -t app:latest /bin/bash
     
-    - exit
+   # - exit
 
 deploy:
   stage: deploy
   tags:
     - docker-build
-  image: registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
   script:
     - kubectl apply -f kubernetes/config/deployment.yml
 
