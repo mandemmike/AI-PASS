@@ -1,36 +1,24 @@
 image: docker:latest
 
-
 services:
   - docker:dind
 
-
-# $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-#before_script:
- # - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  #- echo $CI_REGISTRY_USER
-  #- echo $CI_REGISTRY
 stages:
   - build
   - test
   - deploy
-# This section describes what shall be done to build and test the project.
-#build-and-test:
- # tags:
-  #  - docker-build
-  #stage: build
-  #before_script:
-   #   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  #script:
-   # - docker build -t registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection .
-   # - docker images
-   # - docker tag app:latest git.chalmers.se/courses/dit825/2022/group03
- #   - docker push registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
-    #- docker push app:latest
-    # - docker run -t app:latest /bin/bash
+build-and-test:
+  tags:
+    - docker-build
+  stage: build
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker build -t app:latest .
+    - docker images
+    - docker tag app:latest registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
+    - docker push registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
     
-   # - exit
-
 deploy:
   image:
     name: bitnami/kubectl:1.14
@@ -41,11 +29,6 @@ deploy:
     - kubectl config get-contexts
     - kubectl config use-context $CI_DEPLOY_AGENT
     - kubectl get pods
-    - kubectl set image deployment/nginx-1-7b4456c967-pmjvr app-container=registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
-    - kubectl expose deployment/nginx-1 --type=LoadBalancer --port=8080
     - kubectl apply -f ./kubernetes/deployement.yaml
- # stage: deploy
-  #script:
-   # - docker pull registry.gitlab.com/<namespace>/<project-name>:latest
-    #- docker run -it -d -p 8000:8000 registry.gitlab.com/<namespace>/<project-name>:latest
+
 
