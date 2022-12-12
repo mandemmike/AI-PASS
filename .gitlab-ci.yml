@@ -23,6 +23,7 @@ build-and-test:
     - docker push registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
     
 deploy:
+  stage: deploy
   only:
     - main
   image:
@@ -34,6 +35,7 @@ deploy:
     - kubectl config get-contexts
     - kubectl config use-context $CI_DEPLOY_AGENT
     - kubectl get pods
+    - kubectl delete deployment nginx-1
     - kubectl apply -f ./kubernetes/deployement.yaml
 
 
