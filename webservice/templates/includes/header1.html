@@ -1,0 +1,44 @@
+{% load static %}
+{% load i18n main %}
+
+<div class="container">
+  <nav class="navbar">
+    <div class="container-logo">
+      <a href="/" class="navbar-barnd">
+        <img src="{% static 'logo/logo-no-background.png' %}" alt="AI Pass" width="200" height="60">
+      </a>
+    </div>
+
+    <input type="checkbox" id="login-inp">
+    <label for="login-inp">
+      <span class="admin_button fa fa-cogs label"> Admin</span>
+{#      <ul class="navbar-nav ml-auto">#}
+{#        <li><a href="#" class="admin_button" aria-hidden="true"><span class="fa fa-cogs"></span> <span#}
+{#        class="label"> Admin</span></a></li>#}
+{#      </ul>#}
+    </label>
+    <div class="container-admin-login">
+      {% if not user.is_authenticated %}
+
+
+        <form method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+          <label for="username"> <span>username: </span></label>
+          <input id="username" type="text" name="username">
+
+          <label for="username"><span>password:</span> </label>
+          <input id="password" type="password" name="password">
+
+          <input type="button" class="btn btn-secondary btn-sm"  type="submit" value="Login">
+          <input type="hidden" name="next" value="{{ request.path }}">
+        </form>
+      {% else %}
+        <br><br>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="location.href='{% url 'admin-ui' %}'"><span>Admin Page</span></button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="location.href='{% url 'logout' %}'"><span>Log out</span></button>
+      {% endif %}
+    </div>
+
+
+  </nav>
+</div>

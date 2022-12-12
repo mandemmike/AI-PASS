@@ -4,7 +4,7 @@ body {
   line-height: 1.0;
 }
 
-h3 {
+h3, h4 {
   font-size: 14px;
 }
 
@@ -52,11 +52,30 @@ img {
   text-decoration: none;
   transition: all 0.2s linear;
   border-radius: 3px;
+  font-family: 'Amaranth', sans-serif;
+  cursor: pointer;
+}
+
+.admin_button:before {
+   font-family: FontAwesome;
+ }
+
+#login-inp {
+  display: none;
+}
+
+#login-inp:checked ~ .container-admin-login {
+  display: block;
+}
+
+.container-admin-login {
+  display: none;
 }
 
 /* Darker background on mouse-over */
 .admin_button:hover {
   background-color: #ffffff;
+  color: #102E44;
 }
 
 .container-logo {

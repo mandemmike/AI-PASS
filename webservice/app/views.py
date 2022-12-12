@@ -56,11 +56,14 @@ class AdminUIView(View):
 
     def get(self, request):
         modelinfo = MLModel.objects.all().order_by("-id").values()
-        current_model = MLModel.objects.get(is_active=True)
+        try:
+            current_model = MLModel.objects.get(is_active=True)
+        except:
+            current_model = None
         context = {
             'Model': self.mlform,
             'ModelInfo': modelinfo,
-            'CurrentModel':current_model
+            'CurrentModel': current_model
         }
         return render(request, self.template_name, context)
 
@@ -69,7 +72,7 @@ class EvaluateModelView(View):
     @property
     def form(self):
         action = self.request.POST['action']
-        if action=='evaluate':
+        if action == 'evaluate':
             return EvaluateModelForm
         else:
             return SelectModelForm
@@ -93,6 +96,7 @@ class ModelUploadView(View):
             print('File upload successfully')
         return redirect('admin-ui')
 
+
 class SelectModelView(View):
     form = SelectModelForm
 
@@ -103,6 +107,7 @@ class SelectModelView(View):
         else:
             print('form invalid', form.errors)
         return redirect("admin-ui")
+
 
 def LoginUser(request):
     if request.method == 'POST':
