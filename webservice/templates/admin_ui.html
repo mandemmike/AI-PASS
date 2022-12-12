@@ -14,8 +14,9 @@
         <div class="d-flex">
           <input type="file" name="file" class="form-control">
           {{ errors.file }}
-          <input type="submit" name="uploadDataSet" value="Upload" required>
         </div>
+
+        <input type="submit" name="uploadDataSet" value="Upload" required>
       </form>
       <p></p>
       <p></p>
@@ -23,7 +24,6 @@
       <form action="{% url 'upload-model' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
-          <!--<p><input type="file" name="file" class="form-control"></p>-->
           {{ Model.as_p }}
           <input type="submit" name="uploadModel" value="Upload" required>
         </div>
