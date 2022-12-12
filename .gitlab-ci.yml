@@ -41,8 +41,8 @@ deploy:
     - kubectl config get-contexts
     - kubectl config use-context $CI_DEPLOY_AGENT
     - kubectl get pods
-    - kubectl set image registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
-    - kubectl expose deployment.apps/nginx-1 --type=LoadBalancer --port=8080
+    - kubectl set image deployment/nginx-1-7b4456c967-pmjvr app-container=registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
+    - kubectl expose deployment/nginx-1 --type=LoadBalancer --port=8080
     - kubectl apply -f ./kubernetes/deployement.yaml
  # stage: deploy
   #script:
