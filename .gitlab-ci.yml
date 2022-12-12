@@ -41,7 +41,7 @@ deploy:
     - kubectl config get-contexts
     - kubectl config use-context $CI_DEPLOY_AGENT
     - kubectl get pods
-    - kubectl set deployment.apps/nginx-1 --image=app:latest
+    - kubectl set deployment.apps/nginx-1 mycontainer=app:latest
     - kubectl expose deployment.apps/nginx-1 --type=LoadBalancer --port=8080
     - kubectl apply -f ./kubernetes/deployement.yaml
  # stage: deploy
