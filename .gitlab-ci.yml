@@ -4,7 +4,7 @@ services:
   - docker:dind
 
 only:
-  refs:
+  push:
     - main
   events:
     - push
@@ -13,7 +13,10 @@ stages:
   - build
   - test
   - deploy
+
 build-and-test:
+  only:
+    - main
   tags:
     - docker-build
   stage: build
@@ -26,6 +29,8 @@ build-and-test:
     - docker push registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
     
 deploy:
+  only:
+    - main
   image:
     name: bitnami/kubectl:1.14
     entrypoint: [""]
