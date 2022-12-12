@@ -3,12 +3,6 @@ image: docker:latest
 services:
   - docker:dind
 
-only:
-  push:
-    - main
-  events:
-    - push
-
 stages:
   - build
   - test
