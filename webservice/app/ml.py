@@ -78,12 +78,26 @@ def pipeline_model(path):
         print(output)
         h5age = np.argmax(output[0])
         h5gender = np.argmax(output[1])
-        print(h5age)
+        if h5age == 0:
+            age = '0-24 yrs old'
+        if h5age == 1:
+            age = '25-49 yrs old'
+        if h5age == 2:
+            age = '50-74 yrs old'
+        if h5age == 3:
+            age = '75-99 yrs old'
+        if h5age == 4:
+            age = '100-124 yrs old'
+        print(age)
         print(h5gender)
+        if h5gender == 0:
+            gender = 'Male'
+        if h5gender == 1:
+            gender = 'Female'
         machinlearning_results = dict(
             age=[], gender=[], count=[])
-        machinlearning_results['age'].append(h5age)
-        machinlearning_results['gender'].append(h5gender)
+        machinlearning_results['age'].append(age)
+        machinlearning_results['gender'].append(gender)
         machinlearning_results['count'].append(1)
     elif modelformat == MLModel.MLFormat.PICKLE:
         img = cv2.imread(path)
