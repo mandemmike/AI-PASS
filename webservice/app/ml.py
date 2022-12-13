@@ -16,6 +16,7 @@ def loadImage(filepath):
     test_img = keras.preprocessing.image.image_utils.img_to_array(test_img)
     test_img = np.expand_dims(test_img, axis=0)
     test_img /= 255
+
     return test_img
 
 
@@ -72,7 +73,7 @@ def pipeline_model(path):
         img = cv2.imread(path)
         output_img = img.copy()
         cv2.imwrite('./media/ml_output/process.jpg', output_img)
-        cv2.imwrite('./media/ml_output/roi_1.jpg', output_img)
+        cv2.imwrite('./media/ml_output/roi_1.jpg', img)
         output = h5model.predict(h5img)
         print(get_current_model().file)
         print(output)
