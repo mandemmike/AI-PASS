@@ -5,69 +5,64 @@
 {% block head %}{% endblock head %}
 
 {% block header %}
-    {% include 'includes/header.html'  with selected='index' %}
+{% include 'includes/header.html' with selected='index' %}
 {% endblock header %}
 
 {% block container %}
 
-    <h2>Welcome to Age and gender recognition</h2>
-    <br>
-    <div class="center-upload">
-        <div class="file-upload">
-            <form action="#" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="input-group">
-                    <label for="{{ form.image.id_for_label }}"></label>
-                    {{ form.image }}
-                    <input type="submit" value="Upload Image" class="btn btn-outline-secondary">
-                </div>
-            </form>
-        </div>
+<h2>Welcome to Age and gender recognition</h2>
+<br>
+<div class="center-upload">
+    <div class="file-upload">
+        <form action="#" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="input-group">
+                <label for="{{ form.image.id_for_label }}"></label>
+                {{ form.image }}
+                <input type="submit" value="Upload Image" class="btn btn-outline-secondary">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+{% if upload %}
+<br><br>
+<div class="row">
+    <div class="col">
+
+        <img class="img-fluid" src="/media/ml_output/process.jpg" alt="PROCESS">
     </div>
 
+    <div class="col">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>Face Image</td>
+                    {% for c in results.count %}
+                    <td>
+                        <img class="img-fluid" src="/media/ml_output/roi_{{ c }}.jpg" alt="ROI" width="150" ,
+                            height="200">
+                    </td>
+                    {% endfor %}
+
+                </tr>
+
+            </thead>
 
 
 
-    {% if upload %}
-        <br><br>
-        <div class="row">
-            <div class="col">
-
-                <img class="img-fluid" src="/media/ml_output/process.jpg" alt="PROCESS">
-            </div>
-
-            <div class="col">
-
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <td>Face Image</td>
-                        {% for c in results.count %}
-                            <td>
-                                <img class="img-fluid" src="/media/ml_output/roi_{{ c }}.jpg" alt="ROI" width="150" ,
-                                     height="200">
-                            </td>
-                        {% endfor %}
-
-                    </tr>
-
-                    </thead>
-
-                    <tr>
-                        <td>Face Detection Score</td>
-                        {% for detect_score in results.face_detect_score %}
-                            <td>{{ detect_score }}</td>
-                        {% endfor %}
-                    </tr>
-
-                    <!--
+            <!--
                     <tr>
                         <td>Name</td>
                         {% for name in results.face_name %}
                             <td>{{ name }}</td>
                         {% endfor %}
                     </tr>
-                    <tr>
+                    <tr>2
                         <td>Face Score</td>
                         {% for name_score in results.face_name_score %}
                             <td>{{ name_score }}</td>
@@ -87,24 +82,24 @@
                     </tr> -->
 
 
-                    <tr>
-                        <td>Age</td>
-                        {% for age in results.age %}
-                            <td>{{ age }}</td>
-                        {% endfor %}
-                    </tr>
+            <tr>
+                <td>Age</td>
+                {% for age in results.age %}
+                <td>{{ age }}</td>
+                {% endfor %}
+            </tr>
 
-                    <tr>
-                        <td>Gender</td>
-                        {% for gender in results.gender %}
-                            <td>{{ gender }}</td>
-                        {% endfor %}
-                    </tr>
+            <tr>
+                <td>Gender</td>
+                {% for gender in results.gender %}
+                <td>{{ gender }}</td>
+                {% endfor %}
+            </tr>
 
-                </table>
-            </div>
-        </div>
-    {% endif %}
+        </table>
+    </div>
+</div>
+{% endif %}
 
 
 {% endblock container %}
