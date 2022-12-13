@@ -6,45 +6,56 @@ ENV VIRTUAL_ENV=/opt/venv
 #Create Virtual environment in the path
 RUN python3 -m venv $VIRTUAL_ENV
 # Activate venv
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+#ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+RUN export PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Avoiding writing pyc files to disc by a
 ENV PYTHONDONTWRITEBYTECODE 1
-
 # Prevents Python from buffering stdout and stderr
 ENV PYTHONUNBUFFERED 1
 
 # creates the directory
-WORKDIR /app/
-
-#RUN apt-get update && \
-#    apt instalfocker runl -y libgl1-mesa-glx
+WORKDIR /app
 
 #echo "path" >> ~/root/.bashrc
-#ENV PYTHONPATH "${PYTHONPATH}:$VIRTUAL_ENV/lib/python3.9/"
+ENV PYTHONPATH "${PYTHONPATH}:$VIRTUAL_ENV/lib/python3.9/"
 
 #RUN . /opt/venv/bin/activate
 
 COPY ./requirements.txt /app/requirements.txt
 
-RUN pip install --upgrade pip \
+RUN /opt/venv/bin/pip install --upgrade pip \
     -r requirements.txt
-#    --upgrade setuptools \
+#    --upgrade setuptools
+
+RUN apt-get update -y && \
+    apt install libgl1-mesa-glx -y && \
+    apt install libglib2.0-0 -y
+    #    apt instalfocker runl -y libgl1-mesa-glx \
 
 # To run test
 #RUN python manage.py test app
 
 #COPY . .
 
+#2nd stage
 FROM python:3.9.0-slim-buster as runner
-WORKDIR /app/
+
+# creates the directory
+WORKDIR /app
 
 #switch to project subdirectory
 COPY --from=compiler /opt/venv /opt/venv
 
+#Virtual environment directory path
+ENV VIRTUAL_ENV=/opt/venv
+
 # Enable venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-COPY . /app/
+COPY . /app
+
+RUN export PYTHONPATH=$PYTHONPATH:$VIRTUAL_ENV/lib/python3.9/site-packages
+RUN echo $PYTHONPATH
 
 # It's a better practice to put the CMD in the Dockerfile to docker run the image without its Compose setup.
-CMD ["python", "./webservice/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python3", "./webservice/manage.py", "runserver", "0.0.0.0:8000"]
