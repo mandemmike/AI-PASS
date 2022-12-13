@@ -8,12 +8,8 @@
                 <img src="{% static 'logo/logo-no-background.png' %}" alt="AI Pass" width="200" height="60">
             </a>
         </div>
-        <ul class="navbar-nav ml-auto">
-            <li><a href="{% url 'admin-ui' %}" class="admin_button" aria-hidden="true"><span class="fa fa-cogs"></span>  <span class="label"> Admin</span></a></li>
-        </ul>
 
-
-    {% if not user.is_authenticated %}
+        {% if not user.is_authenticated %}
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <label for="username"> <span>username: </span></label>
@@ -25,11 +21,11 @@
             <input type="submit" value="login">
             <input type="hidden" name="next" value="{{ request.path }}">
         </form>
-    {% else %}
+        {% else %}
         <br><br>
         <button onclick="location.href='{% url 'logout' %}'"><span>Log out</span></button>
         <button onclick="location.href='{% url 'admin-ui' %}'"><span>Admin UI</span></button>
-    {% endif %}
+        {% endif %}
 
     </nav>
 </div>
