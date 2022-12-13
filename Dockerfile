@@ -3,6 +3,8 @@ FROM python:3.9.12-slim
 ENV PYTHONUNBUFFERED 1
 ENV DEBIAN_FRONTEND noninteractive
 
+EXPOSE 8080
+
 WORKDIR /app
 
 RUN apt-get update
