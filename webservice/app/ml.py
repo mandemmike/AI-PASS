@@ -63,14 +63,18 @@ def get_estimation_model():
 
 
 def pipeline_model(path):
+    print(path)
     modelformat = get_current_model().format
     if modelformat == MLModel.MLFormat.H5:
         # pipeline model
         h5model = get_estimation_model()
         h5img = loadImage(path)
-        cv2.imwrite(os.path.join(settings.MEDIA_URL,
-                                 '/mloutput/process.jpg'), h5img)
+        img = cv2.imread(path)
+        output_img = img.copy()
+        cv2.imwrite('./media/ml_output/process.jpg', output_img)
+        cv2.imwrite('./media/ml_output/roi_1.jpg', output_img)
         output = h5model.predict(h5img)
+        print(get_current_model().file)
         print(output)
         h5age = np.argmax(output[0])
         h5gender = np.argmax(output[1])
@@ -114,9 +118,9 @@ def pipeline_model(path):
                         vectors).max()
 
                     cv2.imwrite(os.path.join(settings.MEDIA_URL,
-                                             'mloutput/process.jpg'), image)
+                                             'ml_output/process.jpg'), image)
                     cv2.imwrite(os.path.join(settings.MEDIA_URL,
-                                             'mloutput/roi_{}.jpg'.format(count)), face_roi)
+                                             'ml_output/roi_{}.jpg'.format(count)), face_roi)
 
                     machinlearning_results['count'].append(count)
                     machinlearning_results['age'].append(age)
