@@ -12,10 +12,9 @@ table, tr, td {
   border: none;
 }
 
-label span{
+label span {
   color: #B2FCFB;
 }
-
 
 
 img {
@@ -31,7 +30,8 @@ img {
   height: 50px;
   width: 100%;
   font-weight: bold;
-
+  font-family: 'Amaranth', sans-serif;
+  font-style: oblique;
 }
 
 .footer-sticky.fixed {
@@ -56,13 +56,37 @@ img {
   cursor: pointer;
 }
 
+.admin-button {
+  color: #B2FCFB;
+}
+
 .admin_button:before {
-   font-family: FontAwesome;
- }
+  font-family: FontAwesome;
+}
 
 #login-inp {
   display: none;
 }
+
+.form-inline {
+  display: inline-flex;
+}
+
+.form-control-sm {
+  margin-inline: 10px;
+}
+
+.form-inline button {
+  padding: 10px 20px;
+  background-color: dodgerblue;
+  border: 1px solid #ddd;
+  color: white;
+}
+
+.form-inline button:hover {
+  background-color: royalblue;
+}
+
 
 #login-inp:checked ~ .container-admin-login {
   display: block;
