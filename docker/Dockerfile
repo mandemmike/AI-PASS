@@ -9,7 +9,7 @@ RUN apt-get update &&\
     apt install -y libgl1-mesa-glx &&\
     echo "Y" | apt-get install libglib2.0-0
 
-COPY ../webservice/requirements.txt .
+COPY ./webservice/requirements.txt .
 
 RUN python -m pip install --upgrade setuptools &&\
     python -m pip install cmake &&\
@@ -21,7 +21,7 @@ RUN chmod +x /entrypoint.sh
 
 
 
-COPY ../webservice .
+COPY ./webservice .
 
 EXPOSE 8000
 
