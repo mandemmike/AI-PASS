@@ -20,7 +20,9 @@ class EvaluatedModelData(models.Model):
 class MLModel(models.Model):
     class MLFormat(models.TextChoices):
         H5 = ('h5', 'H5')
+        H5_R = ('h5r', 'H5R')
         PICKLE = ('pkl', 'Pickle')
+
 
     name = models.CharField("Model's name", max_length=50)
     format = models.CharField("Model's format", max_length=50, choices=MLFormat.choices)
