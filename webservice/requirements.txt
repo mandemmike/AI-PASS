@@ -8,3 +8,5 @@ matplotlib~=3.3
 ktrain
 tensorflow
 djangorestframework~=3.14
+gunicorn==20.1.0
+psycopg2-binary==2.9.5

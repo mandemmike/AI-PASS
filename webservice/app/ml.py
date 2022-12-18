@@ -1,3 +1,4 @@
+import ktrain
 import numpy as np
 import cv2
 import pickle
@@ -59,6 +60,8 @@ def get_estimation_model():
     if ml_model.format == MLModel.MLFormat.PICKLE:
         with open(file_path, mode='rb') as file:
             return pickle.load(file)
+    elif ml_model.format == MLModel.MLFormat.H5_R:
+        return load_model(ml_model.file.path)
     elif ml_model.format == MLModel.MLFormat.H5:
         return load_model(ml_model.file.path)
 
@@ -100,6 +103,23 @@ def pipeline_model(path):
         machinlearning_results['age'].append(age)
         machinlearning_results['gender'].append(gender)
         machinlearning_results['count'].append(1)
+    elif modelformat == MLModel.MLFormat.H5_R:
+        h5r_model = get_estimation_model()
+        h5img = loadImage(path)
+        reloaded_predictor = ktrain.load_predictor(h5r_model)
+        reloaded_predictor.predict_filename(h5img)
+        img = cv2.imread(path)
+        output_img = img.copy()
+        cv2.imwrite('./media/ml_output/process.jpg', output_img)
+        cv2.imwrite('./media/ml_output/roi_1.jpg', img)
+        output = h5r_model.predict(h5img)
+        h5age = np.argmax(output)
+        predicted = round(h5age)
+        print(get_current_model().file)
+        print(predicted)
+        machinlearning_results = dict(
+            age=[], gender=[], count=[])
+        machinlearning_results['age'].append(predicted)
     elif modelformat == MLModel.MLFormat.PICKLE:
         img = cv2.imread(path)
         image = img.copy()
@@ -111,7 +131,7 @@ def pipeline_model(path):
         detections = face_detector_model.forward()
 
         # machcine results
-        machinlearning_results = dict(age=[], gender=[], count=[])
+        machinlearning_results = dict(age=[], count=[])
         count = 1
         if len(detections) > 0:
             for i, confidence in enumerate(detections[0, 0, :, 2]):
@@ -129,8 +149,7 @@ def pipeline_model(path):
                     face_feature_model.setInput(face_blob)
                     vectors = face_feature_model.forward()
                     age = get_estimation_model().predict(vectors)[0]
-                    gender = gender_estimation_model.predict_proba(
-                        vectors).max()
+                    #gender = gender_estimation_model.predict_proba(vectors).max()
 
                     cv2.imwrite(os.path.join(settings.MEDIA_URL,
                                              'ml_output/process.jpg'), image)
@@ -139,7 +158,7 @@ def pipeline_model(path):
 
                     machinlearning_results['count'].append(count)
                     machinlearning_results['age'].append(age)
-                    machinlearning_results['gender'].append(gender)
+                    #machinlearning_results['gender'].append(gender)
 
                     count += 1
 

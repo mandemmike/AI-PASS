@@ -5,7 +5,10 @@
 .vscode
 .idea
 htmlcov
-venv
+webservice/venv
 __pycache__
 backup
 node_modules
+webservice/media/images
+webservice/media/ml_output
+

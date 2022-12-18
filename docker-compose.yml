@@ -1,12 +1,47 @@
 version: '3.9'
 
-services: 
-    app:
-        build: .
-        volumes:
-            - .:/django
-        ports:
-            - 8000:8000
-        image: app:django
-        container_name: django_container
-        command: python manage.py runserver 0.0.0.0:8000
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./webservice:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - docker/.env
+    depends_on:
+      - db
+  celery:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    entrypoint: ""
+    command: celery -A main worker -l info
+    volumes:
+      - ./webservice:/app
+    env_file:
+      - docker/.env
+    depends_on:
+      - db
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+  db:
+    image: postgres:14-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - docker/.env
+    ports:
+      - "5432:5432"
+
+
+volumes:
+  postgres_data:
+  redis_data:
+
+
+

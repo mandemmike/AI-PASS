@@ -1,27 +1,28 @@
-image: docker:latest
+image: docker:20
 
 services:
-  - docker:dind
+  - docker:20-dind
 
 stages:
   - build
   - test
   - deploy
 
-build-and-test:
+before_script:
+  - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN
+
+build-and-push:
   only:
     - main
   tags:
     - docker-build
   stage: build
-  before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  variables:
+    DOCKER_TAG: $CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
   script:
-    - docker build -t app:latest .
-    - docker images
-    - docker tag app:latest registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
-    - docker push registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
-    
+    - docker build -t $CI_REGISTRY_IMAGE:$DOCKER_TAG -f docker/Dockerfile .
+    - docker push $CI_REGISTRY_IMAGE:$DOCKER_TAG
+
 deploy:
   stage: deploy
   only:
@@ -29,13 +30,13 @@ deploy:
   image:
     name: bitnami/kubectl:1.14
     entrypoint: [""]
-  tags: 
+  tags:
     - docker-build
   script:
     - kubectl config get-contexts
     - kubectl config use-context $CI_DEPLOY_AGENT
     - kubectl get pods
     - kubectl delete deployment nginx-1
-    - kubectl apply -f ./kubernetes/deployement.yaml
+    - kubectl apply -f ./kubernetes/deployment.yaml
 
 
