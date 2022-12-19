@@ -24,8 +24,8 @@ class MLModel(models.Model):
         PICKLE = ('pkl', 'Pickle')
 
 
-    name = models.CharField("Model's name", max_length=50)
-    format = models.CharField("Model's format", max_length=50, choices=MLFormat.choices)
+    name = models.CharField("Name", max_length=50)
+    format = models.CharField("Format", max_length=50, choices=MLFormat.choices)
     timestamp = models.DateTimeField(auto_now_add=True)
     file = models.FileField(upload_to='models/')
     is_active = models.BooleanField(default=False)

@@ -10,13 +10,15 @@
 
 {% block container %}
 
+
 <h2>Welcome to Age and gender recognition</h2>
 <br>
 <div class="center-upload">
     <div class="file-upload">
         <form action="#" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="input-group">
+            <span class="user-icon"></span>
+            <div class="input-group ">
                 <label for="{{ form.image.id_for_label }}"></label>
                 {{ form.image }}
                 <input type="submit" value="Upload Image" class="btn btn-outline-secondary">

@@ -20,7 +20,7 @@
           <input type="password" name="password" class="form-control form-control-sm" id="password"
                  placeholder="Password" style=" margin-inline: 8px;">
           <p></p>
-          <input class="btn btn-secondary btn-sm" type="submit" value="login">
+          <input class="btn btn-outline-primary btn-sm" type="submit" value="login">
           <input type="hidden" name="next" value="{{ request.path }}">
         </div>
       </form>
@@ -28,9 +28,9 @@
     {% else %}
       <br><br>
       <div class="">
-        <button class="btn btn-secondary btn-sm admin-button" onclick="location.href='{% url 'admin-ui' %}'"><span>Admin UI</span>
+        <button class="btn btn-outline-primary btn-sm admin-button" onclick="location.href='{% url 'admin-ui' %}'"><span>Admin UI</span>
         </button>
-        <button class="btn btn-primary btn-sm" onclick="location.href='{% url 'logout' %}'"><span>Log out</span>
+        <button class="btn btn-light btn-sm" onclick="location.href='{% url 'logout' %}'"><span>Log out</span>
         </button>
       </div>
 
