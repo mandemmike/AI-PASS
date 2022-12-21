@@ -1,6 +1,9 @@
 version: '3.9'
 
 services:
+  myservice:
+    build: .
+    image: registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection:latest
   app:
     build:
       context: .
@@ -45,5 +48,14 @@ volumes:
   postgres_data:
   #redis:
 
+# Build the Docker image
+build:
+  context: .
+  dockerfile: docker/Dockerfile
+
+# Push the Docker image to the GitLab registry
+push:
+  name: registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
+  tag: latest
 
 
