@@ -21,6 +21,8 @@ build-and-test:
   script:
     - docker-compose build 
     - docker images
+    - docker build --squash dit825-age-detection-celery dit825-age-detection-app
+    - docker images
     - docker-compose push
     # -r $CI_REGISTRY_IMAGE:$DOCKER_TAG
     # -t $CI_REGISTRY_IMAGE:$DOCKER_TAG -f docker/Dockerfile .
