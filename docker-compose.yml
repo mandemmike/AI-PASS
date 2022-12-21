@@ -7,6 +7,8 @@ services:
       dockerfile: docker/Dockerfile
     volumes:
       - ./webservice:/app
+      - ./static:/webservice/static
+      - ./models:/webservice/models
     ports:
       - "8000:8000"
     depends_on:
@@ -16,15 +18,21 @@ services:
       context: .
       dockerfile: docker/Dockerfile
     entrypoint: ""
+    environment:
+      CELERY_BROKER_URL: redis://host.docker.internal:6379/
     command: celery -A main worker -l info
     volumes:
       - ./webservice:/app
     depends_on:
       - db
+      - redis
   redis:
-    image: redis:7-alpine
-    volumes:
-      - redis_data:/data
+    image: redis
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    hostname: ...
+    ports:
+      - "6379:6379"
   db:
     image: postgres:14-alpine
     volumes:
@@ -35,7 +43,7 @@ services:
 
 volumes:
   postgres_data:
-  redis_data:
+  #redis:
 
 
 

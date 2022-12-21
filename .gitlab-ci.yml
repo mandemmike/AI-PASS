@@ -8,19 +8,20 @@ stages:
   - test
   - deploy
 
-before_script:
-  - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN
-
-build-and-push:
+build-and-test:
+  before_script:
+    - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN
   only:
     - main
   tags:
     - docker-build
   stage: build
   variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_DRIVER: overlay2
     DOCKER_TAG: $CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
   script:
-    - docker build -t $CI_REGISTRY_IMAGE:$DOCKER_TAG -f docker/Dockerfile .
+    - docker build -t $CI_REGISTRY_IMAGE:$DOCKER_TAG -f docker/Dockerfile . # test happens inside the build process
     - docker push $CI_REGISTRY_IMAGE:$DOCKER_TAG
 
 deploy:
