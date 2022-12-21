@@ -2,14 +2,22 @@ import ktrain
 import numpy as np
 import cv2
 import pickle
+import pandas as pd
+
+import tensorflow as tf
 from main import settings
 import os
 from app.models import MLModel
 from keras.models import load_model
 import keras.utils
 import keras.preprocessing
+from keras.preprocessing.image import ImageDataGenerator
+import imageio
+from tensorflow.keras.preprocessing import image as img_load
+from tensorflow.keras.models import load_model
 
 STATIC_DIR = settings.STATIC_DIR
+gender_mapping = {0: 'Male', 1: 'Female'}
 
 
 def loadImage(filepath):
@@ -66,12 +74,66 @@ def get_estimation_model():
         return load_model(ml_model.file.path)
 
 
+def preprocess_input_facenet(image_):
+ 
+    preprocessed = tf.keras.applications.resnet50.preprocess_input(
+    x=image_)
+
+    return preprocessed
+
+
+
 def pipeline_model(path):
     print(path)
     modelformat = get_current_model().format
+
+    if modelformat == MLModel.MLFormat.H5_R:
+        age_max = 116
+       
+        image_gen = ImageDataGenerator(preprocessing_function=preprocess_input_facenet)
+
+       
+        image = imageio.imread(path)
+        df = pd.DataFrame({'filename': [path], 'label': [1]})
+        df['image'] = [image]
+        gen = image_gen.flow_from_dataframe(df, 
+                              x_col='filename',
+                              y_col=['label'],
+                              target_size=(224, 224),
+                              class_mode='raw', 
+                              batch_size=1)
+        input_img, label = next(gen)
+
+        model_pred = load_model(str(get_current_model().file))
+        
+        gender_model = load_model('./models/multi_checkpoint_best.h5')
+
+        predicted_gender = gender_model.predict(input_img)
+        gender = int(predicted_gender[0][0] > 0.5)
+
+       
+        print(gender_mapping[gender])
+
+        img = cv2.imread(path)
+        output_img = img.copy()
+        cv2.imwrite('./media/ml_output/process.jpg', output_img)
+        cv2.imwrite('./media/ml_output/roi_1.jpg', img)
+        output = model_pred.predict(input_img)
+        print(output)
+        h5age = int(output*age_max)
+        predicted = round(h5age)
+        print(get_current_model().file)
+        print(predicted)
+        machinlearning_results = dict(
+            age=[], gender=[], count=[])
+        machinlearning_results['age'].append(predicted)
+        machinlearning_results['gender'].append(gender_mapping[gender])
+        return machinlearning_results
+
     if modelformat == MLModel.MLFormat.H5:
         # pipeline model
         h5model = get_estimation_model()
+        
         h5img = loadImage(path)
         img = cv2.imread(path)
         output_img = img.copy()
