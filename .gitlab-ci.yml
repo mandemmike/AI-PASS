@@ -17,8 +17,6 @@ build-and-test:
     - docker-build
   stage: build
   variables:
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_DRIVER: overlay2
     DOCKER_TAG: $CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
   script:
     - docker build -t $CI_REGISTRY_IMAGE:$DOCKER_TAG -f docker/Dockerfile . # test happens inside the build process
