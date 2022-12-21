@@ -1,9 +1,6 @@
 version: '3.9'
 
 services:
-  myservice:
-    build: .
-    image: registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection:latest
   app:
     build:
       context: .
