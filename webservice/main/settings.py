@@ -12,7 +12,7 @@ SECRET_KEY = 'django-insecure-e)n$@a*q2%fh7iq9n1#xm-6@tr+z02v7da$s1u^i9$e+2%r_^)
 DEBUG = int(os.getenv('DEBUG', 1))
 
 ALLOWED_HOSTS = []
-
+HEALTH_CHECK_URL = os.environ.get('HEALTH_CHECK_URL', '/application/health/')
 if DEBUG:
     ALLOWED_HOSTS = ['*']
 
@@ -29,6 +29,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'app.middleware.HealthCheckMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
