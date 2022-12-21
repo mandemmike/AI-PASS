@@ -20,8 +20,9 @@ build-and-test:
     DOCKER_TAG: $CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
   script:
     - docker-compose build  # test happens inside the build process
-    - docker-compose push -r $CI_REGISTRY_IMAGE:$DOCKER_TAG
-    #-t $CI_REGISTRY_IMAGE:$DOCKER_TAG -f docker/Dockerfile .
+    - docker-compose push 
+    # -r $CI_REGISTRY_IMAGE:$DOCKER_TAG
+    # -t $CI_REGISTRY_IMAGE:$DOCKER_TAG -f docker/Dockerfile .
 
 deploy:
   stage: deploy
