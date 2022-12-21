@@ -1,4 +1,4 @@
-FROM python:3.9.12-slim
+FROM python:3.10.5-slim
 
 ENV PYTHONUNBUFFERED 1
 ENV DEBIAN_FRONTEND noninteractive
@@ -6,6 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 WORKDIR /app
 
 RUN apt-get update &&\
+    apt-get install -y gcc build-essential &&\
     apt install -y libgl1-mesa-glx &&\
     echo "Y" | apt-get install libglib2.0-0
 
