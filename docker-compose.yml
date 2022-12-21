@@ -48,10 +48,6 @@ volumes:
   postgres_data:
   #redis:
 
-# Build the Docker image
-build:
-  context: .
-  dockerfile: docker/Dockerfile
 
 # Push the Docker image to the GitLab registry
 push:
