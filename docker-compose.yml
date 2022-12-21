@@ -49,9 +49,4 @@ volumes:
   #redis:
 
 
-# Push the Docker image to the GitLab registry
-push:
-  name: registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
-  tag: latest
-
 
