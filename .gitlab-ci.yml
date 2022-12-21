@@ -8,9 +8,7 @@ stages:
   - test
   - deploy
 
-build-and-test:
-  before_script:
-    - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN
+build-and-push:
   only:
     - main
   tags:
@@ -19,28 +17,13 @@ build-and-test:
   variables:
     DOCKER_TAG: $CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
   script:
-    - docker-compose build 
-    - docker images
-    - docker build --squash dit825-age-detection-celery dit825-age-detection-app
-    - docker images
-    - docker-compose push
-    # -r $CI_REGISTRY_IMAGE:$DOCKER_TAG
-    # -t $CI_REGISTRY_IMAGE:$DOCKER_TAG -f docker/Dockerfile .
+    - docker build -t $CI_REGISTRY_IMAGE:$DOCKER_TAG -f docker/Dockerfile .
+    - docker push $CI_REGISTRY_IMAGE:$DOCKER_TAG
+    - >
+        if [ "$CI_COMMIT_REF_NAME" == "main" ] ; then
+          docker image tag $CI_REGISTRY_IMAGE:$DOCKER_TAG $CI_REGISTRY_IMAGE:latest
+          docker push $CI_REGISTRY_IMAGE:latest
+        fi
 
-deploy:
-  stage: deploy
-  only:
-    - main
-  image:
-    name: bitnami/kubectl:1.14
-    entrypoint: [""]
-  tags:
-    - docker-build
-  script:
-    - kubectl config get-contexts
-    - kubectl config use-context $CI_DEPLOY_AGENT
-    - kubectl get pods
-    - kubectl delete deployment nginx-1
-    - kubectl apply -f ./kubernetes/deployment.yaml
 
 
