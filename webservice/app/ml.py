@@ -13,10 +13,11 @@ import keras.utils
 import keras.preprocessing
 from keras.preprocessing.image import ImageDataGenerator
 import imageio
-
+from tensorflow.keras.preprocessing import image as img_load
 from tensorflow.keras.models import load_model
 
 STATIC_DIR = settings.STATIC_DIR
+gender_mapping = {0: 'Male', 1: 'Female'}
 
 
 def loadImage(filepath):
@@ -105,7 +106,15 @@ def pipeline_model(path):
         input_img, label = next(gen)
 
         model_pred = load_model(str(get_current_model().file))
+        
+        gender_model = load_model('./models/multi_checkpoint_best.h5')
+
+        predicted_gender = gender_model.predict(input_img)
+        gender = int(predicted_gender[0][0] > 0.5)
+
        
+        print(gender_mapping[gender])
+
         img = cv2.imread(path)
         output_img = img.copy()
         cv2.imwrite('./media/ml_output/process.jpg', output_img)
@@ -119,7 +128,7 @@ def pipeline_model(path):
         machinlearning_results = dict(
             age=[], gender=[], count=[])
         machinlearning_results['age'].append(predicted)
-
+        machinlearning_results['gender'].append(gender_mapping[gender])
         return machinlearning_results
 
     if modelformat == MLModel.MLFormat.H5:
