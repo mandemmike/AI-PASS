@@ -96,7 +96,6 @@ def pipeline_model(path):
         image = imageio.imread(path)
         df = pd.DataFrame({'filename': [path], 'label': [1]})
         df['image'] = [image]
-        print(df)
         gen = image_gen.flow_from_dataframe(df, 
                               x_col='filename',
                               y_col=['label'],
