@@ -21,7 +21,7 @@ build-and-test:
   script:
     - docker-compose build  # test happens inside the build process
     - docker images
-    - docker-compose push $CI_REGISTRY
+    - docker-compose push
     # -r $CI_REGISTRY_IMAGE:$DOCKER_TAG
     # -t $CI_REGISTRY_IMAGE:$DOCKER_TAG -f docker/Dockerfile .
 
