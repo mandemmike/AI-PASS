@@ -31,4 +31,26 @@ helm uninstall age-detection
 
 kubectl logs -f age-detection-age-detection-helm-chart-0
 kubectl delete pod age-detection-age-detection-helm-chart-0
+kubectl describe pods age-detection-age-detection-helm-chart-0
+
+
+
+cd age-detection-helm-chart  
+kubectl port-forward age-detection-age-detection-helm-chart-0 8000:8000
+kubectl port-forward service/age-detection-age-detection-helm-chart 8000:8000
+
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+helm repo list
+helm search repo postgresql
+helm search repo postgresql -l
+helm dep build
+kubectl exec -it age-detection-postgresql-0 bash 
+kubectl exec -it age-detection-age-detection-helm-chart-0 bash
+
+helm uninstall
+helm upgrade
+kubectl exec -it age-detection-age-detection-helm-chart-0 bash
+cd media/models
+
 

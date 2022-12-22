@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "age-detection-helm-chart.fullname" . }}-storage-pvc
+  labels:
+    {{- include "age-detection-helm-chart.labels" . | nindent 4 }}
+spec:
+{{- if .Values.storageClass }}
+  storageClassName: {{ .Values.storageClass }}
+{{- end }}
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi

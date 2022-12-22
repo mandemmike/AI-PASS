@@ -157,4 +157,6 @@ media/images/**
 media/mloutput/**
 media/models/**
 .DS_Store
+postgresql-*
+redis-*
 
