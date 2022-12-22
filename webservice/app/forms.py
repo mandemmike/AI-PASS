@@ -45,6 +45,7 @@ class ModelUploadForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        print(self.fields)
         self.fields['file'].widget.attrs.update({'class': 'form-control'})
 
 class SelectModelForm(forms.Form):
@@ -52,6 +53,7 @@ class SelectModelForm(forms.Form):
 
     def save(self, request):
         print(self.cleaned_data, 'SelectForm')
+        print(self.cleaned_data)
         selected_model_id = self.cleaned_data['selected']
         ml_model = MLModel.objects.get(id=selected_model_id)
         ml_model.is_active = True
