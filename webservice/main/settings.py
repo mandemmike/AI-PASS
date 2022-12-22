@@ -12,7 +12,7 @@ SECRET_KEY = 'django-insecure-e)n$@a*q2%fh7iq9n1#xm-6@tr+z02v7da$s1u^i9$e+2%r_^)
 DEBUG = int(os.getenv('DEBUG', 1))
 
 ALLOWED_HOSTS = []
-
+SESSION_COOKIE_AGE = 3600
 if DEBUG:
     ALLOWED_HOSTS = ['*']
 

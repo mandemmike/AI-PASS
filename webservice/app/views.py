@@ -10,7 +10,7 @@ from django.conf import settings
 from app.models import FaceRecognition, MLModel
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
-
+from django.contrib.auth.models import User
 
 class IndexView(View):
     template_name = 'index.html'
@@ -53,8 +53,19 @@ class AdminUIView(View):
     template_name = 'admin_ui.html'
     form = DataSetUploadForm
     mlform = ModelUploadForm
+   
 
     def get(self, request):
+
+        if 'username' in request.session:
+
+            username = request.session['username']
+            password = request.session['password']
+            user = authenticate(username=username, password=password)
+            print(str(user))
+        else:
+            context = {}
+            return render(request, 'index.html', context)
         modelinfo = MLModel.objects.all().order_by("-id").values()
         try:
             current_model = MLModel.objects.get(is_active=True)
@@ -119,7 +130,8 @@ def LoginUser(request):
         print(user)
         if user is not None:
             login(request, user)
-
+            request.session['username'] = username
+            request.session['password'] = password
             next = request.POST.get('next', '/')
             return HttpResponseRedirect(next)
         else:
@@ -134,3 +146,14 @@ def logoutUser(request):
     logout(request)
     next = request.POST.get('next', '/')
     return HttpResponseRedirect(next)
+
+def success_view(request):
+    # Check if the user is logged in
+    if 'user_id' in request.session:
+        # Retrieve the user from the database
+        user = User.objects.get(id=request.session['user_id'])
+        # Render the success page for the logged-in user
+        return render(request, 'success.html', {'user': user})
+    else:
+        # Redirect the user to the login page if they are not logged in
+        return redirect('login')
