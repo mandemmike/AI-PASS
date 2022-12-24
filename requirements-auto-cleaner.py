@@ -22,6 +22,7 @@ DELETION_COMMENT = ' # req-auto-cleaner: commented for deletion'
 TENTATIVE_COMMENT = ' # req-auto-cleaner: check package usage manually'
 project_path = '../dit825-age-detection/'
 
+
 # -> {req1: [line1, line2], req2: ...}
 def get_requirements(path: str) -> dict:
     result = {}
@@ -84,10 +85,10 @@ def modify_line(line: str, prefix: str = None, suffix: str = None):
 
 
 def delete_lines_from_file(
-        path: str,
-        lines_to_delete: list,
-        tentative_lines: list,
-        delete_permanently=False
+    path: str,
+    lines_to_delete: list,
+    tentative_lines: list,
+    delete_permanently=False
 ):
     lines = None
     with open(path, 'r') as f:

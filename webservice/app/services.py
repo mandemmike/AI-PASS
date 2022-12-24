@@ -4,8 +4,6 @@ from ktrain import vision as vis
 import matplotlib.pyplot as plt
 import pickle
 import re
-
-
 class Resnet:
 
     def __init__(self, path: str):
