@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block container %}
+
+  <div class="container">
+
+  <div class="user">
+  <div class="row gx-5 justify-content-center">
+
+  <div class="col-lg-6">
+    <div class="p-3 h-100 col bg-light border rounded-3">
+      <h2>Dataset upload</h2>
+      <form action="{% url 'upload-dataset' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="d-flex">
+          <input type="file" name="file" class="form-control">
+          {{ errors.file }}
+          <input type="submit" name="uploadDataSet" value="Upload" required>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-lg-6 col">
+    <div class="p-3 h-100 bg-light border rounded-3">
+      <h2>Model upload</h2>
+      <form action="{% url 'upload-model' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group model-upload">
+          {{ Model.as_p }}
+          <input type="submit" name="uploadModel" value="Upload" required>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <div class="col-12 mt-5">
+    <div class="p-3 bg-light border rounded-3">
+      <h2>Available Models</h2>
+      <form action="{% url 'evaluate_model' %}" class="models-form" method="POST">
+        {% csrf_token %}
+        {% if ModelInfo %}
+          <br/>
+          <table>
+            <tr>
+              <th>Model Name</th>
+              <th>Model Format</th>
+              <th>Update Time</th>
+              <th>Location</th>
+              <th>Is active</th>
+              <th>Select</th>
+            </tr>
+            {% for x in ModelInfo %}
+              <tr>
+                <td>
+                  {{ x.name }}
+                </td>
+                <td>
+                  {{ x.format }}
+                </td>
+                <td>
+                  {{ x.timestamp }}
+                </td>
+                <td>
+                  {{ x.file }}
+                </td>
+                <td>
+                  {{ x.is_active }}
+                </td>
+                <td>
+                  <input type="radio" id={{ x.id }} name="selected" checked={{ x.is_active }} value="{{ x.id }}">
+                </td>
+              </tr>
+            {% endfor %}
+          </table>
+          <div class="models-form__buttons mt-2">
+            <input type="submit" class="btn btn-outline-secondary btn-sm" name="action" value="select" required>
+            <input type="submit" class="btn btn-outline-secondary btn-sm" name="action" value="evaluate" required>
+          </div>
+
+        {% else %}
+          <p>No saved model are available. Please upload a model first</p>
+        {% endif %}
+
+      </form>
+    </div>
+
+  </div>
+
+
+  <div class="col mt-5">
+    <div class="row gx-5 justify-content-center">
+    <div class="col-lg-6 ">
+      <div class="p-3 bg-light h-100 border rounded-3">
+        <h2>Model in Use</h2>
+        {% if CurrentModel %}
+          <table>
+            <tr>
+              <th>Model Name</th>
+              <th>Model Format</th>
+              <th>Update Time</th>
+              <th>Location</th>
+            <tr>
+            <tr>
+              <td>
+                {{ CurrentModel.name }}
+              </td>
+              <td>
+                {{ CurrentModel.format }}
+              </td>
+              <td>
+                {{ CurrentModel.timestamp }}
+              </td>
+              <td>
+                {{ CurrentModel.file }}
+              </td>
+            </tr>
+          </table>
+      </div>
+    </div>
+
+
+    <div class="col-lg-6 ">
+      <div class="p-3 bg-light border h-100 rounded-3">
+        <h3>Performance</h3>
+        <table>
+          <tr>
+            <th>Parameter1</th>
+            <th>Parameter2</th>
+
+          <tr>
+            {{ CurrentModelPerformance }}
+          <tr>
+            <td>
+              99%
+            </td>
+            <td>
+              100%
+            </td>
+          </tr>
+        </table>
+
+      {% else %}
+        <p>No model Selected. Please choose a model first.</p>
+      {% endif %}
+      </div>
+    </div>
+
+
+{% endblock container %}
+
+  </div>

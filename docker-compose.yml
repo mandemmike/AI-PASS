@@ -1,12 +1,46 @@
-#version: '3.9.0'
-#
-#services:
-#    app:
-#        build: .
-#        volumes:
-#            - .:/django
-#        ports:
-#            - 8000:8000
-#        image: app:django
-#        container_name: django_container
-#        command: python ./webservice/manage.py runserver 0.0.0.0:8000
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./webservice:/app
+      - ./static:/webservice/static
+      - ./models:/webservice/models
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  celery:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    entrypoint: ""
+    environment:
+      CELERY_BROKER_URL: redis://host.docker.internal:6379/
+    command: celery -A main worker -l info
+    volumes:
+      - ./webservice:/app
+    depends_on:
+      - db
+      - redis
+  redis:
+    image: redis
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  db:
+    image: postgres:14-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+
+
+volumes:
+  postgres_data:
+  redis:
+
+
+
