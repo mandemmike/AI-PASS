@@ -11,7 +11,7 @@ import sys
 # from tensorflow.python.keras.models import load_model
 
 # Model saved with Keras model.save()
-# MODEL_PATH = './ModelTrainingService/models/latest.h5'
+# MODEL_PATH = './ModelTrainingService2/models/latest.h5'
 
 # Load your trained model
 # new_model = load_model(MODEL_PATH)
