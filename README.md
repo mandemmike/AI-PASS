@@ -37,7 +37,7 @@ do not have the age groups over than 60 as much as the rest of the race categori
 
 ### [CNN](../ModelTrainingService/cnn_model_(self_training).ipynb) Model Architecture
 
-In this project, the input layer is a single input type which are aligned and cropped faces as RGB images, corresponding to red, green and blue channels of an image. 
+In this project, we have built multiclass classification models by using Keras library in python. The input layer is a single input type which are aligned and cropped faces as RGB images, corresponding to red, green and blue channels of an image. 
 The neural network is built of three branches (age, gender and ethnicity) which are the features of the images for the prediction and used 2D-convolutional layers(3x)
 as set of default hidden layers for the image classification. Stacked as; 
 
