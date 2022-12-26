@@ -80,16 +80,52 @@ class DatasetSourceVerification(TestCase):
         
 
 
+#Unit test for CNN model
 
+# Test that the function correctly extracts the age, gender, and race information from the file names:
+
+# def test_parse_dataset_extracts_correct_info(self):
+#     df = parse_dataset('/path/to/dataset')
+#     self.assertEqual(df['age'][0], expected_age)
+#     self.assertEqual(df['gender'][0], expected_gender)
+#     self.assertEqual(df['race'][0], expected_race)
                 
+
+# Test that the function correctly handles files with the wrong file extension:
+
+# def test_parse_dataset_handles_wrong_file_extension(self):
+#     df = parse_dataset('/path/to/dataset', ext='png')
+#     self.assertEqual(len(df), 0)
 
            
 
 
+# Test that the function correctly handles a non-existent dataset path:
+# def test_parse_dataset_handles_nonexistent_path(self):
+#     df = parse_dataset('/path/to/nonexistent/dataset')
+#     self.assertEqual(len(df), 0)
 
 
 
+# Test that the generate_images function correctly yields the expected number of batches:
+# def test_generate_images_correct_number_of_batches(self):
+#     num_batches = 0
+#     for _ in generate_images(train_idx, is_training=True, batch_size=16):
+#         num_batches += 1
+#     self.assertEqual(num_batches, expected_num_batches)
 
 
+# Test that the generate_images function correctly yields the expected shape and type for the images:
+# def test_generate_images_correct_shape_and_type(self):
+#     for images, _ in generate_images(train_idx, is_training=True, batch_size=16):
+#         self.assertEqual(images.shape, (batch_size, image_width, image_height, 3))
+#         self.assertEqual(images.dtype, np.float32)
 
 
+# Test that the generate_images function correctly yields the expected shape and type for the labels:
+# def test_generate_images_correct_labels_shape_and_type(self):
+#     for _, labels in generate_images(train_idx, is_training=True, batch_size=16):
+#         self.assertEqual(labels[0].shape, (batch_size, 5))
+#         self.assertEqual(labels[0].dtype, np.float32)
+#         self.assertEqual(labels[1].shape, (batch_size, 2))
+#         self.assertEqual(labels[1].dtype, np.float32)
