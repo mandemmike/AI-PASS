@@ -42,7 +42,7 @@ spec:
               value: {{ .Values.postgresql.auth.postgresPassword }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: 8000
               protocol: TCP
           livenessProbe:
             initialDelaySeconds: 20
