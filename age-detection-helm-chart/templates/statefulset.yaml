@@ -32,7 +32,7 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - configMapRef:
@@ -42,7 +42,7 @@ spec:
               value: {{ .Values.postgresql.auth.postgresPassword }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: 8000
               protocol: TCP
           livenessProbe:
             initialDelaySeconds: 20
@@ -54,6 +54,21 @@ spec:
             httpGet:
               path: /application/health/
               port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /app/media
+              name: {{ include "age-detection-helm-chart.fullname" . }}-project-storage
+        - name: {{ .Chart.Name }}-celery
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args: ["celery -A main worker -l info"]
+          command: [ "/bin/sh","-c" ]
+          envFrom:
+            - configMapRef:
+                name: {{ include "age-detection-helm-chart.fullname" . }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:

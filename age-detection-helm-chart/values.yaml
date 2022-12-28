@@ -39,8 +39,9 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
-  port: 8000
+  #type: ClusterIP
+  port: 80
+  type: LoadBalancer
 
 ingress:
   enabled: false
@@ -83,6 +84,10 @@ tolerations: []
 
 affinity: {}
 
+persistentVolumeClaim:
+  storageClassName: ""
+  storageSize: 8Gi
+
 postgresql:
   enabled: true
   auth:
@@ -92,4 +97,9 @@ postgresql:
 redis:
   enabled: true
   architecture: standalone
-  port: 6379
+  port: "6379"
+  auth:
+    enabled: false
+
+celery:
+  args: ["celery", "-A", "main", "worker", "-l", "info"]
