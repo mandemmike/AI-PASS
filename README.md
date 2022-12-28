@@ -37,8 +37,9 @@ do not have the age groups over than 60 as much as the rest of the race categori
 
 ### [CNN](../ModelTrainingService/cnn_model_(self_training).ipynb) Model Architecture
 
-In this project, we have built multiclass classification models by using Keras library in python. The input layer is a single input type which are aligned and cropped faces as RGB images, corresponding to red, green and blue channels of an image. 
-The neural network is built of three branches (age, gender and ethnicity) which are the features of the images for the prediction and used 2D-convolutional layers(3x)
+In this project, we have built multiclass classification models by using Keras library in python by constructing of a convolutional neural network (CNN) to make an image classification model of 
+the dataset to classify images based on a person's age & gender. The input layer is a single input type which are aligned and cropped faces as RGB images, corresponding to red, green and blue channels of an image. 
+The neural network is built of three layered_block branches (age, gender and ethnicity) which are the features of the images for the prediction and used 2D-convolutional layers
 as set of default hidden layers for the image classification. Stacked as; 
 
 default Hidden layers => Conv2D -> "ReLU" Activation -> BatchNormalization -> MaxPooling -> Dropout.
@@ -50,31 +51,80 @@ This is going to provide us batches of images to support the multi-output model.
 E.g.: [example 1](https://stackoverflow.com/questions/37981975/memory-error-in-python-when-loading-dataset), 
 [example 2](https://stackoverflow.com/questions/53239342/im-getting-a-memory-error-while-processing-my-dataset-in-python-what-could-be), [example 3](https://github.com/keras-team/keras/issues/8939).
 
+#### Model Architecture
+<img src="./Assets/ML_pipeline.png" width="667" height="552"><br>
+
 ### Training the model
 
 In the training phase we adapted Adam optimizer with learning rate 1e-4 for decaying by taking initial learning rate and dividing by the epoch value.
-Training phase is still in progress........................................................
-..........................................................................................
-...........................................................................................
-............................................................................................
+
+(to be continued...)
 
 Accuracy after tuning the layers, trying different architectures and different dynamic learning rate functions and batch sizes has been reached to 90% but there is always room for improvement.
 
 
+### Efficiency
+After realizing the fact that the accuracy and validation accuracy are so far apart from each other suggests that our model was heavily over-training. Generally speaking we wanted to have 
+a model where accuracy and validation accuracy are both close to each other. Even worse, when the discrapency between loss and validation_loss was dramatic and validation_loss was unstable and increasing
+as the experiment progress epoch-by-epoch. This was one of the thing we wanted to focus for training a model and the time for learning a little bit about over-training and under-training and how to 
+deal with those situations.
 
+According to noted some sources in the training notebook;
 
+-  a low accuracy and huge loss means you made huge errors on a lot of data
+-  a low accuracy but low loss means you made little errors on a lot of data
+-  a great accuracy with low loss means you made low errors on a few data (best case)
 
+one of the crucial step we have been trying to achieve was with a high accuracy with low loss values while trying keep en eye on the dozens of training sessions which was created from different architecture layers/blocks 
+in hidden layer as well as in feature layers. Accuracy in classification models is to inform about what is the level of models predictions. 
 
+At the first glance, mindset of accuracy values on models as below enabled us to determine if our model is good enough. If the accuracy is;
 
+Note: Below are the acceptable/non-objectionable accuracy value results in ML
+- lower than 60%, do a new model.
+- between 60% and 70%, it’s a poor model.
+- between 70% and 80%, you’ve got a good model.
+- between 80% and 90%, you have an excellent model.
+- between 90% and 100% (it’s a probably an overfitting case).
 
+We have been learned that trusting accuracy alone is not a good way of evaluate how well the model performs, expecielly for imbalanced dataset(df['age']). Accuracy is just one of the first 
+and simple way of measurement for the effectiveness of the model, misleading can happen a lot. For this reason, we have decided to use some 
+efficiency graph plots with a clear diagnostic ability such as AUC(ROC curve) with a baseline origo linear (auc=%50).
 
+Overfitting refers to a model that was trained too much on the particulars of the training data (when the model learns the noise in the dataset).  A model that is overfit will not perform well on new, unseen data.  Overfitting is arguably the most common problem in applied machine learning and is especially troublesome because a model that appears to be highly accurate will actually perform poorly in the wild.
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+Types of cross-entropy:
 
-### Diagrams
+Binary cross-entropy: for binary classification problem
+Categorical cross-entropy: binary and multiclass problem, the label needs to be encoded as categorical, one-hot encoding representation (for 3 classes: [0, 1, 0], [1,0,0]…)
+Sparse cross-entropy: binary and multiclass problem (the label is an integer — 0 or 1 or … n, depends on the number of labels)
+Range of values for this class of Loss function:
 
-#### Model Architecture
-<img src="./Assets/ML_pipeline.png" width="667" height="552"><br>
+Note: Below are the acceptable/non-objectionable loss value results in ML
+0.00: Perfect probabilities
+< 0.02: Great probabilities
+< 0.05: In a good way
+< 0.20: Great
+> 0.30: Not great
+>1.00: Hell
+> 2.00 Something is not working
+
+Source: https://towardsdatascience.com/regularization-in-deep-learning-l1-l2-and-dropout-377e75acc036
+The L2 regularization is the most common type of all regularization techniques and is also commonly known as weight decay or Ride Regression.
+
+Since L2 regularization takes the square of the weights, it’s classed as a closed solution. L1 involves taking the absolute values of the weights, meaning that the solution is a non-differentiable piecewise function or, put simply, it has no closed form solution. L1 regularization is computationally more expensive, because it cannot be solved in terms of matrix math. 
+
+The right number of epochs depends on the inherent perplexity (or complexity) of your dataset. A good rule of thumb is to start with a value that is 3 times the number of columns in your data. If you find that the model is still improving after all epochs complete, try again with a higher value.
+
+Performing L2 regularization encourages the weight values towards zero (but not exactly zero)
+Performing L1 regularization encourages the weight values to be zero
+Intuitively speaking smaller weights reduce the impact of the hidden neurons. In that case, those hidden neurons become neglectable and the overall complexity of the neural network gets reduced.
+
+Smaller weight parameters make some neurons neglectable → neural network becomes less complex → less overfitting
+During dropout, some neurons get deactivated with a random probability P → Neural network becomes less complex → less overfitting.
+
+(to be continued...)
+
 
 #### Deployment Workflow
 <img src="./Assets/Deployment_Workflow.png" width="789" height="407"><br>
