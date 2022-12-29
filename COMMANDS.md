@@ -53,4 +53,7 @@ helm upgrade
 kubectl exec -it age-detection-age-detection-helm-chart-0 bash
 cd media/models
 
+kubectl exec -it age-detection-age-detection-helm-chart-0 -c age-detection-helm-chart -- bash 
+
+
 
