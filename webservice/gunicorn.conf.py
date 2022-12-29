@@ -6,4 +6,7 @@ loglevel = "info"
 
 workers = cpu_count() * 2 + 1
 
+worker_class = "gthread"
+threads = 1
+
 timeout = 1000
