@@ -123,6 +123,10 @@ Intuitively speaking smaller weights reduce the impact of the hidden neurons. In
 Smaller weight parameters make some neurons neglectable → neural network becomes less complex → less overfitting
 During dropout, some neurons get deactivated with a random probability P → Neural network becomes less complex → less overfitting.
 
+For a diagnostic test to be meaningful, the AUC must be greater than 0.5. Generally, an AUC ≥ 0.8 is considered acceptable.
+An AUC ROC (Area Under the Curve Receiver Operating Characteristics) plot can be used to visualize a model’s performance between sensitivity and specificity. Sensitivity refers to the ability to correctly identify 
+entries that fall into the positive class. Specificity refers to the ability to correctly identify entries that fall into the negative class. Put another way, an AUC ROC plot can help you identify how well your model is able to distinguish between classes.
+
 (to be continued...)
 
 

@@ -20,8 +20,6 @@ RUN python -m pip install --upgrade setuptools &&\
 COPY docker/entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
-
-
 COPY ./webservice .
 
 EXPOSE 8000
