@@ -12,39 +12,47 @@ age and gender detection CNN [(Convolutional Neural Network)](https://en.wikiped
 Intended users and few example areas of age and gender detection technology:
 
 * Social media companies,
-* Demographic Analysis systems for the companies who use demographic information to understand the characteristics of the people for selling their products and services, 
+* Demographic Analysis systems for the companies who use demographic information to understand the characteristics of 
+the people for selling their products and services, 
 * Online and physical store solutions,
 * Marketing strategies,
 * Service improvements,
 * Product development
 
 ###  Dataset
-[UTKFace](https://susanqq.github.io/UTKFace/) dataset is a large-scale face dataset between the age groups up to 116 years-old. The dataset has over approximately 23,700 face images 
-with labels of age, gender, and ethnicity. Where _[age]_[gender]_[race]_[date&time].jpg_ :
+[UTKFace](https://susanqq.github.io/UTKFace/) dataset is a large-scale face dataset between the age groups up to 
+116 years-old. The dataset has over approximately 23,700 face images with labels of age, gender, and ethnicity. 
+Where _[age]_[gender]_[race]_[date&time].jpg_ :
 
 - Age is an integer from 0 to 116
 - Gender is an integer in which 0 represents male and 1 represents female
 - Race is an integer from 0 to 4, (0) white, (1) black, (2) asian, (3) indian and (4) others, respectively
 - Date and time, denoting when the picture was taken
 
-All the images in the dataset are `aligned and cropped` faces available to train the model, that is to say; a constraint would be that any 
-input for testing must be cropped and aligned vertically. The data set has no "NaN" values, so it is a clean dataset.
+All the images in the dataset are `aligned and cropped` faces available to train the model, that is to say; a constraint
+would be that any input for testing must be cropped and aligned vertically. The data set has no "NaN" values, so it is 
+a clean dataset.
 
-We look at the distribution of the dataset, it can be seen with the visualization in the notebook that majority of population is between 20 and 30-years-old, according to the distribution of the age groups 
-dataset is nor very well-balanced. Training is going to be though and might be tricky to get a good accuracy (now is around 90%). Although, gender distribution (approx. male and female is 50%)
+When we look at the distribution of the dataset, it can be seen with the visualization in the notebook that majority of 
+population is between 20 and 30-years-old, according to the distribution of the age group dataset is not very well-balanced. Although, gender distribution
 is pretty well-balanced, so we do not need to change gender data. When we look at the race, while white, black, indian and asian have most of the age groups from 0 to 116, other category
 do not have the age groups over than 60 as much as the rest of the race categories.
 
 ### [CNN](../ModelTrainingService/cnn_model_(self_training).ipynb) Model Architecture
 
-In this project, we have built multiclass classification models by using Keras library in python by constructing of a convolutional neural network (CNN) to make an image classification model of 
-the dataset to classify images based on a person's age & gender. The input layer is a single input type which are aligned and cropped faces as RGB images, corresponding to red, green and blue channels of an image. 
-The neural network is built of three layered_block branches (age, gender and ethnicity) which are the features of the images for the prediction and used 2D-convolutional layers
-as set of default hidden layers for the image classification. Stacked as; 
+In the project, we have built multiclass classification models in python by using tensorflow and Keras libraries by 
+constructing of a convolutional neural network (CNN) to make an image classification model to classify images based 
+on the person's age & gender. The input layer is a single input type which are aligned and cropped faces as RGB images, 
+corresponding to red, green and blue channels of an image.
+
+The neural network is built of three layered_block branches (age, gender and ethnicity) which are the features of images
+for the prediction and used 2D-convolutional layers as set of default hidden layers for the image classification. 
+Stacked as; 
 
 default Hidden layers => Conv2D -> "ReLU" Activation -> BatchNormalization -> MaxPooling -> Dropout.
 
-branch(feature) layers => Dense -> "ReLU" Activation -> Dropout -> followed by the Dense output layera nd softmax(age & ethnicity) / sigmoid(gender) activation layers.
+branch(feature) layers => Dense -> "ReLU" Activation -> Dropout -> followed by the Dense output layers and softmax 
+activation layers for all features.
 
 To get multi-output in our model as age and gender, we used keras [image data generator](https://medium.com/@mrgarg.rajat/training-on-large-datasets-that-dont-fit-in-memory-in-keras-60a974785d71) by defining as a helper object. 
 This is going to provide us batches of images to support the multi-output model. Image data generator is one of reliable way of handling large datasets to skip the memory problems for training process. 
