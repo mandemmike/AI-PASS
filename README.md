@@ -4,9 +4,11 @@
 
 ### What is the project?
 
-The project is about machine learning to develop a data-intensive AI application. Base on the given requirements and our drawn implications, we have decided to create a age and gender detection application by creating an image classification model. 
-Usually we can all discern the age group of a person they belong to, as soon as we look at the face. It is quite easy to say if the person is young, old or middle-aged. In this AI project, we built the age and gender web detector that can approximately 
-predict the age and gender of the person (head/face) in an aligned and cropped picture by creating/using a deep learning 
+The project is to develop a data-intensive AI application in machine learning (ML(DL)). Base on the given requirements and 
+our drawn implications, we have decided to create a age and gender detection application by creating an image classification model. 
+Usually we can all discern the age group of a person they belong to, as soon as we look at the face. It is quite easy to
+say if the person is young, old or middle-aged. In this AI project, we built the age and gender web detector that can approximately 
+predict the age and gender of the person (a profile face image) in an aligned and cropped picture by creating/using a deep learning 
 age and gender detection CNN [(Convolutional Neural Network)](https://en.wikipedia.org/wiki/Convolutional_neural_network) model. 
 
 Intended users and few example areas of age and gender detection technology:
@@ -34,29 +36,34 @@ would be that any input for testing must be cropped and aligned vertically. The 
 a clean dataset.
 
 When we look at the distribution of the dataset, it can be seen with the visualization in the notebook that majority of 
-population is between 20 and 30-years-old, according to the distribution of the age group dataset is not very well-balanced. Although, gender distribution
-is pretty well-balanced, so we do not need to change gender data. When we look at the race, while white, black, indian and asian have most of the age groups from 0 to 116, other category
-do not have the age groups over than 60 as much as the rest of the race categories.
+population is between 20 and 30-years-old, according to the distribution of the age group dataset, it seems not 
+very well-balanced. This imbalance in age feature is embraced in training configuration by using the class weight library 
+in Keras by executing compute_class_weight() function. Although, gender distribution is pretty well-balanced, male and 
+female counts are uo and down close to 12k, so we do not need to change or consider the gender data. When we look at 
+the race, while white, black, indian and asian have most of the age groups from 0 to 116, others category do not have 
+the age groups over than 60 as much as the rest of the race categories. Data balance in race feature looks decent. 
 
 ### [CNN](../ModelTrainingService/cnn_model_(self_training).ipynb) Model Architecture
 
-In the project, we have built multiclass classification models in python by using tensorflow and Keras libraries by 
-constructing of a convolutional neural network (CNN) to make an image classification model to classify images based 
-on the person's age & gender. The input layer is a single input type which are aligned and cropped faces as RGB images, 
-corresponding to red, green and blue channels of an image.
+In the project, we have built multiclass classification models; a model by using tensorflow and Keras libraries in jupyter 
+notebook (CNN trained model) that we have used as a default CNN model in our predictions by constructing of a convolutional
+neural network (CNN) to make an image multiclass classification model to classify images based on the person's age & gender
+and another model in python (CNN transfer learning model) by using Resnet50 CNN. 
 
-The neural network is built of three layered_block branches (age, gender and ethnicity) which are the features of images
-for the prediction and used 2D-convolutional layers as set of default hidden layers for the image classification. 
-Stacked as; 
+The input layer is a single input type which are aligned and cropped faces as RGB images, corresponding to red, green and
+blue channels of an image. In our default CNN model, the neural network is built of three layered_block branches 
+(age, gender and ethnicity) which are the features of images for the prediction and used 2D-convolutional layers 
+as set of default hidden layers for the image classification. Layers are structured as below; 
 
-default Hidden layers => Conv2D -> "ReLU" Activation -> BatchNormalization -> MaxPooling -> Dropout.
+default hidden layers => Conv2D -> "ReLU" Activation -> BatchNormalization -> MaxPooling -> Dropout.
 
-branch(feature) layers => Dense -> "ReLU" Activation -> Dropout -> followed by the Dense output layers and softmax 
-activation layers for all features.
+branch(feature) layers => Flatten -> Dense -> "ReLU" Activation -> BatchNormalization -> Dropout -> followed by the 
+Dense output layers for all features; softmax activation for age and race features and sigmoid activation for gender feature.
 
-To get multi-output in our model as age and gender, we used keras [image data generator](https://medium.com/@mrgarg.rajat/training-on-large-datasets-that-dont-fit-in-memory-in-keras-60a974785d71) by defining as a helper object. 
-This is going to provide us batches of images to support the multi-output model. Image data generator is one of reliable way of handling large datasets to skip the memory problems for training process. 
-E.g.: [example 1](https://stackoverflow.com/questions/37981975/memory-error-in-python-when-loading-dataset), 
+To get multi-output as age and gender in our multiclass classification model, we used 
+keras [image data generator](https://medium.com/@mrgarg.rajat/training-on-large-datasets-that-dont-fit-in-memory-in-keras-60a974785d71) 
+by defining as a helper object. This is going to provide us batches of images to support the multi-output model. Image data 
+generator is one of reliable way of handling large datasets to skip the memory problems for training process. E.g.: [example 1](https://stackoverflow.com/questions/37981975/memory-error-in-python-when-loading-dataset), 
 [example 2](https://stackoverflow.com/questions/53239342/im-getting-a-memory-error-while-processing-my-dataset-in-python-what-could-be), [example 3](https://github.com/keras-team/keras/issues/8939).
 
 #### Model Architecture
@@ -64,58 +71,113 @@ E.g.: [example 1](https://stackoverflow.com/questions/37981975/memory-error-in-p
 
 ### Training the model
 
-In the training phase we adapted Adam optimizer with learning rate 1e-4 for decaying by taking initial learning rate and dividing by the epoch value.
+In the training phase we adapted Adam optimizer with learning rate 1e-4 (0.0001) for decaying by taking initial learning rate 
+and dividing by the epoch value. To configure our CNN model for training, that is to say; to define loss functions, the optimizer 
+and the metrics, we used in the compilation, categorical_crossentropy for age feature (5 output/class, as age groups) and 
+categorical_crossentropy for race feature (5 output/class, race categories) (race feature is used only to have more 
+feature in out model to have better training results, we do not have any predictions on this feature) and we used binary_crossentropy 
+for gender feature (2 output/class - as male and female).
 
-(to be continued...)
+After we generate data batches by image data generator for train and validation data, we fit them in for training 
+with certain batch sizes. 
 
-Accuracy after tuning the layers, trying different architectures and different dynamic learning rate functions and batch sizes has been reached to 90% but there is always room for improvement.
+#### What has been experienced during training sessions?
 
+**1. Quality of Data**
+
+Since data plays an important role in ML, an important reason for us to decide on UTKface dataset for our CNN model was to 
+have pretty clean and almost no noise data to be able to have much better accurate predictions. On the other hand, helped us
+as well to focus on the model architecture and efficieny of our CNN model, learned and experienced important concepts in ML.
+
+**2. Underfitting and Overfitting of Training Data**
+
+Considering training a model with massive data of a same age group might result predicting wrong age groups for the given input. 
+We have balanced the data in age feature (25-49 age group has the 35% of the data compare the rest groups) to prevent the overfitting 
+of the model, as mentioned earlier, by implementing one of sklearn utils "class weight" library that has compute_class_weight() function. What it 
+does is according to the parameters given to balance the all the classes by giving higher and lower weights to certain classes 
+after the computation of the classes (n_samples / (n_classes * np.bincount(y))). By this approach, we just tried to eliminate 
+a possibility of overfitting. There are many other reasons for overfitting; outliers in data, too complex in the model architecture
+(true data and model classification wrong, i.e. regression vs classification), data size and so on. By observing the accuracy and loss values 
+in training and validation outputs and also observing on graphs, we can say that we were able to generalize our data minimum %75 overall.
+Having model training sessions where training and validation values were too close to one another considering all the features, 
+it seemed that overfitting and underfitting (commonly at the beginning) were not an issue on most days. 
+
+**3.Slow Implementation**
+
+Machine learning is too complex in general. Even if there is a quality data, train it well, and have accurate predictions, 
+the time and effort it takes to consider, execute and waiting for the tasks to complete take too much time. 
+Every each tiny bit of implementation might end spending a day or few days. This aspect is also because of having 
+not enough technology (e.g.slow programs) in ML, excessive requirements would be another negative effect and so forth. 
+It also requires constant monitoring and observations as well as maintenance and tuning to be able to produce the best output
+it is possible under given and created circumstances.
 
 ### Efficiency
-After realizing the fact that the accuracy and validation accuracy are so far apart from each other suggests that our model was heavily over-training. Generally speaking we wanted to have 
-a model where accuracy and validation accuracy are both close to each other. Even worse, when the discrapency between loss and validation_loss was dramatic and validation_loss was unstable and increasing
-as the experiment progress epoch-by-epoch. This was one of the thing we wanted to focus for training a model and the time for learning a little bit about over-training and under-training and how to 
-deal with those situations.
 
-According to noted some sources in the training notebook;
+At the first glance, mindset of accuracy values on ML models as below, enabled us to determine if our model is good enough. 
 
--  a low accuracy and huge loss means you made huge errors on a lot of data
--  a low accuracy but low loss means you made little errors on a lot of data
--  a great accuracy with low loss means you made low errors on a few data (best case)
+If the accuracy is;
 
-one of the crucial step we have been trying to achieve was with a high accuracy with low loss values while trying keep en eye on the dozens of training sessions which was created from different architecture layers/blocks 
-in hidden layer as well as in feature layers. Accuracy in classification models is to inform about what is the level of models predictions. 
+_Note: Below are the acceptable/non-objectionable accuracy and loss value results in ML._
 
-At the first glance, mindset of accuracy values on models as below enabled us to determine if our model is good enough. If the accuracy is;
-
-Note: Below are the acceptable/non-objectionable accuracy value results in ML
 - lower than 60%, do a new model.
 - between 60% and 70%, it’s a poor model.
 - between 70% and 80%, you’ve got a good model.
 - between 80% and 90%, you have an excellent model.
 - between 90% and 100% (it’s a probably an overfitting case).
 
-We have been learned that trusting accuracy alone is not a good way of evaluate how well the model performs, expecielly for imbalanced dataset(df['age']). Accuracy is just one of the first 
-and simple way of measurement for the effectiveness of the model, misleading can happen a lot. For this reason, we have decided to use some 
-efficiency graph plots with a clear diagnostic ability such as AUC(ROC curve) with a baseline origo linear (auc=%50).
+Range of values for loss function:
 
-Overfitting refers to a model that was trained too much on the particulars of the training data (when the model learns the noise in the dataset).  A model that is overfit will not perform well on new, unseen data.  Overfitting is arguably the most common problem in applied machine learning and is especially troublesome because a model that appears to be highly accurate will actually perform poorly in the wild.
+- ( = 0.00)   Perfect probabilities
+- ( < 0.02): Great probabilities
+- ( < 0.05): In a good way
+- ( < 0.20): Great
+- ( > 0.30): Not great
+- ( > 1.00): Excessive
+- ( > 2.00): Something is not working.
+
+Hundreds of training sessions were created from different architecture layers/blocks in the hidden layer as well as 
+in the feature layers. One of the crucial steps we have been trying to achieve was to have a high accuracy with low loss. 
+Realizing the fact that, in the beginning, the training data accuracy and validation data accuracy are so far apart 
+from each other suggests that our CNN model was over-training. In general, we wanted to produce a model where the training
+data accuracy and validation data accuracy are between %75-%95 and both training and validation data output values were 
+close to each other. This was one of the directions we wanted to go for a good generalized model and for learning about 
+over-training and under-training and how to deal with those situations.
+
+According to the stated sources in the source notebook;
+
+-  a low accuracy and huge loss means you made huge errors on a lot of data
+-  a low accuracy but low loss means you made little errors on a lot of data
+-  a great accuracy with low loss means you made low errors on a few data (best case)
+
+Accuracy after tuning the layers, trying different architectures, and different learning rates by implementing dynamic 
+learning rate functions, and trying different batch sizes, the accuracy has reached min. %75 without overfitting and 
+underfitting (over %90 with a bit of overfitting case). On the other hand, when the discrepancy between loss and validation_loss was also dramatic and validation_loss 
+was unstable and was not decreasing as expected in the training progress epoch-by-epoch, we focused on the configuration
+of the model training and model architecture and produced/tuned the most reliable model in our best knowledge.
+
+We were aware of and have been told as well as have read in the related sources about ML that accuracy is not enough 
+metric by itself. Accuracy in classification models is just to inform about what is the level of model predictions and 
+a measurement for the effectiveness of the model and misleading can happen a lot. Only having from good level to an excellent 
+level of accuracy (75% to 99%) in training data and validation data is not essential even to only focus on and is not 
+a good way of evaluating how well the model performs. Other important metrics that needed to be produced by using various 
+libraries/algorithms were to see how reliable the model is and how good or bad performance our model has.
+
+For the stated reasons above, we have decided to use some efficiency graph plots with a clear diagnostic ability 
+such as AUC(ROC curve) with a baseline origo linear (auc=%50), confusion matrix, classification reports(F1, precision 
+and recall) as well as evaluation on test data. 
+
+
+
+
+
+
 
 Types of cross-entropy:
 
 Binary cross-entropy: for binary classification problem
 Categorical cross-entropy: binary and multiclass problem, the label needs to be encoded as categorical, one-hot encoding representation (for 3 classes: [0, 1, 0], [1,0,0]…)
 Sparse cross-entropy: binary and multiclass problem (the label is an integer — 0 or 1 or … n, depends on the number of labels)
-Range of values for this class of Loss function:
 
-Note: Below are the acceptable/non-objectionable loss value results in ML
-0.00: Perfect probabilities
-< 0.02: Great probabilities
-< 0.05: In a good way
-< 0.20: Great
-> 0.30: Not great
->1.00: Hell
-> 2.00 Something is not working
 
 Source: https://towardsdatascience.com/regularization-in-deep-learning-l1-l2-and-dropout-377e75acc036
 The L2 regularization is the most common type of all regularization techniques and is also commonly known as weight decay or Ride Regression.
@@ -139,19 +201,20 @@ entries that fall into the positive class. Specificity refers to the ability to 
 
 
 #### Deployment Workflow
-<img src="./Assets/Deployment_Workflow.png" width="789" height="407"><br>
+<img src="./Assets/Deployment_Workflow.png" width="789" height="300"><br>
 
 ### Installation
 Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-### Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Dependencies
 
-### Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-### Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+- [Django](https://www.djangoproject.com/download/)
+- [Scikit-learn](https://scikit-learn.org/stable/install.html)
+- [Numpy](https://numpy.org/install/)
+- [Matplotlib](https://matplotlib.org/stable/users/installing/index.html)
+- [Tensorflow](https://www.tensorflow.org/install)
+- [Celery](https://docs.celeryq.dev/en/stable/getting-started/introduction.html#installation)
+- [Redis](https://redis.com/redis-enterprise-software/download-center/software/)
 
 ### Developers
 
