@@ -129,3 +129,46 @@ class DatasetSourceVerification(TestCase):
 #         self.assertEqual(labels[0].dtype, np.float32)
 #         self.assertEqual(labels[1].shape, (batch_size, 2))
 #         self.assertEqual(labels[1].dtype, np.float32)
+
+# unit tests for the hidden_layers method:
+# def test_hidden_layers(self):
+#         # Test with input of shape (10, 10, 3)
+#         inputs = Input(shape=(10, 10, 3))
+#         output = hidden_layers(inputs)
+#         model = Model(inputs, output)
+
+#         # Ensure the output has the expected shape
+#         self.assertEqual(model.output_shape, (None, 1, 1, 256))
+
+#         # Ensure the model can be trained
+#         model.compile(loss="binary_crossentropy", optimizer="adam")
+#         model.fit(np.random.random((128, 10, 10, 3)), np.random.random((128, 1, 1, 256)))
+
+
+# unit tests for the build_gender_branch method:
+# def test_build_gender_branch(self):
+#         # Test with input of shape (10, 10, 3)
+#         inputs = Input(shape=(10, 10, 3))
+#         output = build_gender_branch(inputs)
+#         model = Model(inputs, output)
+
+#         # Ensure the output has the expected shape
+#         self.assertEqual(model.output_shape, (None, 2))
+
+#         # Ensure the model can be trained
+#         model.compile(loss="binary_crossentropy", optimizer="adam")
+#         model.fit(np.random.random((128, 10, 10, 3)), np.random.random((128, 2)))
+
+# unit tests for the build_age_branch method:
+# def test_build_age_branch(self):
+#         # Test with input of shape (10, 10, 3)
+#         inputs = Input(shape=(10, 10, 3))
+#         output = build_age_branch(inputs)
+#         model = Model(inputs, output)
+
+#         # Ensure the output has the expected shape
+#         self.assertEqual(model.output_shape, (None, 5))
+
+#         # Ensure the model can be trained
+#         model.compile(loss="categorical_crossentropy", optimizer="adam")
+#         model.fit(np.random.random((128, 10, 10, 3)), np.random.random((128, 5)))
