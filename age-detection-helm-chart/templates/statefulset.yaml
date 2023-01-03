@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "age-detection-helm-chart.fullname" . }}
+  labels:
+    {{- include "age-detection-helm-chart.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "age-detection-helm-chart.selectorLabels" . | nindent 6 }}
+  serviceName: {{ include "age-detection-helm-chart.fullname" . }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "age-detection-helm-chart.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "age-detection-helm-chart.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "age-detection-helm-chart.fullname" . }}
+          env:
+            - name: POSTGRES_PASSWORD
+              value: {{ .Values.postgresql.auth.postgresPassword }}
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          livenessProbe:
+            initialDelaySeconds: 20
+            httpGet:
+              path: /application/health/
+              port: http
+          readinessProbe:
+            initialDelaySeconds: 20
+            httpGet:
+              path: /application/health/
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /app/media
+              name: {{ include "age-detection-helm-chart.fullname" . }}-project-storage
+        - name: {{ .Chart.Name }}-celery
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args: ["celery -A main worker -l info"]
+          command: [ "/bin/sh","-c" ]
+          envFrom:
+            - configMapRef:
+                name: {{ include "age-detection-helm-chart.fullname" . }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /app/media
+              name: {{ include "age-detection-helm-chart.fullname" . }}-project-storage
+      volumes:
+        - name: {{ include "age-detection-helm-chart.fullname" . }}-project-storage
+          persistentVolumeClaim:
+            claimName: {{ include "age-detection-helm-chart.fullname" . }}-storage-pvc
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

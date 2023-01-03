@@ -10,6 +10,7 @@ RUN apt-get update &&\
     apt install -y libgl1-mesa-glx &&\
     apt-get install -y git &&\
     echo "Y" | apt-get install libglib2.0-0
+    
 
 
 COPY ./webservice/requirements.txt .

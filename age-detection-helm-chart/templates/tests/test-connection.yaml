@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "age-detection-helm-chart.fullname" . }}-test-connection"
+  labels:
+    {{- include "age-detection-helm-chart.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "age-detection-helm-chart.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

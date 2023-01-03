@@ -32,9 +32,6 @@ services:
     image: redis
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    hostname: ...
-    ports:
-      - "6379:6379"
   db:
     image: postgres:14-alpine
     volumes:

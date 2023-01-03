@@ -13,6 +13,7 @@ DEBUG = int(os.getenv('DEBUG', 1))
 
 ALLOWED_HOSTS = []
 SESSION_COOKIE_AGE = 3600
+HEALTH_CHECK_URL = os.environ.get('HEALTH_CHECK_URL', '/application/health/')
 if DEBUG:
     ALLOWED_HOSTS = ['*']
 
@@ -32,6 +33,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'app.middleware.HealthCheckMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -143,3 +145,37 @@ CELERY_TASK_SERIALIZER = 'json'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# Maximum size, in bytes, of a request before it will be streamed to the
+# file system instead of into memory.
+FILE_UPLOAD_MAX_MEMORY_SIZE = 2000000000  # i.e. 2.5 MB
+
+# Maximum size in bytes of request data (excluding file uploads) that will be
+# read before a SuspiciousOperation (RequestDataTooBig) is raised.
+DATA_UPLOAD_MAX_MEMORY_SIZE = 2000000000  # i.e. 2.5 MB
+
+# Maximum number of GET/POST parameters that will be read before a
+# SuspiciousOperation (TooManyFieldsSent) is raised.
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000
+
+# Directory in which upload streamed files will be temporarily saved. A value of
+# `None` will make Django use the operating system's default temporary directory
+# (i.e. "/tmp" on *nix systems).
+FILE_UPLOAD_TEMP_DIR = None
+
+# The numeric mode to set newly-uploaded files to. The value should be a mode
+# you'd pass directly to os.chmod; see https://docs.python.org/library/os.html#files-and-directories.
+FILE_UPLOAD_PERMISSIONS = 0o644
+
+# The numeric mode to assign to newly-created directories, when uploading files.
+# The value should be a mode as you'd pass to os.chmod;
+# see https://docs.python.org/library/os.html#files-and-directories.
+FILE_UPLOAD_DIRECTORY_PERMISSIONS = None
+
+# Python module path where user will place custom format definition.
+# The directory where this setting is pointing should contain subdirectories
+# named as the locales, containing a formats.py file
+# (i.e. "myproject.locale" for myproject/locale/en/formats.py etc. use)
+FORMAT_MODULE_PATH = None

@@ -121,6 +121,10 @@ class GeneralTest(TestCase):
 
 
 
+# Test that the function correctly handles a non-existent dataset path:
+# def test_parse_dataset_handles_nonexistent_path(self):
+#     df = parse_dataset('/path/to/nonexistent/dataset')
+#     self.assertEqual(len(df), 0)
 
 # Test that the generate_images function correctly yields the expected number of batches:
 # def test_generate_images_correct_number_of_batches(self):
