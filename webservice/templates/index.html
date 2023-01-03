@@ -31,11 +31,12 @@
 
 
 {% if upload %}
+{% load static %}
 <br><br>
 <div class="row">
     <div class="col">
 
-        <img class="img-fluid" src="/media/ml_output/process.jpg" alt="PROCESS">
+        <img class="img-fluid" src="{% static '/process.jpg' %}" alt="PROCESS">
     </div>
 
     <div class="col">
@@ -46,7 +47,7 @@
                     <td>Face Image</td>
                     {% for c in results.count %}
                     <td>
-                        <img class="img-fluid" src="/media/ml_output/roi_{{ c }}.jpg" alt="ROI" width="150" ,
+                        <img class="img-fluid" src="{% static '/roi_{{ c }}.jpg'  %}" alt="ROI" width="150" ,
                             height="200">
                     </td>
                     {% endfor %}

@@ -91,9 +91,8 @@ def pipeline_model(path):
     modelformat = get_current_model().format
 
     presetupModel = True
-    if presetupModel:
+    if presetupModel or modelformat == MLModel.MLFormat.H5_R:
         age_max = 116
-        print(get_current_model().file)
         image_gen = ImageDataGenerator(preprocessing_function=preprocess_input_facenet)
        
         image = imageio.imread(path)
@@ -106,33 +105,20 @@ def pipeline_model(path):
                               class_mode='raw', 
                               batch_size=1)
         input_img, label = next(gen)
-        print('after gen')
+        model_pred = get_estimation_model()
 
-        try:
-            model_pred = get_estimation_model()
-        except:
-            model_pred = ('./media/models/multi_checkpoint_best.h5')
-
-        print('model loaded')
-
-        #gender_model = create_model_path('./models/multi_checkpoint_best.h5')
-        #print('both models loaded')
 
         prediction = model_pred.predict(input_img)
         gender = int(prediction[0][0] > 0.5)
         age = prediction[2][0]
         output = int(age[0]*age_max)
        
-        print(gender_mapping[gender])
-
         img = cv2.imread(path)
         output_img = img.copy()
-        cv2.imwrite('./media/ml_output/process.jpg', output_img)
-        cv2.imwrite('./media/ml_output/roi_1.jpg', img)
+        cv2.imwrite('./static/process.jpg', output_img)
+        cv2.imwrite('./static/roi_1.jpg', img)
         print(output)
         predicted = round(output)
-        print(get_current_model().file)
-        print(predicted)
         machinlearning_results = dict(
             age=[], gender=[], count=[])
         machinlearning_results['age'].append(predicted)

@@ -1,7 +1,7 @@
 from django import forms
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
-from app.models import FaceRecognition, TrainingDatasetFile, MLModel
+from app.models import FaceRecognition, TrainingDatasetFile, MLModel, Dataset
 
 
 class FaceRecognitionForm(forms.ModelForm):
@@ -32,6 +32,12 @@ class DataSetUploadForm(forms.ModelForm):
         self.fields['file'].widget.attrs.update({'class': 'form-control'})
 
 
+class MyForm(forms.Form):
+    dataset_radio = forms.ModelChoiceField(
+        queryset=Dataset.objects.all(),
+        widget=forms.RadioSelect
+    )
+
 # class TrainedDatasetUploadForm(forms.ModelForm):
 #     class Meta:
 #         model = TrainedDataset
@@ -45,7 +51,6 @@ class ModelUploadForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        print(self.fields)
         self.fields['file'].widget.attrs.update({'class': 'form-control'})
 
 class SelectModelForm(forms.Form):
