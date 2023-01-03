@@ -27,19 +27,19 @@ build-and-test:
           docker push $CI_REGISTRY_IMAGE:latest
         fi
 
-deploy:
-  stage: deploy
+#deploy:
+ # stage: deploy
   #only:
    # - main
-  image:
-    name: bitnami/kubectl:1.14
-    entrypoint: [""]
-  tags:
-    - docker-build
-  script:
-    - kubectl config get-contexts
-    - kubectl config use-context $CI_DEPLOY_AGENT
-    - kubectl get pods
-    - kubectl apply -f ./kubernetes/deployment.yaml
+  #image:
+   # name: bitnami/kubectl:1.14
+    #entrypoint: [""]
+  #tags:
+   # - docker-build
+  #script:
+   # - kubectl config get-contexts
+    #- kubectl config use-context $CI_DEPLOY_AGENT
+    #- kubectl get pods
+    #- kubectl apply -f ./kubernetes/deployment.yaml
 
 
