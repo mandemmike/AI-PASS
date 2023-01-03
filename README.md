@@ -81,7 +81,7 @@ for gender feature (2 output/class - as male and female).
 After we generate data batches by image data generator for train and validation data, we fit them in for training 
 with certain batch sizes. 
 
-#### What has been experienced during training sessions?
+#### What has been experienced (common problems) during training sessions?
 
 **1. Quality of Data**
 
@@ -104,30 +104,47 @@ it seemed that overfitting and underfitting (commonly at the beginning) were not
 
 **3.Slow Implementation**
 
-Machine learning is too complex in general. Even if there is a quality data, train it well, and have accurate predictions, 
-the time and effort it takes to consider, execute and waiting for the tasks to complete take too much time. 
-Every each tiny bit of implementation might end spending a day or few days. This aspect is also because of having 
-not enough technology (e.g.slow programs) in ML, excessive requirements would be another negative effect and so forth. 
-It also requires constant monitoring and observations as well as maintenance and tuning to be able to produce the best output
-it is possible under given and created circumstances.
+Machine learning is too complex in general. Even if there is a quality data, trained the model well, 
+and have accurate predictions as aimed, the time and effort it takes to consider, implement, tune, execute and wait for 
+the tasks, trainings, predictions and evaluations to complete take too much time. Every each tiny bit of implementation 
+might end spending a hour to a day or few days, meaning every bit of implementation or tuning or consideration of a part,
+you have to train the model and see if the results are satisfying as you aimed in first place;
+
+If;
+- the accuracy is in good range as above,
+- the loss is in the good range as above,
+- that accuracy and loss is not oscillating during training, validation and testing,
+- that distance between training accuracy and validation accuracy is not far apart,
+- that distance between training loss and validation loss is not far apart,
+- that accuracy/loss values for each feature is increasing/decreasing in a significant way,
+- that the dataset size is enough/maybe not,
+- that complexity of the architecture is balanced, more complexity might sound better performance but expensive, and also 
+the more complex the model is going to be harder to explain,
+- the time for training, predicting and evaluating takes too much time,
+- that performance is good enough overall for our project.
+
+These are just common aspects to keep an eye on. the deeper you go into it, deeper it gets. These considerations are also
+because of not having enough technology (e.g.slow programs) in ML, excessive requirements would be 
+another negative effect and so forth. It also requires constant monitoring and observations as well as maintenance and 
+tuning to be able to produce the best output it is possible under given and created circumstances. There are thousands of 
+inventions that need to happen in every concept of ML. 
 
 ### Efficiency
 
-At the first glance, mindset of accuracy values on ML models as below, enabled us to determine if our model is good enough. 
+At the first glance, mindset of accuracy values on ML models is as below, enabled us to determine if our model is good 
+enough. If the accuracy is;
 
-If the accuracy is;
+_Note: Below are the acceptable/non-objectionable accuracy and loss values results in ML._
 
-_Note: Below are the acceptable/non-objectionable accuracy and loss value results in ML._
-
+Range of values for accuracy;
 - lower than 60%, do a new model.
 - between 60% and 70%, it’s a poor model.
 - between 70% and 80%, you’ve got a good model.
 - between 80% and 90%, you have an excellent model.
 - between 90% and 100% (it’s a probably an overfitting case).
 
-Range of values for loss function:
-
-- ( = 0.00)   Perfect probabilities
+Range of values for loss function;
+- ( = 0.00): Perfect probabilities
 - ( < 0.02): Great probabilities
 - ( < 0.05): In a good way
 - ( < 0.20): Great
@@ -135,13 +152,23 @@ Range of values for loss function:
 - ( > 1.00): Excessive
 - ( > 2.00): Something is not working.
 
-Hundreds of training sessions were created from different architecture layers/blocks in the hidden layer as well as 
-in the feature layers. One of the crucial steps we have been trying to achieve was to have a high accuracy with low loss. 
-Realizing the fact that, in the beginning, the training data accuracy and validation data accuracy are so far apart 
-from each other suggests that our CNN model was over-training. In general, we wanted to produce a model where the training
-data accuracy and validation data accuracy are between %75-%95 and both training and validation data output values were 
-close to each other. This was one of the directions we wanted to go for a good generalized model and for learning about 
-over-training and under-training and how to deal with those situations.
+Hundreds of training sessions were created in CNN from many architectures (layers/blocks) in the hidden layers 
+as well as in the feature layers. Having trained the model with various architectures, training with various learning rates 
+(from 10^1 up to 10^5) by implementing dynamic learning rate functions/algorithms and weight_decay algorithms, training 
+with various batch sizes (from 16 up to 128) and epochs (from 10,20, 50 up to 500), various input image sizes 
+(from 64x64 up to 256x256), generalization is high for validation and test sets. Being aware of this important aspect in ML, 
+was One of our crucial consideration to achieve, to have a high accuracy with low loss value and 
+high generalization (low gap between training and validation loss as well as test lost) 
+
+Regularizations have been tried (L1, L2, Dropouts)
+
+Realizing the fact that, in the beginning, the training data accuracy and validation data accuracy are so far apart from 
+each other suggests that our CNN model was giving sign for over-training. Those acceptable values in ML as in above and 
+to create a model where the training data accuracy and validation data accuracy are between %75-%95, 
+loss values are in the great range (as above) and both training and validation data output values were close to each other
+because having low values than training is also a sign for overfitting which is poor generalization. These main goals 
+were some of the directions we wanted to go for a good generalized model instead of just having very high accuracy with 
+overfitted or underfitted data. 
 
 According to the stated sources in the source notebook;
 
@@ -149,8 +176,20 @@ According to the stated sources in the source notebook;
 -  a low accuracy but low loss means you made little errors on a lot of data
 -  a great accuracy with low loss means you made low errors on a few data (best case)
 
-Accuracy after tuning the layers, trying different architectures, and different learning rates by implementing dynamic 
-learning rate functions, and trying different batch sizes, the accuracy has reached min. %75 without overfitting and 
+
+
+
+Accuracy and loss values are in a decent range . ,
+
+the accuracy has reached 
+min. %75 without overfitting and 
+
+
+
+
+
+
+
 underfitting (over %90 with a bit of overfitting case). On the other hand, when the discrepancy between loss and validation_loss was also dramatic and validation_loss 
 was unstable and was not decreasing as expected in the training progress epoch-by-epoch, we focused on the configuration
 of the model training and model architecture and produced/tuned the most reliable model in our best knowledge.
@@ -163,20 +202,9 @@ a good way of evaluating how well the model performs. Other important metrics th
 libraries/algorithms were to see how reliable the model is and how good or bad performance our model has.
 
 For the stated reasons above, we have decided to use some efficiency graph plots with a clear diagnostic ability 
-such as AUC(ROC curve) with a baseline origo linear (auc=%50), confusion matrix, classification reports(F1, precision 
+such as AUC(ROC curve) with a baseline origo linear (auc=%50), confusion matrixs, classification reports(F1, precision 
 and recall) as well as evaluation on test data. 
 
-
-
-
-
-
-
-Types of cross-entropy:
-
-Binary cross-entropy: for binary classification problem
-Categorical cross-entropy: binary and multiclass problem, the label needs to be encoded as categorical, one-hot encoding representation (for 3 classes: [0, 1, 0], [1,0,0]…)
-Sparse cross-entropy: binary and multiclass problem (the label is an integer — 0 or 1 or … n, depends on the number of labels)
 
 
 Source: https://towardsdatascience.com/regularization-in-deep-learning-l1-l2-and-dropout-377e75acc036
@@ -186,12 +214,8 @@ Since L2 regularization takes the square of the weights, it’s classed as a clo
 
 The right number of epochs depends on the inherent perplexity (or complexity) of your dataset. A good rule of thumb is to start with a value that is 3 times the number of columns in your data. If you find that the model is still improving after all epochs complete, try again with a higher value.
 
-Performing L2 regularization encourages the weight values towards zero (but not exactly zero)
-Performing L1 regularization encourages the weight values to be zero
-Intuitively speaking smaller weights reduce the impact of the hidden neurons. In that case, those hidden neurons become neglectable and the overall complexity of the neural network gets reduced.
 
-Smaller weight parameters make some neurons neglectable → neural network becomes less complex → less overfitting
-During dropout, some neurons get deactivated with a random probability P → Neural network becomes less complex → less overfitting.
+
 
 For a diagnostic test to be meaningful, the AUC must be greater than 0.5. Generally, an AUC ≥ 0.8 is considered acceptable.
 An AUC ROC (Area Under the Curve Receiver Operating Characteristics) plot can be used to visualize a model’s performance between sensitivity and specificity. Sensitivity refers to the ability to correctly identify 
