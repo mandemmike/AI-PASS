@@ -17,4 +17,5 @@ spec:
     spec:
       containers:
       - name: "app-1"
-      - image: registry.git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection:new-model-deploy-2ec922e3
+      - image: $CI_REGISTRY_IMAGE:$DOCKER_TAG
+

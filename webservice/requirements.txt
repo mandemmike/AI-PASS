@@ -12,3 +12,6 @@ gunicorn==20.1.0
 psycopg2-binary==2.9.5
 imageio
 cchardet
+drf-chunked-upload
+keras_vggface
+git+https://github.com/rcmalli/keras-vggface.git

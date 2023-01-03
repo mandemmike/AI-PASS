@@ -24,7 +24,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-    'authentication'
+    'authentication',
+    'drf_chunked_upload',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -36,6 +39,18 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# REST FRAMEWORK
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    )
+}
+
 
 ROOT_URLCONF = 'main.urls'
 
@@ -106,15 +121,15 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+CHUNKED_UPLOAD_PATH = ('webservice/media/models/upload')
 
 # Celery
 REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379")
 
-
+DRF_CHUNKED_UPLOAD_ABSTRACT_MODEL = False
 
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', REDIS_URL)
 CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', REDIS_URL)

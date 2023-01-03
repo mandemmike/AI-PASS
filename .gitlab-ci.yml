@@ -40,7 +40,6 @@ deploy:
     - kubectl config get-contexts
     - kubectl config use-context $CI_DEPLOY_AGENT
     - kubectl get pods
-    - kubectl delete deployment nginx-1
     - kubectl apply -f ./kubernetes/deployment.yaml
 
 

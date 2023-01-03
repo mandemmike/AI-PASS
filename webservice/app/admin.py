@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from app.models import FaceRecognition, TrainingDatasetFile, TrainedDataset, MLModel, EvaluatedModelData
+from app.models import FaceRecognition, TrainingDatasetFile, TrainedDataset, MLModel, EvaluatedModelData, Dataset
 
 @admin.register(EvaluatedModelData)
 class EvaluatedModelDataAdmin(admin.ModelAdmin):
@@ -26,3 +26,6 @@ class TrainingDatasetFileAdmin(admin.ModelAdmin):
 class TrainedDatasetAdmin(admin.ModelAdmin):
     pass
 
+@admin.register(Dataset)
+class TrainedDatasetAdmin(admin.ModelAdmin):
+    pass
