@@ -8,12 +8,11 @@ stages:
   - test
   - deploy
 
-before_script:
-  - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN
-
-build-and-push:
-  only:
-    - main
+build-and-test:
+  before_script:
+    - docker login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN
+  #only:
+   # - main
   tags:
     - docker-build
   stage: build
@@ -28,5 +27,19 @@ build-and-push:
           docker push $CI_REGISTRY_IMAGE:latest
         fi
 
+#deploy:
+ # stage: deploy
+  #only:
+   # - main
+  #image:
+   # name: bitnami/kubectl:1.14
+    #entrypoint: [""]
+  #tags:
+   # - docker-build
+  #script:
+   # - kubectl config get-contexts
+    #- kubectl config use-context $CI_DEPLOY_AGENT
+    #- kubectl get pods
+    #- kubectl apply -f ./kubernetes/deployment.yaml
 
 

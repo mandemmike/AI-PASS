@@ -1,9 +1,12 @@
 from django.db import models
+from uuid import uuid4
+from django.db.models import JSONField
 
 
 class FaceRecognition(models.Model):
     record_date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='images/')
+    results = JSONField(default='-')
 
     # recognized_image = models.ImageField(upload_to='ml_output/')
 
@@ -15,6 +18,26 @@ class EvaluatedModelData(models.Model):
     perfomance = models.FloatField()
     accuracy = models.FloatField()
     loss = models.FloatField()
+
+    @classmethod
+    def create(cls, perfomance, accuracy, loss):
+
+
+        evaluatedModelData = cls(perfomance=perfomance, accuracy=accuracy, loss=loss)
+
+        return evaluatedModelData
+
+class Dataset(models.Model):
+    file = models.CharField(unique=True, max_length=100)
+    filename = models.CharField(max_length=50, unique=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+
+    @classmethod
+    def create(cls, file, filename):
+        dataset = cls(file=file, filename=filename)
+        
+        return dataset
 
 
 class MLModel(models.Model):
@@ -40,10 +63,16 @@ class MLModel(models.Model):
     def __str__(self):
         return self.name
 
+    @classmethod
+    def create(cls, name, file, evaluated_data, format, is_active):
+
+        mlModel = cls(file=file, name=name, evaluated_data=evaluated_data, format=format, is_active=is_active)
+
+        return mlModel
 
 class TrainedDataset(models.Model):
-    pickle_file = models.FileField(null=True)
-
+    file = models.FileField(upload_to='dataset/data', default='default.zip')
+    filename = models.CharField("filename", max_length=100, default="filename")
 
 class TrainingDatasetFile(models.Model):
     file = models.FileField()

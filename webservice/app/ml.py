@@ -13,10 +13,9 @@ import keras.utils
 import keras.preprocessing
 from keras.preprocessing.image import ImageDataGenerator
 import imageio
-from tensorflow.keras.preprocessing import image as img_load
-from tensorflow.keras.models import load_model
 
 STATIC_DIR = settings.STATIC_DIR
+BASE_DIR = settings.BASE_DIR
 gender_mapping = {0: 'Male', 1: 'Female'}
 
 
@@ -61,6 +60,10 @@ def get_current_model() -> MLModel:
         raise RuntimeError('Please upload a model')
     return ml_model
 
+def create_model_path(path):
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+
+    return load_model(file_path)
 
 def get_estimation_model():
     ml_model = get_current_model()
@@ -87,11 +90,10 @@ def pipeline_model(path):
     print(path)
     modelformat = get_current_model().format
 
-    if modelformat == MLModel.MLFormat.H5_R:
+    presetupModel = True
+    if presetupModel or modelformat == MLModel.MLFormat.H5_R:
         age_max = 116
-       
         image_gen = ImageDataGenerator(preprocessing_function=preprocess_input_facenet)
-
        
         image = imageio.imread(path)
         df = pd.DataFrame({'filename': [path], 'label': [1]})
@@ -103,27 +105,20 @@ def pipeline_model(path):
                               class_mode='raw', 
                               batch_size=1)
         input_img, label = next(gen)
+        model_pred = get_estimation_model()
 
-        model_pred = load_model(str(get_current_model().file))
-        
-        gender_model = load_model('./models/multi_checkpoint_best.h5')
 
-        predicted_gender = gender_model.predict(input_img)
-        gender = int(predicted_gender[0][0] > 0.5)
-
+        prediction = model_pred.predict(input_img)
+        gender = int(prediction[0][0] > 0.5)
+        age = prediction[2][0]
+        output = int(age[0]*age_max)
        
-        print(gender_mapping[gender])
-
         img = cv2.imread(path)
         output_img = img.copy()
-        cv2.imwrite('./media/ml_output/process.jpg', output_img)
-        cv2.imwrite('./media/ml_output/roi_1.jpg', img)
-        output = model_pred.predict(input_img)
+        cv2.imwrite('./static/process.jpg', output_img)
+        cv2.imwrite('./static/roi_1.jpg', img)
         print(output)
-        h5age = int(output*age_max)
-        predicted = round(h5age)
-        print(get_current_model().file)
-        print(predicted)
+        predicted = round(output)
         machinlearning_results = dict(
             age=[], gender=[], count=[])
         machinlearning_results['age'].append(predicted)

@@ -9,6 +9,8 @@ services:
       - ./webservice:/app
       - ./static:/webservice/static
       - ./models:/webservice/models
+      - ./media:/webservice/media
+      - ./ml_output:/webservice/media/ml_output
     ports:
       - "8000:8000"
     depends_on:
