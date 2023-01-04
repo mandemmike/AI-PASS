@@ -136,6 +136,12 @@ enough. If the accuracy is;
 
 _Note: Below are the acceptable/non-objectionable accuracy and loss values results in ML._
 
+According to the stated sources in the source notebook;
+
+-  a low accuracy and huge loss means you made huge errors on a lot of data
+-  a low accuracy but low loss means you made little errors on a lot of data
+-  a great accuracy with low loss means you made low errors on a few data (best case)
+
 Range of values for accuracy;
 - lower than 60%, do a new model.
 - between 60% and 70%, it’s a poor model.
@@ -152,67 +158,49 @@ Range of values for loss function;
 - ( > 1.00): Excessive
 - ( > 2.00): Something is not working.
 
-Hundreds of training sessions were created in CNN from many architectures (layers/blocks) in the hidden layers 
-as well as in the feature layers. Having trained the model with various architectures, training with various learning rates 
-(from 10^1 up to 10^5) by implementing dynamic learning rate functions/algorithms and weight_decay algorithms, training 
-with various batch sizes (from 16 up to 128) and epochs (from 10,20, 50 up to 500), various input image sizes 
-(from 64x64 up to 256x256), generalization is high for validation and test sets. Being aware of this important aspect in ML, 
-was One of our crucial consideration to achieve, to have a high accuracy with low loss value and 
-high generalization (low gap between training and validation loss as well as test lost) 
-
-Regularizations have been tried (L1, L2, Dropouts)
-
 Realizing the fact that, in the beginning, the training data accuracy and validation data accuracy are so far apart from 
-each other suggests that our CNN model was giving sign for over-training. Those acceptable values in ML as in above and 
+each other suggested that our CNN model was giving sign for over-training. Those acceptable values in ML as in above and 
 to create a model where the training data accuracy and validation data accuracy are between %75-%95, 
 loss values are in the great range (as above) and both training and validation data output values were close to each other
 because having low values than training is also a sign for overfitting which is poor generalization. These main goals 
 were some of the directions we wanted to go for a good generalized model instead of just having very high accuracy with 
-overfitted or underfitted data. 
+overfitted or underfitted data. On the other hand, when the discrepancy between loss and validation_loss was also dramatic 
+and validation_loss was unstable and was not decreasing as expected in the training progress epoch-by-epoch, 
+we focused on the configuration of the model training and model architecture and produced/tuned the most reliable model 
+in our best knowledge.
 
-According to the stated sources in the source notebook;
-
--  a low accuracy and huge loss means you made huge errors on a lot of data
--  a low accuracy but low loss means you made little errors on a lot of data
--  a great accuracy with low loss means you made low errors on a few data (best case)
-
-
-
-
-Accuracy and loss values are in a decent range . ,
-
-the accuracy has reached 
-min. %75 without overfitting and 
-
-
-
-
-
-
-
-underfitting (over %90 with a bit of overfitting case). On the other hand, when the discrepancy between loss and validation_loss was also dramatic and validation_loss 
-was unstable and was not decreasing as expected in the training progress epoch-by-epoch, we focused on the configuration
-of the model training and model architecture and produced/tuned the most reliable model in our best knowledge.
+Hundreds of training sessions were created in CNN from many architectures (layers/blocks) in the hidden layers 
+as well as in the feature layers. Having trained the model with various architectures, training with regularization's 
+(L1, L2, Dropouts(best results)), training with various learning rates (from 10^1 up to 10^5) by implementing dynamic 
+learning rate functions/algorithms and weight_decay algorithms, training with various batch sizes (from 16 up to 128) 
+and epochs (from 10,20, 50 up to 500), various input image sizes (from 64x64 up to 256x256), generalization is high for 
+validation and test sets. Being aware of this important aspect in ML, was one of our important consideration to achieve,
+to have a high accuracy with low loss value and high generalization (low gap between training and validation loss 
+as well as test lost) for never seen data.
 
 We were aware of and have been told as well as have read in the related sources about ML that accuracy is not enough 
 metric by itself. Accuracy in classification models is just to inform about what is the level of model predictions and 
 a measurement for the effectiveness of the model and misleading can happen a lot. Only having from good level to an excellent 
 level of accuracy (75% to 99%) in training data and validation data is not essential even to only focus on and is not 
-a good way of evaluating how well the model performs. Other important metrics that needed to be produced by using various 
+a good way of evaluating how well the model performs. Other important metrics as below such as some efficiency graph plots 
+with a clear diagnostic ability, AUC(ROC curve) with a baseline origo linear (auc=%50), confusion matrix's, classification 
+reports(F1, precision and recall) as well as evaluation on validation and test data that needed to be produced by using various 
 libraries/algorithms were to see how reliable the model is and how good or bad performance our model has.
 
-For the stated reasons above, we have decided to use some efficiency graph plots with a clear diagnostic ability 
-such as AUC(ROC curve) with a baseline origo linear (auc=%50), confusion matrixs, classification reports(F1, precision 
-and recall) as well as evaluation on test data. 
+<img src="./ModelTrainingService/metrics_figures/age_accuracy.png" width="500" height="400"><br>
+<img src="./ModelTrainingService/metrics_figures/age_loss.png" width="500" height="400"><br>
+<img src="./ModelTrainingService/metrics_figures/gender_accuracy.png" width="500" height="400"><br>
+<img src="./ModelTrainingService/metrics_figures/gender_loss.png" width="500" height="400"><br>
+<img src="./ModelTrainingService/metrics_figures/Conf_Mtrx_age.png" width="500" height="400"><br>
+<img src="./ModelTrainingService/metrics_figures/Conf_Mtrx_gender.png" width="500" height="400"><br>
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_0-24.png" width="500" height="400"><br>
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_25-49.png" width="500" height="400"><br>
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_50-74.png" width="500" height="400"><br>
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_75-99.png" width="500" height="400"><br>
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_100-124.png" width="500" height="400"><br>
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_gender.png" width="500" height="400"><br>
 
 
-
-Source: https://towardsdatascience.com/regularization-in-deep-learning-l1-l2-and-dropout-377e75acc036
-The L2 regularization is the most common type of all regularization techniques and is also commonly known as weight decay or Ride Regression.
-
-Since L2 regularization takes the square of the weights, it’s classed as a closed solution. L1 involves taking the absolute values of the weights, meaning that the solution is a non-differentiable piecewise function or, put simply, it has no closed form solution. L1 regularization is computationally more expensive, because it cannot be solved in terms of matrix math. 
-
-The right number of epochs depends on the inherent perplexity (or complexity) of your dataset. A good rule of thumb is to start with a value that is 3 times the number of columns in your data. If you find that the model is still improving after all epochs complete, try again with a higher value.
 
 
 
@@ -225,7 +213,7 @@ entries that fall into the positive class. Specificity refers to the ability to 
 
 
 #### Deployment Workflow
-<img src="./Assets/Deployment_Workflow.png" width="789" height="300"><br>
+<img src="./Assets/Deployment_Workflow.png" width="789" height="3500"><br>
 
 ### Installation
 Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
