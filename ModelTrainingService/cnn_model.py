@@ -143,10 +143,9 @@ df = parse_dataset(dataset_folder)
 # # Mean age by race
 # df.groupby(['race']).mean('age')
 #
-# # # Data analysis & visualization (EDA)
-# #
-# # We can create here a function to generate some pie plots. We also look at the other visualization below to understand and grasp better about the data distribution to crete
-# # more efficient training, validation and test processes.
+# Data analysis & visualization (EDA) # # We can create here a function to generate some pie plots. We also look
+# at the other visualization below to understand and grasp better about the data distribution to crete # more
+# efficient training, validation and test processes.
 #
 # # In[9]:
 #
@@ -168,19 +167,19 @@ df = parse_dataset(dataset_folder)
 #     display(Image(img_bytes))
 #
 #
-# # # Same as bar plot. Creating bins for age ranges and plotting that data. This helps us to see grouped age into bins with percentages.
+# Same as bar plot. Creating bins for age ranges and plotting that data. This helps us to see grouped age into
+# bins with percentages.
 # bins = [0, 10, 20, 30, 40, 60, 80, np.inf]
 # names = ['<10', '10-20', '20-30', '30-40', '40-60', '60-80', '80+']
-# age_binned = pd.cut(df['age'], bins, labels=names)
-# plot_distribution(age_binned)
+# age_binned = pd.cut(df['age'], bins, labels=names) plot_distribution(age_binned)
 #
 # # In[10]:
 #
 #
-# # Uniform distribution to a large extent. Although, males slightly exceed females in numbers.No need to change gender in data.
-# # Pretty well-balanced ! Let's also visualize this on a bar graph (to get better understanding of numbers)
-# x = (df.gender == 'male').sum()
-# y = (df.gender == 'female').sum()
+# # Uniform distribution to a large extent. Although, males slightly exceed females in numbers.No need to change
+# gender in data.
+# Pretty well-balanced ! Let's also visualize this on a bar graph (to get better understanding of numbers)
+# x = (df.gender == 'male').sum() y = (df.gender == 'female').sum()
 #
 # # Males over 12k while females close to 12k
 # labels = ['male', 'female']
@@ -217,10 +216,11 @@ df = parse_dataset(dataset_folder)
 # # In[12]:
 #
 #
-# # The population is mostly between 20-30 age group, the dataset is not very well-balanced. We try to embrace this imbalance through imagedatagenerator below.
+# # The population is mostly between 20-30 age group, the dataset is not very well-balanced. We try to embrace this
+# imbalance through imagedatagenerator below.
+#
 # ages = df['age']
-# nbins = 120
-# plt.figure(figsize=(15, 8))
+# nbins = 120 plt.figure(figsize=(15, 8))
 # plt.hist(ages, nbins, color='red', histtype='bar')
 # plt.title('Distribution of Age')
 # plt.xlabel('Age')
@@ -274,28 +274,28 @@ df = parse_dataset(dataset_folder)
 # # In[17]:
 #
 #
-# # After distribition of the ages into groups, we have now age groups 0 to 4 for age feature which contains ages from 1y to 116y.
+# After distribition of the ages into groups, we have now age groups 0 to 4 for age feature which contains ages
+# from 1y to 116y.
 # df.head()
 #
-# # # Data image generator
-# # To be able to use as input to our model, below is the keras image data generator by creating batches of image data to feed the multi-output predictions.
+# #Data image generator # To be able to use as input to our model, below is the keras image data generator by
+# creating batches of image data to feed the multi-output predictions.
 #
 # # In[18]:
 #
 #
 # # Data image generator for augmenting the data
 # # Generating batches of data, which will be used to feed our multi-output model with both the images and their labels.
-#import cv2
-
-#from keras.utils import to_categorical, normalize
-#from PIL import Image, ImageFont
+import cv2
+from keras.utils import to_categorical, normalize
+from PIL import Image, ImageFont
 
 
 class UtkFaceDataGenerator:
 
     # # Data generator for the UTKFace dataset. This class should be used when training our Keras multi-output model.
-    # def __init__(self):
-    #     self
+    def __init__(self, df):
+        self.df = df
 
     def generate_split_indexes(self):
 
@@ -309,7 +309,8 @@ class UtkFaceDataGenerator:
 
         # converts alias to id
         i = -1
-        for age in df['age']: df['age'][i + 1] = group_by_age(age, 23)
+        for age in df['age']:
+            df['age'][i + 1] = group_by_age(age, 23)
 
         # self.df['age_id'] = self.df['age'].map(lambda age: dataset_dict['age_temp'][age])
         df['gender_id'] = df['gender'].map(lambda gender: dataset_dict['gender_temp'][gender])
@@ -361,7 +362,7 @@ class UtkFaceDataGenerator:
                 break
 
 
-data_generator = UtkFaceDataGenerator()
+data_generator = UtkFaceDataGenerator(df)
 train_idx, valid_idx, test_idx = data_generator.generate_split_indexes()
 
 # print('Train dataset lenght: ', len(train_idx))
@@ -375,20 +376,21 @@ train_idx, valid_idx, test_idx = data_generator.generate_split_indexes()
 #
 # # Source: https://pyimagesearch.com/2018/06/04/keras-multiple-outputs-and-multiple-losses/
 # # CNN Model Architecture by splitting the labels (age, gender, race) for flatten, dropout and activation of the layers.
-# from keras.layers.convolutional import Conv2D, SeparableConv2D
-# from keras.layers.convolutional import MaxPooling2D
-# from keras.layers.core import Activation
-# from keras.layers.core import Dropout
-# from keras.layers.core import Lambda
-# from keras.layers.core import Dense
-# from keras.models import Model
-# from keras.layers import BatchNormalization
-# from keras.layers import SpatialDropout2D
-# from keras.layers import Flatten
-# from keras.layers import Input
-# from keras.regularizers import l2
-# import tensorflow as tf
-#
+from keras.layers.convolutional import Conv2D, SeparableConv2D
+from keras.layers.convolutional import MaxPooling2D
+from keras.layers.core import Activation
+from keras.layers.core import Dropout
+from keras.layers.core import Lambda
+from keras.layers.core import Dense
+from keras.models import Model
+from keras.layers import BatchNormalization
+from keras.layers import SpatialDropout2D
+from keras.layers import Flatten
+from keras.layers import Input
+from keras.regularizers import l2
+import tensorflow as tf
+
+
 #
 # # SeparableConv2D: A variation of the traditional convolution that was to compute it faster than conv2D.
 # # "same" vs "valid": Output size is the "same" results in padding with zeros evenly to the left/right or up/down, while "valid" is no padding.
@@ -404,99 +406,101 @@ train_idx, valid_idx, test_idx = data_generator.generate_split_indexes()
 # #                               by keeping gradient always high.
 # # Dense layer: To create fully connected layers, in which (linear) every output depends on every input after usage of Convolutional Layers with fewer parameters
 # # by forcing every input to the function and let the neurol network to learn its relation to the output.
-#
-#
-# class UtkMultiOutputModel():
-#     """
-#     Used to generate our multi-output model. This CNN contains three branches, one for age, other for
-#     sex and another for race. Each branch contains a sequence of Convolutional Layers that is defined
-#     on the make_default_hidden_layers method.
-#     """
-#
-#     def hidden_layers(self, inputs):
-#         # To generate a default set of hidden layers. Structured as => Conv2D -> Activation "relu" -> BatchNormalization -> Pooling -> Dropout
-#
-#         x = SeparableConv2D(16, (3, 3), padding="same")(inputs)
-#         x = Activation("relu")(x)
-#         x = BatchNormalization(axis=-1)(x)
-#         x = MaxPooling2D(pool_size=(3, 3))(x)
-#         x = SpatialDropout2D(0.25)(x)
-#
-#         x = SeparableConv2D(32, (3, 3), padding="same")(x)
-#         x = Activation("relu")(x)
-#         x = BatchNormalization(axis=-1)(x)
-#         x = MaxPooling2D(pool_size=(2, 2))(x)
-#         x = SpatialDropout2D(0.25)(x)
-#
-#         x = SeparableConv2D(32, (3, 3), padding="same")(x)
-#         x = Activation("relu")(x)
-#         x = BatchNormalization(axis=-1)(x)
-#         x = MaxPooling2D(pool_size=(2, 2))(x)
-#         x = SpatialDropout2D(0.25)(x)
-#
-#         x = SeparableConv2D(64, (3, 3), padding="same")(x)
-#         x = Activation("relu")(x)
-#         x = BatchNormalization(axis=-1)(x)
-#         x = MaxPooling2D(pool_size=(2, 2))(x)
-#         x = SpatialDropout2D(0.25)(x)
-#
-#         return x
-#
-#     def build_race_branch(self, inputs):
-#         # Race branch is structured as => Conv -> BatchNormalization -> Pool -> Dropout blocks, followed by the Dense output layer.
-#         x = self.hidden_layers(inputs)
-#         x = Flatten()(x)
-#         x = Dense(64)(x)
-#         x = Activation("relu")(x)
-#         x = BatchNormalization()(x)
-#         x = Dropout(0.5)(x)
-#         x = Dense(5)(x)
-#         x = Activation("softmax", name="race")(x)
-#
-#         return x
-#
-#     def build_gender_branch(self, inputs):
-#         # The gender branch is structured as = Conv -> BatchNormalization -> Pool -> Dropout blocks, followed by the Dense output layer.
-#         x = Lambda(lambda c: tf.image.rgb_to_grayscale(c))(inputs)
-#         x = self.hidden_layers(inputs)
-#         x = Flatten()(x)
-#         x = Dense(128)(x)
-#         x = Activation("relu")(x)
-#         x = BatchNormalization()(x)
-#         x = Dropout(0.5)(x)
-#         x = Dense(2)(x)
-#         x = Activation("softmax", name="gender")(x)
-#
-#         return x
-#
-#     def build_age_branch(self, inputs):
-#         # The age branch is structured as = Conv -> BatchNormalization -> Pool -> Dropout blocks, followed by the Dense output layer.
-#         x = self.hidden_layers(inputs)
-#         x = Flatten()(x)
-#         x = Dense(64)(x)
-#         x = Activation("relu")(x)
-#         x = BatchNormalization()(x)
-#         x = Dropout(0.5)(x)
-#         x = Dense(5)(x)
-#         x = Activation("softmax", name="age")(x)
-#
-#         return x
-#
-#     # To assemble the output model with their determined height and width.
-#     def assemble_full_model(self, width, height):
-#         input_shape = (height, width, 3)
-#         inputs = Input(shape=input_shape)
-#
-#         age_branch = self.build_age_branch(inputs)
-#         race_branch = self.build_race_branch(inputs)
-#         gender_branch = self.build_gender_branch(inputs)
-#         model = Model(inputs=inputs,
-#                       outputs=[age_branch, race_branch, gender_branch],
-#                       name="face_net")
-#         return model
-#
-#
-# model = UtkMultiOutputModel().assemble_full_model(image_width, image_height)
+
+
+class UtkMultiOutputModel():
+    """
+    Used to generate our multi-output model. This CNN contains three branches, one for age, other for
+    sex and another for race. Each branch contains a sequence of Convolutional Layers that is defined
+    on the make_default_hidden_layers method.
+    """
+
+    def hidden_layers(self, inputs):
+        # To generate a default set of hidden layers. Structured as => Conv2D -> Activation "relu" -> BatchNormalization -> Pooling -> Dropout
+
+        x = SeparableConv2D(16, (3, 3), padding="same")(inputs)
+        x = Activation("relu")(x)
+        x = BatchNormalization(axis=-1)(x)
+        x = MaxPooling2D(pool_size=(3, 3))(x)
+        x = SpatialDropout2D(0.25)(x)
+
+        x = SeparableConv2D(32, (3, 3), padding="same")(x)
+        x = Activation("relu")(x)
+        x = BatchNormalization(axis=-1)(x)
+        x = MaxPooling2D(pool_size=(2, 2))(x)
+        x = SpatialDropout2D(0.25)(x)
+
+        x = SeparableConv2D(32, (3, 3), padding="same")(x)
+        x = Activation("relu")(x)
+        x = BatchNormalization(axis=-1)(x)
+        x = MaxPooling2D(pool_size=(2, 2))(x)
+        x = SpatialDropout2D(0.25)(x)
+
+        x = SeparableConv2D(64, (3, 3), padding="same")(x)
+        x = Activation("relu")(x)
+        x = BatchNormalization(axis=-1)(x)
+        x = MaxPooling2D(pool_size=(2, 2))(x)
+        x = SpatialDropout2D(0.25)(x)
+
+        return x
+
+    def build_race_branch(self, inputs):
+        # Race branch is structured as => Conv -> BatchNormalization -> Pool -> Dropout blocks, followed by the Dense output layer.
+        x = self.hidden_layers(inputs)
+        x = Flatten()(x)
+        x = Dense(64)(x)
+        x = Activation("relu")(x)
+        x = BatchNormalization()(x)
+        x = Dropout(0.5)(x)
+        x = Dense(5)(x)
+        x = Activation("softmax", name="race")(x)
+
+        return x
+
+    def build_gender_branch(self, inputs):
+        # The gender branch is structured as = Conv -> BatchNormalization -> Pool -> Dropout blocks, followed by the Dense output layer.
+        x = Lambda(lambda c: tf.image.rgb_to_grayscale(c))(inputs)
+        x = self.hidden_layers(inputs)
+        x = Flatten()(x)
+        x = Dense(128)(x)
+        x = Activation("relu")(x)
+        x = BatchNormalization()(x)
+        x = Dropout(0.5)(x)
+        x = Dense(2)(x)
+        x = Activation("softmax", name="gender")(x)
+
+        return x
+
+    def build_age_branch(self, inputs):
+        # The age branch is structured as = Conv -> BatchNormalization -> Pool -> Dropout blocks, followed by the Dense output layer.
+        x = self.hidden_layers(inputs)
+        x = Flatten()(x)
+        x = Dense(64)(x)
+        x = Activation("relu")(x)
+        x = BatchNormalization()(x)
+        x = Dropout(0.5)(x)
+        x = Dense(5)(x)
+        x = Activation("softmax", name="age")(x)
+
+        return x
+
+    # To assemble the output model with their determined height and width.
+    def assemble_full_model(self, width, height):
+        input_shape = (height, width, 3)
+        inputs = Input(shape=input_shape)
+
+        age_branch = self.build_age_branch(inputs)
+        race_branch = self.build_race_branch(inputs)
+        gender_branch = self.build_gender_branch(inputs)
+        model = Model(inputs=inputs,
+                      outputs=[age_branch, race_branch, gender_branch],
+                      name="face_net")
+        return model
+
+
+model = UtkMultiOutputModel().assemble_full_model(image_width, image_height)
+
+
 #
 # # To print out and save the layer model plot as png
 # from keras.utils import plot_model
@@ -1020,5 +1024,3 @@ train_idx, valid_idx, test_idx = data_generator.generate_split_indexes()
 # plt.savefig(fname='metrics_figures/overall_loss.png', bbox_inches='tight')
 # plt.show()
 # plt.close()
-#
-# # In[ ]:
