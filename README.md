@@ -4,12 +4,12 @@
 
 ### What is the project?
 
-The project is to develop a data-intensive AI application in machine learning (ML(DL)). Base on the given requirements and 
-our drawn implications, we have decided to create a age and gender detection application by creating an image classification model. 
-Usually we can all discern the age group of a person they belong to, as soon as we look at the face. It is quite easy to
-say if the person is young, old or middle-aged. In this AI project, we built the age and gender web detector that can approximately 
+The project is to develop a data-intensive AI application in machine learning (ML(DL)). Based on the given requirements and 
+our drawn implications, we have decided to create an age and gender detection application by creating an image classification model. 
+Usually, we can all discern the age group of a person they belong to, as soon as we look at the face. It is quite easy to
+say if the person is young, old, or middle-aged. In this AI project, we built the age and gender web detector that can approximately 
 predict the age and gender of the person (a profile face image) in an aligned and cropped picture by creating/using a deep learning 
-age and gender detection CNN [(Convolutional Neural Network)](https://en.wikipedia.org/wiki/Convolutional_neural_network) model. 
+age and gender detection CNN [(Convolutional Neural Network)](https://en.wikipedia.org/wiki/Convolutional_neural_network) model.
 
 Intended users and few example areas of age and gender detection technology:
 
@@ -67,48 +67,50 @@ generator is one of reliable way of handling large datasets to skip the memory p
 [example 2](https://stackoverflow.com/questions/53239342/im-getting-a-memory-error-while-processing-my-dataset-in-python-what-could-be), [example 3](https://github.com/keras-team/keras/issues/8939).
 
 #### Model Architecture
-<img src="./Assets/ML_pipeline.png" width="667" height="552"><br>
+<img src="./Assets/ML_pipeline.png" width="667" height="552" align="center"><br>
 
 ### Training the model
 
-In the training phase we adapted Adam optimizer with learning rate 1e-4 (0.0001) for decaying by taking initial learning rate 
+In the training phase, we adapted the Adam optimizer with a learning rate 1e-4 (0.0001) for decaying by taking the initial learning rate 
 and dividing by the epoch value. To configure our CNN model for training, that is to say; to define loss functions, the optimizer 
 and the metrics, we used in the compilation, categorical_crossentropy for age feature (5 output/class, as age groups) and 
 categorical_crossentropy for race feature (5 output/class, race categories) (race feature is used only to have more 
-feature in out model to have better training results, we do not have any predictions on this feature) and we used binary_crossentropy 
+feature in our model to have better training results, we do not have any predictions on this feature) and we used binary_crossentropy 
 for gender feature (2 output/class - as male and female).
 
-After we generate data batches by image data generator for train and validation data, we fit them in for training 
+After we generate data batches by image data generator for training and validation data, we fit them in for training 
 with certain batch sizes. 
 
 #### What has been experienced (common problems) during training sessions?
 
 **1. Quality of Data**
 
-Since data plays an important role in ML, an important reason for us to decide on UTKface dataset for our CNN model was to 
-have pretty clean and almost no noise data to be able to have much better accurate predictions. On the other hand, helped us
-as well to focus on the model architecture and efficieny of our CNN model, learned and experienced important concepts in ML.
+Since data plays an important role in ML, an important reason for us to decide on the UTKface dataset for our CNN model was to 
+have clean and almost no noise data to be able to have much better accurate predictions. On the other hand, helped us
+as well to focus on the model architecture and efficiency of our CNN model, we learned and experienced important concepts in ML.
 
 **2. Underfitting and Overfitting of Training Data**
 
-Considering training a model with massive data of a same age group might result predicting wrong age groups for the given input. 
-We have balanced the data in age feature (25-49 age group has the 35% of the data compare the rest groups) to prevent the overfitting 
-of the model, as mentioned earlier, by implementing one of sklearn utils "class weight" library that has compute_class_weight() function. What it 
-does is according to the parameters given to balance the all the classes by giving higher and lower weights to certain classes 
-after the computation of the classes (n_samples / (n_classes * np.bincount(y))). By this approach, we just tried to eliminate 
-a possibility of overfitting. There are many other reasons for overfitting; outliers in data, too complex in the model architecture
-(true data and model classification wrong, i.e. regression vs classification), data size and so on. By observing the accuracy and loss values 
-in training and validation outputs and also observing on graphs, we can say that we were able to generalize our data minimum %75 overall.
-Having model training sessions where training and validation values were too close to one another considering all the features, 
-it seemed that overfitting and underfitting (commonly at the beginning) were not an issue on most days. 
+Considering training a model with massive data of the same age group might result in predicting the wrong age groups for 
+the given input. We have balanced the data in age feature (the 25-49 age group has the 35% of the data compared to the 
+rest groups) to prevent the overfitting of the model, as mentioned earlier, by implementing one of sklearn utils 
+"class weight" library that has compute_class_weight() function. What it does is according to the parameters given 
+to balance all the classes by giving higher and lower weights to certain classes after the computation of the classes 
+(n_samples / (n_classes * np.bincount(y))). With this approach, we just tried to eliminate the possibility of overfitting. 
+There are many other reasons for overfitting; outliers in data, too complex in the model architecture (true data and 
+model classification wrong, i.e. regression vs classification), data size, and so on. By observing the accuracy and 
+loss values in training and validation outputs and also observing on graphs, we can say that we were able to generalize 
+our data minimum %75 overall. Having model training sessions where training and validation values were too close to one 
+another considering all the features, it seemed that overfitting and underfitting (commonly at the beginning) were not 
+an issue on most days. 
 
 **3.Slow Implementation**
 
-Machine learning is too complex in general. Even if there is a quality data, trained the model well, 
-and have accurate predictions as aimed, the time and effort it takes to consider, implement, tune, execute and wait for 
-the tasks, trainings, predictions and evaluations to complete take too much time. Every each tiny bit of implementation 
-might end spending a hour to a day or few days, meaning every bit of implementation or tuning or consideration of a part,
-you have to train the model and see if the results are satisfying as you aimed in first place;
+Machine learning is too complex in general. Even if there is quality data, a trained model well, and accurate predictions 
+as aimed, the time and effort it takes to consider, implement, tune, execute and wait for the tasks, training, predictions, 
+and evaluations to complete take too much time. Every each tiny bit of implementation might end up spending an hour to 
+a day or a few days, meaning every bit of implementation or tuning or consideration of a part, you have to train the model 
+and see if the results are satisfying as you aimed in the first place;
 
 If;
 - the accuracy is in good range as above,
@@ -123,15 +125,14 @@ the more complex the model is going to be harder to explain,
 - the time for training, predicting and evaluating takes too much time,
 - that performance is good enough overall for our project.
 
-These are just common aspects to keep an eye on. the deeper you go into it, deeper it gets. These considerations are also
-because of not having enough technology (e.g.slow programs) in ML, excessive requirements would be 
-another negative effect and so forth. It also requires constant monitoring and observations as well as maintenance and 
-tuning to be able to produce the best output it is possible under given and created circumstances. There are thousands of 
-inventions that need to happen in every concept of ML. 
+These are just common aspects to keep an eye on. the deeper you go into it, the deeper it gets. These considerations are 
+also because of not having enough technology (e.g.slow programs) in ML, excessive requirements would be another negative 
+effect, and so forth. It also requires constant monitoring and observations as well as maintenance and tuning to be able 
+to produce the best output it is possible under given and created circumstances. There are thousands of inventions that 
+need to happen in every concept of ML.
 
 ### Efficiency
-
-At the first glance, mindset of accuracy values on ML models is as below, enabled us to determine if our model is good 
+At the first glance, the mindset of accuracy values on ML models is as below, enabling us to determine if our model is good 
 enough. If the accuracy is;
 
 _Note: Below are the acceptable/non-objectionable accuracy and loss values results in ML._
@@ -159,46 +160,132 @@ Range of values for loss function;
 - ( > 2.00): Something is not working.
 
 Realizing the fact that, in the beginning, the training data accuracy and validation data accuracy are so far apart from 
-each other suggested that our CNN model was giving sign for over-training. Those acceptable values in ML as in above and 
-to create a model where the training data accuracy and validation data accuracy are between %75-%95, 
-loss values are in the great range (as above) and both training and validation data output values were close to each other
-because having low values than training is also a sign for overfitting which is poor generalization. These main goals 
-were some of the directions we wanted to go for a good generalized model instead of just having very high accuracy with 
-overfitted or underfitted data. On the other hand, when the discrepancy between loss and validation_loss was also dramatic 
-and validation_loss was unstable and was not decreasing as expected in the training progress epoch-by-epoch, 
+each other suggested that our CNN model was giving signs of over-training. Those acceptable values in ML as in above and 
+to create a model where the training data accuracy and validation data accuracy are between %75-%95, loss values are in 
+the great range (as above) and both training and validation data output values were close to each other because having 
+low values than training is also a sign for overfitting which is a poor generalization. These main goals were some of 
+the directions we wanted to go for a good generalized model instead of just having very high accuracy with overfitted or 
+under-fitted data. On the other hand, when the discrepancy between loss and validation_loss was also dramatic and 
+validation_loss was unstable and was not decreasing as expected in the training progress epoch-by-epoch, 
 we focused on the configuration of the model training and model architecture and produced/tuned the most reliable model 
 in our best knowledge.
 
-Hundreds of training sessions were created in CNN from many architectures (layers/blocks) in the hidden layers 
-as well as in the feature layers. Having trained the model with various architectures, training with regularization's 
+Hundreds of training sessions were created in CNN from many architectures (layers/blocks) in the hidden layers as well as 
+in the feature layers. Having trained the model with various architectures, training with regularization 
 (L1, L2, Dropouts(best results)), training with various learning rates (from 10^1 up to 10^5) by implementing dynamic 
 learning rate functions/algorithms and weight_decay algorithms, training with various batch sizes (from 16 up to 128) 
-and epochs (from 10,20, 50 up to 500), various input image sizes (from 64x64 up to 256x256), generalization is high for 
-validation and test sets. Being aware of this important aspect in ML, was one of our important consideration to achieve,
-to have a high accuracy with low loss value and high generalization (low gap between training and validation loss 
-as well as test lost) for never seen data.
+and epochs (from 10,20, 50 up to 500), different input image sizes (from 64x64 up to 256x256), and generalization are 
+high for validation and test sets. Being aware of this important aspect in ML, was one of our important considerations 
+to achieve, to have high accuracy with low loss value and high generalization (the low gap between training and validation 
+loss as well as test loss) for never seen data.
 
-We were aware of and have been told as well as have read in the related sources about ML that accuracy is not enough 
-metric by itself. Accuracy in classification models is just to inform about what is the level of model predictions and 
-a measurement for the effectiveness of the model and misleading can happen a lot. Only having from good level to an excellent 
-level of accuracy (75% to 99%) in training data and validation data is not essential even to only focus on and is not 
-a good way of evaluating how well the model performs. Other important metrics as below such as some efficiency graph plots 
-with a clear diagnostic ability, AUC(ROC curve) with a baseline origo linear (auc=%50), confusion matrix's, classification 
-reports(F1, precision and recall) as well as evaluation on validation and test data that needed to be produced by using various 
-libraries/algorithms were to see how reliable the model is and how good or bad performance our model has.
+We were aware that accuracy alone is not sufficient measure by itself. Accuracy in classification models is just to inform 
+about what is the level of model predictions and a measurement for the effectiveness of the model, but misleading 
+can happen a lot. Only having from good level to an excellent level of accuracy (75% to over 98%) in training and validation 
+data is not essential only to focus and is not a good way of evaluating how well the model performs. Other important 
+metrics as below such as some efficiency graph plots with a clear diagnostic ability, AUC(ROC curve) with a baseline 
+origo linear (auc=%50), confusion matrices, classification reports(F1, precision and recall) as well as evaluation 
+on validation and test data that needed to be produced by using various libraries/algorithms were to see how reliable 
+the model is and how good or bad performance our model has.
 
-<img src="./ModelTrainingService/metrics_figures/age_accuracy.png" width="500" height="400"><br>
-<img src="./ModelTrainingService/metrics_figures/age_loss.png" width="500" height="400"><br>
-<img src="./ModelTrainingService/metrics_figures/gender_accuracy.png" width="500" height="400"><br>
-<img src="./ModelTrainingService/metrics_figures/gender_loss.png" width="500" height="400"><br>
-<img src="./ModelTrainingService/metrics_figures/Conf_Mtrx_age.png" width="500" height="400"><br>
-<img src="./ModelTrainingService/metrics_figures/Conf_Mtrx_gender.png" width="500" height="400"><br>
-<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_0-24.png" width="500" height="400"><br>
-<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_25-49.png" width="500" height="400"><br>
-<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_50-74.png" width="500" height="400"><br>
-<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_75-99.png" width="500" height="400"><br>
-<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_100-124.png" width="500" height="400"><br>
-<img src="./ModelTrainingService/metrics_figures/ROC_curve_gender.png" width="500" height="400"><br>
+
+### Gender accuracy
+
+<img src="./ModelTrainingService/metrics_figures/gender_accuracy.png" width="500" height="400" align="center"><br>
+
+### Gender Loss
+Gender loss on the other hand performs even better, training loss and validation loss for gender feature both decrease and 
+stabilize at a specific point. This indicates an optimal fit in our model, that is to say; a model that does not overfit or underfit.
+
+<img src="./ModelTrainingService/metrics_figures/gender_loss.png" width="500" height="400" align="center"><br>
+
+### Age Accuracy
+Both training and validation set, accuracy for the age feature in our model stabilizes itself towards to a specific point 
+through the end of training (epoch#150). Having an accuracy over 70% without any indication of overfitting and underfitting 
+is a good fit for a good generalization. 
+
+<img src="./ModelTrainingService/metrics_figures/age_accuracy.png" width="500" height="400" align="center"><br>
+
+### Age Loss
+After many configuration and fits for our model, training loss and validation loss for age feature both decrease and 
+stabilize towards to a specific point on epoc#150. This indicates that an optimal fit in our model may happen most probably, 
+that is to say; a model that does not overfit or underfit, given enough time, configurations and fine-tuning.
+
+<img src="./ModelTrainingService/metrics_figures/age_loss.png" width="500" height="400" align="center"><br>
+
+
+### Confusion Matrix for gender feature
+
+The confusion matrix is without normalization, meaning that it is created on predictions from the test dataset. Blue cells 
+indicate the true prediction for that gender class while white colors given the indication for the level of true positive rates
+(towards incorrectly predicted data) in the related columns. i.e. the total number of test dataset is 4742 and for the gender 
+class female 1965 predictions was correct while the true values hold the same, on the other hand, 288 predictions predicted incorrectly.
+In total, it would be accurate to say that 2183 + 1965 = 4148 predictions was correct while 588 of them predicted inccorectly.
+
+<img src="./ModelTrainingService/metrics_figures/Conf_Mtrx_gender.png" width="500" height="400" align="center"><br>
+
+
+### Confusion Matrix for age feature
+
+<img src="./ModelTrainingService/metrics_figures/Conf_Mtrx_age.png" width="500" height="400" align="center"><br>
+
+### Classification Report for age feature (Precision, Recall and F1)
+
+According to the report below, our model is at good stage at predicting for the age groups 0-24 and 25-49 with the 
+given data(support) compare to the other classes. The weighted accuracy is 70%. This shows that the classifier was at 
+learning properly to partition the different type of age groups. 
+
+![img.png](Assets/age_classification_report.png)
+
+### Classification Report for gender feature (Precision, Recall and F1)
+
+Looking at the gender classification report, we see much better results both for male and female classes at predicting the 
+gender of the person in the given image. Holding %88 overall (weighted average) with a good generalization indicates a good configured and 
+tuned model under given circumstances.
+
+![img.png](Assets/gender_classification_report.png)
+
+<img src="./ModelTrainingService/metrics_figures/Conf_Mtrx_gender.png" width="500" height="400" align="center"><br>
+
+
+
+### AUC-ROC for Gender binary-classification
+
+
+
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_gender.png" width="500" height="400" align="center"><br>
+
+
+
+### AUC-ROC for Age groups Multiclass-classification (through One vs All)
+
+The Auc-Roc curves is for binary classifications for the gender feature. It can also be created with one vs all technique for multiclass
+classifications. Below we have age groups as our classes/outcomes. The probability curve plots the true positive rate 
+against false positive rate. AUC, the area under curve is the measure of the ability of a classifier to differentiate 
+between the classes and draw the curve as a summary ROC (receiver operator characteristics) where true positive rates are 
+sensitivity (how well classifier can identify true positives) while false positive rates are specificity (how well classifier 
+can identify true negatives). Diagonal refers to 50% where classifier can not distinguish between 
+positive and negative class points. If the curve is parallel with diagonal, mean basically classifier is just making guess with 50% chance.
+If the area under curve is 0, then the classifier predicting all negative as positive and positive as the negative. 
+This means the higher the curve over diagonal, the better to distinguish. 0.5<AUC<1 is high chance of probability of 
+belonging to the classes respectively.
+
+Below we see the age groups ROC curves and their probabilities of their related classes. 
+
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_0-24.png" width="500" height="400" align="center"><br>
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_25-49.png" width="500" height="400" align="center"><br>
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_50-74.png" width="500" height="400" align="center"><br>
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_75-99.png" width="500" height="400" align="center"><br>
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_100-124.png" width="500" height="400" align="center"><br>
+
+
+
+
+
+
+
+
+
 
 
 
