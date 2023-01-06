@@ -1,69 +1,78 @@
 {% extends "base.html" %}
 
 {% block container %}
-{% load static i18n %}
+  {% load static i18n %}
 
   <div class="container">
 
   <div class="user">
   <div class="row gx-5 justify-content-center">
 
-    
-  
-    <div class="col-lg-6">
-      <div class="p-3 h-100 col bg-light border rounded-3">
-        <h2>Dataset upload</h2>
-        <form method="POST" action="{% url 'upload-dataset' %}" enctype="multipart/form-data">
-          {% csrf_token %}
-  
-          <div class="d-flex">
-            <input id="chunked_upload_type_1" type="file" name="file" class="form-control" required>
-            {{ errors.file }}
-            <input id="filename" type="text" name="filename" class="form-control" placeholder="filename - match with folder name" required>
-            <input id="offset" type="text" name="offset" class="form-control" placeholder="Offset (Optional)">
 
+
+  <div class="col-lg-6">
+    <div class="p-3 h-100 col bg-light border rounded-3 ds-upload">
+      <h2>Dataset upload</h2>
+      <form method="POST" action="{% url 'upload-dataset' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="d-flex flex-column">
+          {{ errors.file }}
+          <p class="d-flex align-items-center"><label for="filename">Name: </label>
+            <input id="filename" type="text" name="filename" class="form-control"
+                   placeholder="match with folder name" required>
+          </p>
+          <p class="d-flex align-items-center"><label for="offset">Offset: </label>
+            <input id="offset" type="text" name="offset" class="form-control" placeholder="optional">
+          </p>
+          <p class="d-flex">
+            <input id="chunked_upload_type_1" type="file" name="file" class="form-control" required>
             <input type="submit" name="uploadDataSet" required>
+          </p>
+
+        </div>
+      </form>
+      <hr>
+
+      <h2>Dynamic Training</h2>
+
+      <form action="{% url 'train-model' %}" class="models-form" method="POST">
+        {% csrf_token %}
+        {% if Datasets %}
+          <br/>
+
+          {% for x in Datasets %}
+
+            <input type="radio" id={{ x.id }} name="selected" value="{{ x.filename }}" required>{{ x.filename }}</input>
+            <br/>
+            <br/>
+
+          {% endfor %}
+
+          <div class="d-flex">
+            <input class="form-control" type="text" id="epochs" name="epochs" pattern="[0-9]+"
+                   placeholder="Number of Epochs" required>
+            <input class="form-control" type="text" id="epochs_steps" name="epochs_steps" pattern="[0-9]+"
+                   placeholder="Steps per Epoch"
+                   required>
+
+
+            <input type="submit" name="uploadDataSet" value="Train" required></input>
 
           </div>
-        </form>
-        <br/>
-        <br/>
 
-        <h2>Dynamic Training</h2>
-        <br/>
-        <form action="{% url 'train-model' %}" class="models-form" method="POST">
-          {% csrf_token %}
-          {% if Datasets %}
-            <br/>
-       
-              {% for x in Datasets %}
-                
-                    <input type="radio" id={{ x.id }} name="selected"  value="{{ x.filename }}" required>{{ x.filename }}</input>
-                    <br/>
-                    <br/>
-            
-              {% endfor %}
-              <input type="text" id="epochs" name="epochs" pattern="[0-9]+" placeholder="Number of Epochs"required>
-              <input type="text" id="epochs_steps" name="epochs_steps" pattern="[0-9]+" placeholder="Steps per Epoch"required>
-
-            <div class="models-form__buttons mt-2">
-
-              <input type="submit" name="uploadDataSet" value="Train" required></input>
-
-            </div>
-  
-          {% else %}
+        {% else %}
           <p>No saved datasets are available. Please upload a dataset first</p>
 
-          {% endif %}
-  
-        </form>
-  
-      </div>
-    </div>
-  
+        {% endif %}
 
-  
+      </form>
+
+    </div>
+  </div>
+
+
+
   <div class="col-lg-6 col">
     <div class="p-3 h-100 bg-light border rounded-3">
       <h2>Model upload</h2>
@@ -134,39 +143,39 @@
 
 
   <div class="col mt-5">
-    <div class="row gx-5 justify-content-center">
-    <div class="col-lg-6 ">
-      <div class="p-3 bg-light h-100 border rounded-3">
-        <h2>Model in Use</h2>
-        {% if CurrentModel %}
-          <table>
-            <tr>
-              <th>Model Name</th>
-              <th>Model Format</th>
-              <th>Update Time</th>
-              <th>Location</th>
-            <tr>
-            <tr>
-              <td>
-                {{ CurrentModel.name }}
-              </td>
-              <td>
-                {{ CurrentModel.format }}
-              </td>
-              <td>
-                {{ CurrentModel.timestamp }}
-              </td>
-              <td>
-                {{ CurrentModel.file }}
-              </td>
-            </tr>
-          </table>
-      </div>
-    </div>
+  <div class="row gx-5 justify-content-center">
+  <div class="col-lg-6 ">
+    <div class="p-3 bg-light h-100 border rounded-3">
+      <h2>Model in Use</h2>
+      {% if CurrentModel %}
+        <table>
+          <tr>
+            <th>Model Name</th>
+            <th>Model Format</th>
+            <th>Update Time</th>
+            <th>Location</th>
+          <tr>
+          <tr>
+            <td>
+              {{ CurrentModel.name }}
+            </td>
+            <td>
+              {{ CurrentModel.format }}
+            </td>
+            <td>
+              {{ CurrentModel.timestamp }}
+            </td>
+            <td>
+              {{ CurrentModel.file }}
+            </td>
+          </tr>
+        </table>
+        </div>
+        </div>
 
 
-    <div class="col-lg-6 ">
-      <div class="p-3 bg-light border h-100 rounded-3">
+        <div class="col-lg-6 ">
+        <div class="p-3 bg-light border h-100 rounded-3">
         <h3>Evaluation</h3>
         <table>
           <tr>
@@ -193,7 +202,7 @@
         <p>No model Selected. Please choose a model first.</p>
       {% endif %}
       </div>
-    </div>
+      </div>
 
 
 {% endblock container %}
@@ -202,107 +211,108 @@
 
 </div>
 {% block javascript %}
-{% load static %}
+  {% load static %}
 
-<script src="{% static 'js/jquery.js' %}"></script>
-<script src="{% static 'js/jquery.ui.widget.js' %}"></script>
-<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-<script src="{% static 'js/jquery.iframe-transport.js' %}"></script>
-<!-- The basic File Upload plugin -->
-<script src="{% static 'js/jquery.fileupload.js' %}"></script>
-<!-- Calculate md5 -->
-<script src="{% static 'js/spark-md5.js' %}"></script>
-<script>
-  // Submit form on file selection
-  var md5 = "",
-            csrf = $('[name="csrfmiddlewaretoken"]').attr('value'),
-            form_data = [
-                {'name': 'owner_type', 'value': 3},
-                {'name': 'owner_id', 'value': 1}
-            ];
-  function calculate_md5(data, chunk_size) {
-    var blob_slice = File.prototype.slice || File.prototype.mozSlice || File.prototype.webkitSlice,
-    file = data.files[0],
-    chunks = Math.ceil(file.size / chunk_size),
-                current_chunk = 0,
-                spark = new SparkMD5.ArrayBuffer(),
-                fileReader = new FileReader();
+  <script src="{% static 'js/jquery.js' %}"></script>
+  <script src="{% static 'js/jquery.ui.widget.js' %}"></script>
+  <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+  <script src="{% static 'js/jquery.iframe-transport.js' %}"></script>
+  <!-- The basic File Upload plugin -->
+  <script src="{% static 'js/jquery.fileupload.js' %}"></script>
+  <!-- Calculate md5 -->
+  <script src="{% static 'js/spark-md5.js' %}"></script>
+  <script>
+    // Submit form on file selection
+    var md5 = "",
+      csrf = $('[name="csrfmiddlewaretoken"]').attr('value'),
+      form_data = [
+        {'name': 'owner_type', 'value': 3},
+        {'name': 'owner_id', 'value': 1}
+      ];
 
-            fileReader.onload = function (e) {
-                console.log('read chunk nr', current_chunk + 1, 'of', chunks);
-                spark.append(e.target.result);                   // Append array buffer
-                current_chunk++;
+    function calculate_md5(data, chunk_size) {
+      var blob_slice = File.prototype.slice || File.prototype.mozSlice || File.prototype.webkitSlice,
+        file = data.files[0],
+        chunks = Math.ceil(file.size / chunk_size),
+        current_chunk = 0,
+        spark = new SparkMD5.ArrayBuffer(),
+        fileReader = new FileReader();
 
-                if (current_chunk < chunks) {
-                    read_next_chunk();
-                } else {
-                    data.submit();
-                    md5 = spark.end();
-                    console.log('finished loading');
-                    console.info('computed hash', md5);  // Compute hash
-                }
-            };
-            fileReader.onerror = function () {
-                console.warn('oops, something went wrong.');
-            };
+      fileReader.onload = function (e) {
+        console.log('read chunk nr', current_chunk + 1, 'of', chunks);
+        spark.append(e.target.result);                   // Append array buffer
+        current_chunk++;
 
-            function read_next_chunk() {
-                var start = current_chunk * chunk_size,
-                    end = Math.min(start + chunk_size, file.size);
-                fileReader.readAsArrayBuffer(blob_slice.call(file, start, end));
-            };
-
-            read_next_chunk();
+        if (current_chunk < chunks) {
+          read_next_chunk();
+        } else {
+          data.submit();
+          md5 = spark.end();
+          console.log('finished loading');
+          console.info('computed hash', md5);  // Compute hash
         }
+      };
+      fileReader.onerror = function () {
+        console.warn('oops, something went wrong.');
+      };
 
-        var chunk_size = 1000000; // Chunks of 100 kB
-        $(document).ready(function() {
+      function read_next_chunk() {
+        var start = current_chunk * chunk_size,
+          end = Math.min(start + chunk_size, file.size);
+        fileReader.readAsArrayBuffer(blob_slice.call(file, start, end));
+      };
 
-        $("#chunked_upload_type_1").fileupload({
-            url: "{% url 'upload-dataset' %}",
+      read_next_chunk();
+    }
+
+    var chunk_size = 1000000; // Chunks of 100 kB
+    $(document).ready(function () {
+
+      $("#chunked_upload_type_1").fileupload({
+        url: "{% url 'upload-dataset' %}",
+        type: "POST",
+        dataType: "json",
+        maxChunkSize: chunk_size,
+        formData: form_data,
+        headers: {
+          'X-CSRFToken': csrf
+        },
+        add: function (e, data) { // Called before starting upload
+          $("#messages_type_2").empty();
+          // If this is the second file you're uploading we need to remove the
+          // old upload_id and just keep the csrftoken (which is always first).
+          form_data.splice(1);
+          calculate_md5(data, chunk_size);  // Again, chunks of 100 kB
+        },
+        chunkdone: function (e, data) { // Called after uploading each chunk
+          if (form_data.length < 2) {
+            form_data.push(
+              {"name": 'upload_id', "value": data.result.id}
+            );
+          }
+          $("#messages_type_2").append($('<p>').text(JSON.stringify(data.result)));
+          var progress = parseInt(data.loaded / data.total * 100.0, 10);
+          $("#progress_type_2").text(Array(progress).join("=") + "> " + progress + "%");
+        },
+        done: function (e, data) { // Called when the file has completely uploaded
+          $.ajax({
             type: "POST",
-            dataType: "json",
-            maxChunkSize: chunk_size,
-            formData: form_data,
+            url: data.result.url,
+            data: {md5: md5},
             headers: {
-                'X-CSRFToken': csrf
+              'X-CSRFToken': csrf
             },
-            add: function (e, data) { // Called before starting upload
-                $("#messages_type_2").empty();
-                // If this is the second file you're uploading we need to remove the
-                // old upload_id and just keep the csrftoken (which is always first).
-                form_data.splice(1);
-                calculate_md5(data, chunk_size);  // Again, chunks of 100 kB
-            },
-            chunkdone: function (e, data) { // Called after uploading each chunk
-                if (form_data.length < 2) {
-                    form_data.push(
-                        {"name": 'upload_id', "value": data.result.id}
-                    );
-                }
-                $("#messages_type_2").append($('<p>').text(JSON.stringify(data.result)));
-                var progress = parseInt(data.loaded / data.total * 100.0, 10);
-                $("#progress_type_2").text(Array(progress).join("=") + "> " + progress + "%");
-            },
-            done: function (e, data) { // Called when the file has completely uploaded
-                $.ajax({
-                    type: "POST",
-                    url: data.result.url,
-                    data: {md5: md5},
-                    headers: {
-                        'X-CSRFToken': csrf
-                    },
-                    dataType: "json",
-                    success: function (data) {
-                        $("#messages_type_2").append($('<p>').text(JSON.stringify(data)));
-                    }
-                });
-            },
-            fail: function (e, data) {
-                $("#messages_type_2").append($('<p>').text(JSON.stringify(data.jqXHR.responseJSON)));
+            dataType: "json",
+            success: function (data) {
+              $("#messages_type_2").append($('<p>').text(JSON.stringify(data)));
             }
           });
+        },
+        fail: function (e, data) {
+          $("#messages_type_2").append($('<p>').text(JSON.stringify(data.jqXHR.responseJSON)));
+        }
+      });
 
-        });
-</script>
+    });
+  </script>
 {% endblock %}

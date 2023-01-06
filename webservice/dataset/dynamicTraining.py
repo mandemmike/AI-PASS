@@ -1,24 +1,17 @@
+import datetime
+import ssl
 from pathlib import Path
-from collections import Counter
-from matplotlib import image
-from sklearn import utils
-import tensorflow as tf
-from tensorflow.keras.models import load_model
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from app.forms import FaceRecognitionForm, DataSetUploadForm, ModelUploadForm, EvaluateModelForm, SelectModelForm
-from django.http import HttpResponse
-import matplotlib.pyplot as plt
-import ssl
-import datetime
-import requests
-from django.core.files import File
-from app.models import EvaluatedModelData
-from tensorflow.keras.layers import Input
+import tensorflow as tf
 from tensorflow.keras.layers import Dense
-from tensorflow.keras.utils import plot_model
+from tensorflow.keras.layers import Input
+
+from app.models import EvaluatedModelData
 from app.models import MLModel
+
 ssl._create_default_https_context = ssl._create_unverified_context
 import zipfile
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -27,7 +20,6 @@ from sklearn.model_selection import train_test_split
 
 
 from tensorflow.keras.applications.resnet50 import ResNet50
-from main.settings import MEDIA_URL
 
 IMAGE_SIZE = (224, 224)
 BATCH_SIZE = 128
@@ -36,7 +28,7 @@ max_age = 116
 
 
 def preprocess_input_facenet(image_):
- 
+
     preprocessed = tf.keras.applications.resnet50.preprocess_input(
     x=image_)
 
@@ -63,19 +55,19 @@ def getEvaluate(model_instance):
             continue
 
 
-            
+
         age, gender, race, _ = filename.split('_')
         correct_filenames.append(filename)
         age_labels.append(age)
         gender_labels.append(gender)
         race_labels.append(race)
-    
+
     age_labels = np.array(age_labels, dtype=np.float32)
     max_age = age_labels.max()
 
-    data = {'img_name': correct_filenames, 
-            'age': age_labels / max_age, 
-            'race': race_labels, 
+    data = {'img_name': correct_filenames,
+            'age': age_labels / max_age,
+            'race': race_labels,
             'gender': gender_labels}
     df = pd.DataFrame(data)
     df = df.astype({'race': 'int32', 'gender': 'int32'})
@@ -83,7 +75,7 @@ def getEvaluate(model_instance):
     val_generator = image_gen.flow_from_dataframe(
         dataframe=df,
         class_mode='multi_output',
-        x_col='img_name', 
+        x_col='img_name',
         y_col=['gender', 'race', 'age'],
         directory=str(data_folder),
         target_size=IMAGE_SIZE,
@@ -144,19 +136,19 @@ def DynamicTraining(request, path_file_zip, Filename, epochs, steps_epochs):
             continue
 
 
-            
+
         age, gender, race, _ = filename.split('_')
         correct_filenames.append(filename)
         age_labels.append(age)
         gender_labels.append(gender)
         race_labels.append(race)
-    
+
     age_labels = np.array(age_labels, dtype=np.float32)
     max_age = age_labels.max()
 
-    data = {'img_name': correct_filenames, 
-            'age': age_labels / max_age, 
-            'race': race_labels, 
+    data = {'img_name': correct_filenames,
+            'age': age_labels / max_age,
+            'race': race_labels,
             'gender': gender_labels}
     df = pd.DataFrame(data)
     df = df.astype({'race': 'int32', 'gender': 'int32'})
@@ -174,7 +166,7 @@ def DynamicTraining(request, path_file_zip, Filename, epochs, steps_epochs):
 
 
     ## Restnet50 pretrained weights
-        
+
     base_model = tf.keras.Model([vggface_model.input], vggface_model.get_layer(index=-1).output)
     base_model.trainable = False
 
@@ -212,12 +204,12 @@ def DynamicTraining(request, path_file_zip, Filename, epochs, steps_epochs):
     metric_scce = tf.keras.metrics.SparseCategoricalAccuracy()
     metric_mae = tf.keras.metrics.MeanAbsoluteError()
 
-    model.compile(optimizer=optimizer, 
+    model.compile(optimizer=optimizer,
               loss={'gender': loss_bc, 'race': loss_scce, 'age': loss_mse},
               metrics={'gender': metric_bc, 'race': metric_scce, 'age': metric_mae})
 
 
-    CLASS_MODE = 'multi_output' 
+    CLASS_MODE = 'multi_output'
     TARGET_SIZE = IMAGE_SIZE
 
 
@@ -229,7 +221,7 @@ def DynamicTraining(request, path_file_zip, Filename, epochs, steps_epochs):
     train_generator = image_gen.flow_from_dataframe(
         dataframe=df_train,
         class_mode='multi_output',
-        x_col='img_name', 
+        x_col='img_name',
         y_col=['gender', 'race', 'age'],
         directory=str(data_folder),
         target_size=TARGET_SIZE,
@@ -240,7 +232,7 @@ def DynamicTraining(request, path_file_zip, Filename, epochs, steps_epochs):
     val_generator = image_gen.flow_from_dataframe(
         dataframe=df_val,
         class_mode='multi_output',
-        x_col='img_name', 
+        x_col='img_name',
         y_col=['gender', 'race', 'age'],
         directory=str(data_folder),
         target_size=TARGET_SIZE,
@@ -261,11 +253,11 @@ def DynamicTraining(request, path_file_zip, Filename, epochs, steps_epochs):
     cpt_filename = 'media/models/' + Filename + '.h5'
 
 
-    metric = 'age_mean_absolute_error' # Saving the best model according to the min(MAE) 
-    checkpoint = tf.keras.callbacks.ModelCheckpoint(cpt_filename, 
+    metric = 'age_mean_absolute_error' # Saving the best model according to the min(MAE)
+    checkpoint = tf.keras.callbacks.ModelCheckpoint(cpt_filename,
                                                 monitor=metric,
-                                                verbose=1, 
-                                                save_best_only=True, 
+                                                verbose=1,
+                                                save_best_only=True,
                                                 mode='min')
 
     log_dir = '../tblogs/multitask_three_out_' + datetime.datetime.now().strftime('%y-%m-%d_%H-%M')
@@ -276,20 +268,20 @@ def DynamicTraining(request, path_file_zip, Filename, epochs, steps_epochs):
 
 
 
-    # Training 
+    # Training
     ############################
     ############################
     ############################
-    
+
     EPOCHS = int(epochs)
     steps = len(df_val)//BATCH_SIZE
 
     model.fit(
-    train_generator, 
+    train_generator,
     validation_data=val_generator,
-    epochs=EPOCHS, 
-    steps_per_epoch=int(steps_epochs), 
-    callbacks=[tensorboard_callback, checkpoint], 
+    epochs=EPOCHS,
+    steps_per_epoch=int(steps_epochs),
+    callbacks=[tensorboard_callback, checkpoint],
     validation_steps=steps)
 
     results = model.evaluate(val_generator, steps=steps)
@@ -300,7 +292,7 @@ def DynamicTraining(request, path_file_zip, Filename, epochs, steps_epochs):
     eval.save()
 
     model = MLModel.create(file=str(cpt_filename), format='h5r',name=Filename,is_active=False, evaluated_data=eval)
-    
+
     return model
 
 
