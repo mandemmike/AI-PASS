@@ -2,6 +2,7 @@
 # **Group 3**
 ## **Project management**
 
+
 [Trello board](https://trello.com/invite/b/w6bgezh8/ATTI01dd1720d355f279d59a6e152abece334ED95C4C/dit-825)
 
 ---
@@ -70,7 +71,7 @@ Received feedback from Peter regarding project, ways of working, recommendations
 | Finalize syst.reqs  | All                     |
 | Finalize model      | Ediz                    |
 | Set up DB and Cloud | Zubeen, Michael         |
-| Work with frond-end | Olga, Renyuan           |
+| Django application | Olga, Renyuan           |
 
 
 ---
@@ -89,7 +90,7 @@ Received feedback from Peter regarding project, ways of working, recommendations
 | Tasks             | Responsible            |
 |-------------------|------------------------|
 | Unit testing      | Ediz, Michael          |
-| Front-end         | Olga, Renyuan          |
+| Django application       | Olga, Renyuan          |
 | Docker, Kubernets | Ediz, Zubeen           |
 
 
@@ -107,7 +108,7 @@ Received feedback from Peter regarding project, ways of working, recommendations
 | Tasks                        | Responsible      |
 |------------------------------|------------------|
 | Figma, CNN model improvement | Ediz             |
-| Front-end tasks              | Olga, Renyuan    |
+| Django application              | Olga, Renyuan    |
 | Docker tasks                 | Zubeen           |      
  | Kubernetes tasks             | Michael          |
 
@@ -128,7 +129,7 @@ Received feedback from Peter regarding project, ways of working, recommendations
 |---------------------------------------|------------------|
 | Gitlab issues, CNN model, Unit test   | Ediz             |
 | Model connection to UI                | Renyuan    |
-| Front-end Django app              | Olga    |
+| Front-end Django application              | Olga    |
 | Continuation on Docker tasks          | Zubeen           |      
  | Continuation on Kubernetes tasks      | Michael          |
 
@@ -167,7 +168,7 @@ Received feedback from Peter regarding project, ways of working, recommendations
 |----------------------------------------------------------------------------------------------------------------------------------------------------|------------------|
 | Prepared the presentation CNN model and deployment slides,CNN model architecture and deployment diagrams, CNN model configuration tasks, Unit test | Ediz             |
 | Live demo, Model connection to UI                                                                 |  Renyuan    |
-| Prepared the Presentation UI, challenges slides, fixing UI                                                                 | Olga, Renyuan    |
+| Prepared the Presentation UI, challenges slides, fixing UI                                                                 | Olga   |
 | Prepared the Presentation roadmap and app architecture slides, Continuation on Docker tasks                                                        | Zubeen           |      
  | Prepared the Presentation what to improve slide, Continuation on Kubernetes tasks                                                                  | Michael          |
 
@@ -296,13 +297,8 @@ Received feedback from Peter regarding project, ways of working, recommendations
 | Final report, README.md, Weekly meetings note corrections, CNN model last configurations for better performance, Unit test | Ediz             |
 | Final report, UI tasks                                                                                                     | Olga, Renyuan    |
 | Final report, unit test                                                                                                    | Zubeen           |      
- | Final report, UI bugs + enhancements                                                                                       | Michael          |
-| Task                                                                                                            | Responsible      |
-|-----------------------------------------------------------------------------------------------------------------|------------------|
-| Final report, Weekly meetings note corrections, CNN model last configurations for better performance, Unit test | Ediz             |
-| Final report, UI tasks, weekly meetings notes                                                                                         | Olga, Renyuan    |
-| Final report, unit test                                                                                         | Zubeen           |      
- | Final report, UI  + enhancements                                                                            | Michael          |
+ | Final report, UI + enhancements                                                                                       | Michael          |
+                                                                          | Michael          |
 
 ---
 
