@@ -315,7 +315,11 @@ augmentation methods and apply to right age groups or apply to classes.
 <img src="./Assets/Deployment_Workflow.png" width="789" height="350"><br>
 
 
-_Add deployment guide_
+The deployment of our system is detailed above in the deployment diagram. Once we are done fully with the functionality 
+of the system parts implementation is ready, and it is pushed to the GitLab repository and merged through related ranches 
+to the main branch. The Gitlap repository has all the related configuration files in Dockerfile for dockerizing our app.
+After locally dockerized the application, we basically use our private google cloud account to be able to deploy 
+the application through the Kubernetes interface. 
 
 ---
 
@@ -337,8 +341,188 @@ with Celery to help manage tasks within a Django application. Celery can be thou
 offload tasks from the main request/response cycle of your Django app, and Redis helps facilitate this process by acting 
 as a broker between Celery and Django there we have used to containerize our application.
 
+---
 ### Installation
-_Add intallation guide_
+
+#### Cloning a repository
+
+Create a directory of your choice and go into the created directory,
+```
+mkdir <directory name>
+cd <directory name>
+```
+
+On Gitlab.com, navigate to the main page of the repository by following link (if you are authenticated),
+_Note: It is a private repository._
+
+```
+https://git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
+```
+
+Above the list of files, click "CLONE",
+
+Copy the URL for the repository,
+
+```
+To clone the repository using HTTPS, under "HTTPS",
+To clone the repository using an SSH key, including a certificate issued by your organization's SSH certificate authority, click SSH,
+```
+Open your terminal,
+
+Type git clone, and then paste the URL you copied earlier as follows,
+```
+git clone https://git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection.git
+```
+
+Press Enter to create your local clone. In case of using SSH key, enter your credentials when it is prompt.
+
+#### Running the application
+
+Install [Python](https://www.python.org/downloads/) of your choice after v3.XX
+
+Install Anaconda3
+- Go to [Anaconda](https://www.anaconda.com/distribution/) download page  and find the installer file that matches your system. 
+- Open file, start the installation wizard and follow the instructions.
+
+_Note: Note: Anaconda also creates a virtual environment called “base” (see below for details on virtual env)._
+
+
+If your Python environment does not have pip installed, there are 2 mechanisms to install pip supported directly by pip’s maintainers:
+Install and upgrade pip by the command below;
+
+Download and script [get-pip.py](https://bootstrap.pypa.io/get-pip.py)
+
+Install it through terminal in the same directory,
+```
+py get-pip.py
+```
+
+Upgrade pip, 
+
+```
+py -m pip install --upgrade pip
+```
+
+You need the following packages for the application: 
+- numpy 
+- scipy 
+- matplotlib 
+- scikit-learn 
+- pandas
+- django
+- ktrain
+- celery
+- redis
+- tensorflow
+- gunicorn
+- keras
+
+Install above packages with pip,
+
+```
+py install <package_name>
+```
+
+Create virtual environment by using the Anaconda Navigator (graphical interface) or conda (via anaconda terminal):
+
+```
+conda create --name [env-name]
+```
+Activate a virtual environment,
+
+```
+activate [env-name]
+```
+
+To be able to run the web application through the terminal, ensure that you are in project directory and run the following command:
+
+```
+python manage.py runserver
+```
+
+From the output take note of the URL http://127.0.0.1:8000/ and open it with your preferred browser.
+
+
+#### Committing
+
+Before trying to push your code to the remote branch, members shall commit their changes first by the following commands. 
+
+Check what to commit by viewing the changes.
+
+```
+git status
+
+```
+then add specific files to commit by this command 
+```
+git add <filename>
+```
+or add all files by 
+
+```
+git add .
+```
+
+Now we can commit the changes, and we do that with following a specific commit message or template:
+
+```
+git commit -m "<i.e.commit message or template >" .
+```
+
+If the branch created is new then we need to push the changes by the following command:
+
+```
+git push --set-upstream origin <branch name>
+```
+
+Otherwise, if the branch already exits and when the member has committed the changes to the branch, the remote branch 
+shall be pulled and conflicts shall be resolved before pushing the new changes to this remote branch. To do this type 
+this command in your terminal on your local main branch. 
+
+```
+git pull
+```
+
+load back the local working branch,
+
+```
+git checkout <branchname> 
+```
+
+Merge with the master/main as follows, to get the latest updates which has been added by the other members
+
+```
+git merge main
+```
+
+In case of conflicts there will be a message by the terminal which needs to be resolved. Follow and resolve the conflicts.
+i.e. git interface of the IDE your using. Otherwise, the working branch is updated with main and all main branch udates 
+will be pushed to git again in the next push. 
+
+There will be a Discord channel in the team’s Discord server, where team members shall announce and notify pushing to a 
+specific remote branch, to avoid pushing to the remote branch at the same time from different team members. 
+
+When a green light is given to push to the remote branch,
+
+```
+git push origin <branch name>
+```
+
+This also applies when trying to merge to master branch.
+
+
+#### Merging to Main branch
+
+- There will be no merging to the master branch unless an issue is completed or team members consider it necessary to 
+merge to the master branch. To avoid conflicts, the team members are entitled to push and merge more often when it’s possible.
+
+- When an issue is done and needs to be merged to master, the team members shall create a pull request using the same 
+commit template mentioned in point 4 with the appropriate tags and requesting reviews from other team members that have
+not worked on the entitled issue. If the pull request is approved and satisfies its criteria then it’s allowed to merge 
+(the same template on point 4 will also be used here when merging to the master branch).
+
+
+---
 
 ### Dependencies
 
@@ -350,6 +534,8 @@ _Add intallation guide_
 - [Celery](https://docs.celeryq.dev/en/stable/getting-started/introduction.html#installation)
 - [Redis](https://redis.com/redis-enterprise-software/download-center/software/)
 
+---
+
 ### Developers
 
 - [Ediz Genc](https://git.chalmers.se/ediz)
@@ -357,6 +543,8 @@ _Add intallation guide_
 - [Olga Ratushniak](https://git.chalmers.se/olgara)
 - [Renyuan Huang](https://git.chalmers.se/renyuan)
 - [Zubeen S. Maruf](https://git.chalmers.se/zubeen)
+
+---
 
 ### License
 [MIT license](https://git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection/-/blob/main/LICENSE.md)
