@@ -30,12 +30,19 @@ a {
   text-decoration: none;
 }
 
+hr{
+  border-top: 1px solid #102e44;
+  opacity: 0.8;
+}
+
 input[type="submit"] {
   background: #102E44;
   color: #ffffff;
   box-shadow: none;
   border: 1px solid #102E44;
     border-radius: 3px;
+  min-height: 30px;
+    min-width: 50px;
 }
 
 .model-upload select,
@@ -55,11 +62,19 @@ input[type="submit"] {
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-.model-upload label {
+.model-upload label,
+.ds-upload label {
   width: 50px;
 }
 .model-upload select {
   width: 83px;
+}
+
+.models-form input[type='radio'] {
+  line-height: 1.2;
+  display: inline-block;
+  vertical-align: bottom;
+  margin-right: 5px;
 }
 
 input[type="submit"]:hover {

@@ -36,22 +36,6 @@ face_detector_model = cv2.dnn.readNetFromCaffe(os.path.join(STATIC_DIR, 'models/
 face_feature_model = cv2.dnn.readNetFromTorch(
     os.path.join(STATIC_DIR, 'models/openface.nn4.small2.v1.t7'))
 
-# face recognition
-face_recognition_model = pickle.load(open(os.path.join(STATIC_DIR, 'models/machinelearning_face_person_identity.pkl'),
-                                          mode='rb'))
-# emotion recognition model
-emotion_recognition_model = pickle.load(open(os.path.join(
-    STATIC_DIR, 'models/machinelearning_face_emotion.pkl'), mode='rb'))
-
-# TODO: connect age and gender models here
-
-# age estimation model
-age_estimation_model = pickle.load(
-    open(os.path.join(STATIC_DIR, 'models/machinelearning_face_emotion.pkl'), mode='rb'))
-
-gender_estimation_model = pickle.load(
-    open(os.path.join(STATIC_DIR, 'models/machinelearning_face_emotion.pkl'), mode='rb'))
-
 
 def get_current_model() -> MLModel:
     try:
@@ -60,10 +44,12 @@ def get_current_model() -> MLModel:
         raise RuntimeError('Please upload a model')
     return ml_model
 
+
 def create_model_path(path):
     file_path = os.path.join(settings.MEDIA_ROOT, path)
 
     return load_model(file_path)
+
 
 def get_estimation_model():
     ml_model = get_current_model()
@@ -78,12 +64,10 @@ def get_estimation_model():
 
 
 def preprocess_input_facenet(image_):
- 
     preprocessed = tf.keras.applications.resnet50.preprocess_input(
-    x=image_)
+        x=image_)
 
     return preprocessed
-
 
 
 def pipeline_model(path):
@@ -94,25 +78,24 @@ def pipeline_model(path):
     if presetupModel or modelformat == MLModel.MLFormat.H5_R:
         age_max = 116
         image_gen = ImageDataGenerator(preprocessing_function=preprocess_input_facenet)
-       
+
         image = imageio.imread(path)
         df = pd.DataFrame({'filename': [path], 'label': [1]})
         df['image'] = [image]
-        gen = image_gen.flow_from_dataframe(df, 
-                              x_col='filename',
-                              y_col=['label'],
-                              target_size=(224, 224),
-                              class_mode='raw', 
-                              batch_size=1)
+        gen = image_gen.flow_from_dataframe(df,
+                                            x_col='filename',
+                                            y_col=['label'],
+                                            target_size=(224, 224),
+                                            class_mode='raw',
+                                            batch_size=1)
         input_img, label = next(gen)
         model_pred = get_estimation_model()
-
 
         prediction = model_pred.predict(input_img)
         gender = int(prediction[0][0] > 0.5)
         age = prediction[2][0]
-        output = int(age[0]*age_max)
-       
+        output = int(age[0] * age_max)
+
         img = cv2.imread(path)
         output_img = img.copy()
         cv2.imwrite('./static/process.jpg', output_img)
@@ -128,7 +111,7 @@ def pipeline_model(path):
     if modelformat == MLModel.MLFormat.H5:
         # pipeline model
         h5model = get_estimation_model()
-        
+
         h5img = loadImage(path)
         img = cv2.imread(path)
         output_img = img.copy()
@@ -205,8 +188,8 @@ def pipeline_model(path):
                         face_roi, 1 / 255, (96, 96), (0, 0, 0), swapRB=True, crop=True)
                     face_feature_model.setInput(face_blob)
                     vectors = face_feature_model.forward()
-                    age = get_estimation_model().predict(vectors)[0]
-                    #gender = gender_estimation_model.predict_proba(vectors).max()
+                    # age = get_estimation_model().predict(vectors)[0]
+                    # gender = gender_estimation_model.predict_proba(vectors).max()
 
                     cv2.imwrite(os.path.join(settings.MEDIA_URL,
                                              'ml_output/process.jpg'), image)
@@ -214,8 +197,8 @@ def pipeline_model(path):
                                              'ml_output/roi_{}.jpg'.format(count)), face_roi)
 
                     machinlearning_results['count'].append(count)
-                    machinlearning_results['age'].append(age)
-                    #machinlearning_results['gender'].append(gender)
+                    # machinlearning_results['age'].append(age)
+                    # machinlearning_results['gender'].append(gender)
 
                     count += 1
 

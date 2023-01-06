@@ -6,11 +6,11 @@
 
 ---
 
-
 ### **Week 44**
 No meetings. Forming groups.
 
 ---
+
 ### **Week 45**
 
 #### Meeting 1
@@ -28,7 +28,6 @@ No meetings. Forming groups.
 
 ---
 
-
 ### **Week 46**
 #### Meeting 1
 **Date:** 2022-11-15 <br>
@@ -36,15 +35,12 @@ No meetings. Forming groups.
 **Present:** All <br>
 **Notes:**  Decided to try with a toy model everyone and share our results and findings on Thursday meeting
 
-
-
 #### Meeting 2 
 **Date:** 2022-11-18 <br>
 **Type:** Meeting with Peter <br>
 **Present:** All, except Renyuan <br>
 **Notes:** Discussed our progress regarding project
 Received feedback from Peter regarding project, ways of working, recommendations about models
-
 
 ---
 
@@ -69,15 +65,15 @@ Received feedback from Peter regarding project, ways of working, recommendations
 * Checked progress with a model
 * Agreed on the first tasks
 
-| Task                | Responsible     |
-|---------------------|-----------------|
-| Finalize syst.reqs  | All             |
-| Finalize model      | Ediz            |
-| Set up DB and Cloud | Zubeen, Michael |
-| Work with frond-end | Olga, Renyuan   |
+| Tasks               | Responsible             |
+|---------------------|-------------------------|
+| Finalize syst.reqs  | All                     |
+| Finalize model      | Ediz                    |
+| Set up DB and Cloud | Zubeen, Michael         |
+| Django application | Olga, Renyuan           |
+
 
 ---
-
 
 ### **Week 48**
 #### Meeting 1
@@ -85,118 +81,228 @@ Received feedback from Peter regarding project, ways of working, recommendations
 **Date:**  2022-11-29 <br>
 **Type:** Group Meeting <br>
 **Present:** All <br>
-**Notes:**<br>
+**Notes:**
+* Discussed what has been done in previous week.
+* Tasks divided.
+* Next meetings subjects considered
 
-| Task              | Responsible   |
-|-------------------|---------------|
-| Unit testing      | Ediz, Michael |
-| Front-end         | Olga, Renyuan |
-| Docker, Kubernets | Ediz, Zubeen  |
-
+| Tasks             | Responsible            |
+|-------------------|------------------------|
+| Unit testing      | Ediz, Michael          |
+| Django application         | Olga, Renyuan          |
+| Docker, Kubernets | Ediz, Zubeen           |
 
 
 #### Meeting 2 
-**Date:** 2022-11-2<br>
+**Date:** 2022-12-01<br>
 **Type:** Group Meeting<br>
 **Present:** All<br>
-**Notes:** 
+**Notes:**
+* Talked about previous week tasks and obstacles occurred.
+* Discussed the design of the UI
+* Presentation planning started.
+* Considered the Dockerfile and Kubernetes
+* Next week meeting subjects were planned.
 
-
-| Task | Responsible |
-|------|-------------|
-|      |             |
-|      |             |
-
-
+| Tasks                        | Responsible      |
+|------------------------------|------------------|
+| Figma, CNN model improvement | Ediz             |
+| Django application             | Olga, Renyuan    |
+| Docker tasks                 | Zubeen           |      
+ | Kubernetes tasks             | Michael          |
 
 ---
 
 ### **Week 49**
 
-**Date:**  2022-11- <br>
+**Date:**  2022-12-06 <br>
 **Type:** Group Meeting <br>
 **Present:** All <br>
-**Notes:**<br>
+**Notes:**
+* Talked about previous week points.
+* Presentation slides were considered.
+* Obligatory tasks division was prioritized.
+* Next week meeting topics were planned.
 
-| Task | Responsible |
-|------|-------------|
-|      |             |
-|      |             |
-
+| Tasks                                 | Responsible      |
+|---------------------------------------|------------------|
+| Gitlab issues, CNN model, Unit test   | Ediz             |
+| Model connection to UI                | Renyuan    |
+| Front-end Django app              | Olga    |
+| Continuation on Docker tasks          | Zubeen           |      
+ | Continuation on Kubernetes tasks      | Michael          |
 
 
 #### Meeting 2 
-**Date:** 2022-11-2<br>
+**Date:** 2022-12-08 <br>
 **Type:** Group Meeting<br>
 **Present:** All<br>
-**Notes:** 
+**Notes:**
+* Previous meeting points were reviewed again.
+* Full UI functionality was presented
+* Kubernetes had been delayed.
+* Next meeting points were considered.
 
-
-| Task | Responsible |
-|------|-------------|
-|      |             |
-|      |             |
-
+| Tasks                                                                    | Responsible      |
+|--------------------------------------------------------------------------|------------------|
+| Trello management (Milestones & tasks), CNN model training & predictions | Ediz             |
+| Django application , Admin UI                                                                 | Olga, Renyuan    |
+| Continuation on Docker tasks                                             | Zubeen        |      
+ | Continuation on Kubernetes tasks                                         | Michael      |
 
 ---
 
 ### **Week 50**
 
-**Date:**  2022-11- <br>
+**Date:**  2022-12-13 <br>
 **Type:** Group Meeting <br>
 **Present:** All <br>
 **Notes:**<br>
+* Previous weeks subjects were reviewed and obstacles and errors were discussed. 
+* Presentation slides were considered and prepared.
+* Presentation moments were discussed.
+* Next meeting topics were considered.
 
-| Task | Responsible |
-|------|-------------|
-|      |             |
-|      |             |
+| Tasks                                                                                                                                              | Responsible      |
+|----------------------------------------------------------------------------------------------------------------------------------------------------|------------------|
+| Prepared the presentation CNN model and deployment slides,CNN model architecture and deployment diagrams, CNN model configuration tasks, Unit test | Ediz             |
+| Live demo, Model connection to UI                                                                 |  Renyuan    |
+| Prepared the Presentation UI, challenges slides, fixing UI                                                                 | Olga, Renyuan    |
+| Prepared the Presentation roadmap and app architecture slides, Continuation on Docker tasks                                                        | Zubeen           |      
+ | Prepared the Presentation what to improve slide, Continuation on Kubernetes tasks                                                                  | Michael          |
 
+#### Meeting 2 
+**Date:** 2022-12-15<br>
+**Type:** Group Meeting<br>
+**Present:** All<br>
+**Notes:**
+* Previous meeting points were reviewed.
+* Swapping between two model functionality was discussed.
+* Requirements were reviewed.
+
+| Task                                                              | Responsible |
+|-------------------------------------------------------------------|-------------|
+| CNN model accuracy and loss improvements + Continuation Unit test | Ediz        |
+| Post-fair UI improvements                                                   | Olga        |       
+| Trello management, Model connection to Admin UI                   | Renyuan     | 
+| Additional unit tests                                             | Zubeen      |      
+ | Continuation on Kubernetes tasks                                  | Michael     |
+
+---
+
+### **Week 51**
+
+**Date:**  2022-12-20 <br>
+**Type:** Group Meeting <br>
+**Present:** All <br>
+**Notes:**
+* Last week points were reviewed.
+* Given tasks considered.
+* Bugs and pbstacles were discussed.
+
+| Task                                              | Responsible      |
+|---------------------------------------------------|------------------|
+| Trello management, CNN model + Docker image size  | Ediz             |
+| Model evaluation, UI    | Renyuan    |
+| UI, Docker, Celery deployment    | Olga   |
+| Kubernetes, Continuation on Docker tasks          | Zubeen           |      
+ | Database bugs + Kubernetes                        | Michael          |
 
 
 #### Meeting 2 
-**Date:** 2022-11-2<br>
+**Date:** 2022-12-22<br>
+**Type:** Group Meeting<br>
+**Present:** All<br>
+**Notes:**
+* No meeting: X-mas break
+* Continued working on the given tasks for enhancements
+
+| Task                                                 | Responsible      |
+|------------------------------------------------------|------------------|
+| Classification design improvements for CNN model     | Ediz             |
+| Model evaluation, UI    | Renyuan    |
+| UI, Docker, Celery deployment    | Olga   |
+| Continuation on Docker tasks                         | Zubeen           |      
+ | Continuation on Kubernetes tasks                     | Michael          |
+
+---
+
+### **Week 52**
+
+**Date:**  2022-12-27 <br>
+**Type:** Group Meeting <br>
+**Present:** All <br>
+**Notes:**
+* No meeting: X-mas break after.
+* Continued working on the given tasks for enhancements
+* Final report preparation all together.
+
+| Task                                                 | Responsible      |
+|------------------------------------------------------|------------------|
+| Classification design improvements for CNN model     | Ediz             |
+| Model evaluation, UI    | Renyuan    |
+| UI, Docker, Celery deployment    | Olga   |
+| Continuation on Docker tasks                         | Zubeen           |      
+ | Continuation on Kubernetes tasks                     | Michael          |
+
+
+#### Meeting 2 
+**Date:** 2022-12-29<br>
 **Type:** Group Meeting<br>
 **Present:** All<br>
 **Notes:** 
+* The project requirements revised.
+* Retrospective for the entire system.
+* Final report preparation all together.
+* Next week subjects were planned. 
 
-
-| Task | Responsible |
-|------|-------------|
-|      |             |
-|      |             |
-
+| Task                                                 | Responsible      |
+|------------------------------------------------------|------------------|
+| Classification design improvements for CNN model     | Ediz             |
+| Model evaluation, UI    | Renyuan    |
+| UI, Docker, Celery deployment    | Olga   |
+| Continuation on Docker tasks                         | Zubeen           |      
+ | Continuation on Kubernetes tasks                     | Michael          |
 
 ---
 
 ### **Week 1**
 
-**Date:**  2022-11- <br>
+**Date:**  2023-01-03 <br>
 **Type:** Group Meeting <br>
 **Present:** All <br>
-**Notes:**<br>
+**Notes:**
+* Previous week points talked again.
+* Components functionality were considered.
+* Final report preparation all together.
 
-| Task | Responsible |
-|------|-------------|
-|      |             |
-|      |             |
-
+| Task                                                    | Responsible      |
+|---------------------------------------------------------|------------------|
+| Final report, CNN model plots and evaluation, Unit test | Ediz             |
+| Final report, UI tasks                                  | Olga, Renyuan    |
+| Final report, Unit test                                 | Zubeen           |      
+ | Final report, bugs + evaluation func. for UI            | Michael          |
 
 
 #### Meeting 2 
-**Date:** 2022-11-2<br>
+**Date:** 2023-01-05<br>
 **Type:** Group Meeting<br>
 **Present:** All<br>
-**Notes:** 
+**Notes:**
+* Possible enhancement points were discussed
+* Final report preparation all together.
+* Final submission preparation for the entire system and final report.
 
+| Task                                                                                                            | Responsible      |
+|-----------------------------------------------------------------------------------------------------------------|------------------|
+| Final report, Weekly meetings note corrections, CNN model last configurations for better performance, Unit test | Ediz             |
+| Final report, UI tasks, weekly meetings notes                                                                                         | Olga, Renyuan    |
+| Final report, unit test                                                                                         | Zubeen           |      
+ | Final report, UI  + enhancements                                                                            | Michael          |
 
-| Task | Responsible |
-|------|-------------|
-|      |             |
-|      |             |
+---
 
-
-
+### End of another exciting project, January 6, 2023.
 
 
 
