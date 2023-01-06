@@ -1,14 +1,10 @@
-from django.contrib.auth.models import User
-from .serializers import RegisterSerializer
-from django.contrib.auth import authenticate, login as auth_login
-from django.http import HttpResponse, request
-from django.shortcuts import HttpResponseRedirect, render
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
-from django.shortcuts import redirect, render
-from django.urls import reverse
+from django.contrib.auth.models import User
+from django.shortcuts import HttpResponseRedirect
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
+
+from .serializers import RegisterSerializer
 
 
 def registerUser(request):
@@ -18,7 +14,7 @@ def registerUser(request):
         user = User.objects.create(username=username, password=password)
         user.set_password(password)
         user.save()
-     
+
         authenticate(username=username, password=password)
         login(request, user)
 
@@ -26,7 +22,7 @@ def registerUser(request):
             print('user authenticated and created')
             next = request.POST.get('next', '/')
             return HttpResponseRedirect(next)
-            
+
         else:
             print('Failed to create user')
             return None
