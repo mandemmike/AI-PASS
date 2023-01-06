@@ -191,27 +191,27 @@ the model is and how good or bad performance our model has.
 
 ### Gender accuracy
 
-<img src="./ModelTrainingService/metrics_figures/gender_accuracy.png" width="500" height="400" align="center"><br>
+<img src="./ModelTrainingService/metrics_figures/gender_accuracy.png" width="400" height="300" align="center"><br>
 
 ### Gender Loss
 Gender loss on the other hand performs even better, training loss and validation loss for gender feature both decrease and 
 stabilize at a specific point. This indicates an optimal fit in our model, that is to say; a model that does not overfit or underfit.
 
-<img src="./ModelTrainingService/metrics_figures/gender_loss.png" width="500" height="400" align="center"><br>
+<img src="./ModelTrainingService/metrics_figures/gender_loss.png" width="400" height="300" align="center"><br>
 
 ### Age Accuracy
 Both training and validation set, accuracy for the age feature in our model stabilizes itself towards to a specific point 
 through the end of training (epoch#150). Having an accuracy over 70% without any indication of overfitting and underfitting 
 is a good fit for a good generalization. 
 
-<img src="./ModelTrainingService/metrics_figures/age_accuracy.png" width="500" height="400" align="center"><br>
+<img src="./ModelTrainingService/metrics_figures/age_accuracy.png" width="400" height="300" align="center"><br>
 
 ### Age Loss
 After many configuration and fits for our model, training loss and validation loss for age feature both decrease and 
 stabilize towards to a specific point on epoc#150. This indicates that an optimal fit in our model may happen most probably, 
 that is to say; a model that does not overfit or underfit, given enough time, configurations and fine-tuning.
 
-<img src="./ModelTrainingService/metrics_figures/age_loss.png" width="500" height="400" align="center"><br>
+<img src="./ModelTrainingService/metrics_figures/age_loss.png" width="400" height="300" align="center"><br>
 
 
 ### Confusion Matrix for gender feature
@@ -222,12 +222,12 @@ indicate the true prediction for that gender class while white colors given the 
 class female 1965 predictions was correct while the true values hold the same, on the other hand, 288 predictions predicted incorrectly.
 In total, it would be accurate to say that 2183 + 1965 = 4148 predictions was correct while 588 of them predicted inccorectly.
 
-<img src="./ModelTrainingService/metrics_figures/Conf_Mtrx_gender.png" width="500" height="400" align="center"><br>
+<img src="./ModelTrainingService/metrics_figures/Conf_Mtrx_gender.png" width="400" height="300" align="center"><br>
 
 
 ### Confusion Matrix for age feature
 
-<img src="./ModelTrainingService/metrics_figures/Conf_Mtrx_age.png" width="500" height="400" align="center"><br>
+<img src="./ModelTrainingService/metrics_figures/Conf_Mtrx_age.png" width="400" height="300" align="center"><br>
 
 ### Classification Report for age feature (Precision, Recall and F1)
 
@@ -245,7 +245,7 @@ tuned model under given circumstances.
 
 ![img.png](Assets/gender_classification_report.png)
 
-<img src="./ModelTrainingService/metrics_figures/Conf_Mtrx_gender.png" width="500" height="400" align="center"><br>
+<img src="./ModelTrainingService/metrics_figures/Conf_Mtrx_gender.png" width="400" height="300" align="center"><br>
 
 
 
@@ -253,7 +253,7 @@ tuned model under given circumstances.
 
 
 
-<img src="./ModelTrainingService/metrics_figures/ROC_curve_gender.png" width="500" height="400" align="center"><br>
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_gender.png" width="400" height="300" align="center"><br>
 
 
 
@@ -272,11 +272,15 @@ belonging to the classes respectively.
 
 Below we see the age groups ROC curves and their probabilities of their related classes. 
 
-<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_0-24.png" width="500" height="400" align="center"><br>
-<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_25-49.png" width="500" height="400" align="center"><br>
-<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_50-74.png" width="500" height="400" align="center"><br>
-<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_75-99.png" width="500" height="400" align="center"><br>
-<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_100-124.png" width="500" height="400" align="center"><br>
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_0-24.png" width="400" height="300" align="center"><br>
+
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_25-49.png" width="400" height="300" align="center"><br>
+
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_50-74.png" width="400" height="300" align="center"><br>
+
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_75-99.png" width="400" height="300" align="center"><br>
+
+<img src="./ModelTrainingService/metrics_figures/ROC_curve_age_group_100-124.png" width="400" height="300" align="center"><br>
 
 
 
@@ -298,12 +302,36 @@ entries that fall into the positive class. Specificity refers to the ability to 
 
 (to be continued...)
 
+---
 
 #### Deployment Workflow
 <img src="./Assets/Deployment_Workflow.png" width="789" height="350"><br>
 
+
+_Add deployment guide_
+
+---
+
+#### Production System
+<img src="./Assets/System_Architecture.png" width="789" height="350"><br>
+
+Here above we have the high-level architecture diagram. In our system architecture, the web application is divided into 
+two services; one for training models and one for hosting a web interface for making predictions and managing the models. 
+
+The service for training models is responsible for building and updating the machine learning models that are used to make 
+predictions. The service for hosting the web interface, on the other hand, is responsible for providing a way for users 
+to access the models and make predictions through a web-based interface. This service may be run continuously to allow 
+users to make predictions at any time. By separating the app into these two services, it is possible to scale each service 
+independently and to more easily maintain and update the app. 
+
+Celery is used for queuing tasks that help us schedule and run tasks asynchronously. It uses message passing to distribute 
+tasks to multiple workers and can operate in real-time. Redis is a data store and message broker that is used in conjunction 
+with Celery to help manage tasks within a Django application. Celery can be thought of as a pipeline that allows you to 
+offload tasks from the main request/response cycle of your Django app, and Redis helps facilitate this process by acting 
+as a broker between Celery and Django there we have used to containerize our application.
+
 ### Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+_Add intallation guide_
 
 ### Dependencies
 
