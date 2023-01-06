@@ -238,12 +238,13 @@ Received feedback from Peter regarding project, ways of working, recommendations
 * Continued working on the given tasks for enhancements
 * Final report preparation all together.
 
-| Task                                                                      | Responsible      |
-|---------------------------------------------------------------------------|------------------|
-| Various architecture of CNN model studies and implementations, Kubernetes | Ediz             |
-| Model predicted results on UI                                             | Olga, Renyuan    |
-| Kubernetes, Continuation on Docker tasks                                  | Zubeen           |      
- | Continuation on Kubernetes tasks, Unit test                               | Michael          |
+| Task                                                 | Responsible      |
+|------------------------------------------------------|------------------|
+| Classification design improvements for CNN model     | Ediz             |
+| Model evaluation, UI    | Renyuan    |
+| UI, Docker, Celery deployment    | Olga   |
+| Continuation on Docker tasks                         | Zubeen           |      
+ | Continuation on Kubernetes tasks                     | Michael          |
 
 
 #### Meeting 2 
@@ -256,12 +257,13 @@ Received feedback from Peter regarding project, ways of working, recommendations
 * Final report preparation all together.
 * Next week subjects were planned. 
 
-| Task                                                                                     | Responsible      |
-|------------------------------------------------------------------------------------------|------------------|
-| Ethnicity feature added to CNN model for performance, evaluation and metrics, Kubernetes | Ediz             |
-| Model connection to UI                                                                   | Olga, Renyuan    |
-| Kubernetes, Continuation on Docker tasks                                                 | Zubeen           |      
- | Continuation on Kubernetes tasks                                                         | Michael          |
+| Task                                                 | Responsible      |
+|------------------------------------------------------|------------------|
+| Classification design improvements for CNN model     | Ediz             |
+| Model evaluation, UI    | Renyuan    |
+| UI, Docker, Celery deployment    | Olga   |
+| Continuation on Docker tasks                         | Zubeen           |      
+ | Continuation on Kubernetes tasks                     | Michael          |
 
 ---
 
@@ -278,7 +280,7 @@ Received feedback from Peter regarding project, ways of working, recommendations
 | Task                                                    | Responsible      |
 |---------------------------------------------------------|------------------|
 | Final report, CNN model plots and evaluation, Unit test | Ediz             |
-| Final report, UI tasks                                  | Olga, Renyuan    |
+| Final report, UI tasks, code cleaning                                  | Olga, Renyuan    |
 | Final report, Unit test                                 | Zubeen           |      
  | Final report, bugs + evaluation func. for UI            | Michael          |
 
@@ -298,7 +300,6 @@ Received feedback from Peter regarding project, ways of working, recommendations
 | Final report, UI tasks                                                                                                     | Olga, Renyuan    |
 | Final report, unit test                                                                                                    | Zubeen           |      
  | Final report, UI + enhancements                                                                                       | Michael          |
-                                                                          | Michael          |
 
 ---
 
