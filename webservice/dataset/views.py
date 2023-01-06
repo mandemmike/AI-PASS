@@ -1,34 +1,24 @@
-import re
-from django.http import JsonResponse
-from django.views import View
-import requests
-
-from rest_framework.generics import GenericAPIView
-from rest_framework.response import Response
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
-from rest_framework import status
-import os
 import glob
-import shutil
-from django.core.files.base import ContentFile
-
-from django.shortcuts import get_object_or_404, render
-from django.shortcuts import HttpResponseRedirect, redirect, render
+import os
+import re
 from datetime import datetime
 
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
+from django.views import View
 from drf_chunked_upload import settings as _settings
+from drf_chunked_upload.exceptions import ChunkedUploadError
 from drf_chunked_upload.models import ChunkedUpload
 from drf_chunked_upload.serializers import ChunkedUploadSerializer
-from drf_chunked_upload.exceptions import ChunkedUploadError
-from app.forms import FaceRecognitionForm, DataSetUploadForm, ModelUploadForm, EvaluateModelForm, SelectModelForm
-from main.settings import MEDIA_ROOT
-from main.settings import BASE_DIR
+from rest_framework import status
+from rest_framework.generics import GenericAPIView
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
+from rest_framework.response import Response
+
 from app.models import Dataset
 from dataset import dynamicTraining
-import threading
-
-from django.http import HttpResponse
-
+from main.settings import MEDIA_ROOT
 
 
 class DynamicTraining(View):
@@ -53,10 +43,10 @@ class DynamicTraining(View):
             model.save()
         except:
             return HttpResponse('Internal Server Error.FYI Dataset filename must be unique so try changing it', status=500)
-    
+
         return redirect("admin-ui")
 
-  
+
 
 class ChunkedUploadBaseView(GenericAPIView):
     """
@@ -145,7 +135,7 @@ class ChunkedUploadView(ListModelMixin, RetrieveModelMixin,
     max_bytes = _settings.MAX_BYTES  # Max amount of data that can be uploaded
 
     def on_completion(self, chunked_upload, request) -> Response:
-    
+
         now = datetime.now()
         year = str(now.year)
         month = str(now.month)

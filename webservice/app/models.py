@@ -1,5 +1,4 @@
 from django.db import models
-from uuid import uuid4
 from django.db.models import JSONField
 
 
@@ -36,7 +35,7 @@ class Dataset(models.Model):
     @classmethod
     def create(cls, file, filename):
         dataset = cls(file=file, filename=filename)
-        
+
         return dataset
 
 
