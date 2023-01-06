@@ -287,12 +287,12 @@ Received feedback from Peter regarding project, ways of working, recommendations
 * Final report preparation all together.
 * Final submission preparation for the entire system and final report.
 
-| Task                                                                                                            | Responsible      |
-|-----------------------------------------------------------------------------------------------------------------|------------------|
-| Final report, Weekly meetings note corrections, CNN model last configurations for better performance, Unit test | Ediz             |
-| Final report, UI tasks                                                                                          | Olga, Renyuan    |
-| Final report, unit test                                                                                         | Zubeen           |      
- | Final report, UI bugs + enhancements                                                                            | Michael          |
+| Task                                                                                                                       | Responsible      |
+|----------------------------------------------------------------------------------------------------------------------------|------------------|
+| Final report, README.md, Weekly meetings note corrections, CNN model last configurations for better performance, Unit test | Ediz             |
+| Final report, UI tasks                                                                                                     | Olga, Renyuan    |
+| Final report, unit test                                                                                                    | Zubeen           |      
+ | Final report, UI bugs + enhancements                                                                                       | Michael          |
 
 ---
 
