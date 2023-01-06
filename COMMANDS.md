@@ -57,3 +57,4 @@ kubectl exec -it age-detection-age-detection-helm-chart-0 -c age-detection-helm-
 
 
 
+    <link href="https://fonts.googleapis.com/css2?family=Amaranth:wght@400;700&display=swap" rel="stylesheet">
