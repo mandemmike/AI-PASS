@@ -475,6 +475,7 @@ If the branch created is new then we need to push the changes by the following c
 git push --set-upstream origin <branch name>
 ```
 
+
 Otherwise, if the branch already exits and when the member has committed the changes to the branch, the remote branch 
 shall be pulled and conflicts shall be resolved before pushing the new changes to this remote branch. To do this type 
 this command in your terminal on your local main branch. 
