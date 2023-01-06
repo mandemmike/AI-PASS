@@ -352,14 +352,7 @@ mkdir <directory name>
 cd <directory name>
 ```
 
-On Gitlab.com, navigate to the main page of the repository by following link (if you are authenticated),
-_Note: It is a private repository._
-
-```
-https://git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection
-```
-
-Above the list of files, click "CLONE",
+On Gitlab.com, navigate to the main page of the repository by following link. Above the list of files, click "CLONE",
 
 Copy the URL for the repository,
 
