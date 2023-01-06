@@ -1,6 +1,8 @@
 ### **DIT 825 - Software Engineering for Data-Intensive AI Applications**
+
 # **Group 3**
-## **Project management**
+
+## **Group project meetings**
 
 
 [Trello board](https://trello.com/invite/b/w6bgezh8/ATTI01dd1720d355f279d59a6e152abece334ED95C4C/dit-825)
@@ -30,6 +32,7 @@ No meetings. Forming groups.
 ---
 
 ### **Week 46**
+
 #### Meeting 1
 **Date:** 2022-11-15 <br>
 **Type:** Group Meeting <br>
@@ -71,12 +74,13 @@ Received feedback from Peter regarding project, ways of working, recommendations
 | Finalize syst.reqs  | All                     |
 | Finalize model      | Ediz                    |
 | Set up DB and Cloud | Zubeen, Michael         |
-| Django application | Olga, Renyuan           |
+| Django application  | Olga, Renyuan           |
 
 
 ---
 
 ### **Week 48**
+
 #### Meeting 1
 
 **Date:**  2022-11-29 <br>
@@ -116,6 +120,7 @@ Received feedback from Peter regarding project, ways of working, recommendations
 
 ### **Week 49**
 
+#### Meeting 1
 **Date:**  2022-12-06 <br>
 **Type:** Group Meeting <br>
 **Present:** All <br>
@@ -155,6 +160,7 @@ Received feedback from Peter regarding project, ways of working, recommendations
 
 ### **Week 50**
 
+#### Meeting 1
 **Date:**  2022-12-13 <br>
 **Type:** Group Meeting <br>
 **Present:** All <br>
@@ -183,7 +189,7 @@ Received feedback from Peter regarding project, ways of working, recommendations
 
 | Task                                                              | Responsible |
 |-------------------------------------------------------------------|-------------|
-| CNN model accuracy and loss improvements + Continuation Unit test | Ediz        |
+| CNN model accuracy and loss improvements, Continuation Unit test | Ediz        |
 | Post-fair UI improvements                                                   | Olga        |       
 | Trello management, Model connection to Admin UI                   | Renyuan     | 
 | Additional unit tests                                             | Zubeen      |      
@@ -193,6 +199,7 @@ Received feedback from Peter regarding project, ways of working, recommendations
 
 ### **Week 51**
 
+#### Meeting 1 
 **Date:**  2022-12-20 <br>
 **Type:** Group Meeting <br>
 **Present:** All <br>
@@ -203,7 +210,7 @@ Received feedback from Peter regarding project, ways of working, recommendations
 
 | Task                                              | Responsible      |
 |---------------------------------------------------|------------------|
-| Trello management, CNN model + Docker image size  | Ediz             |
+| Trello management, CNN model, Docker image size  | Ediz             |
 | Model evaluation, UI    | Renyuan    |
 | UI, Docker, Celery deployment    | Olga   |
 | Kubernetes, Continuation on Docker tasks          | Zubeen           |      
@@ -230,6 +237,7 @@ Received feedback from Peter regarding project, ways of working, recommendations
 
 ### **Week 52**
 
+#### Meeting 1 
 **Date:**  2022-12-27 <br>
 **Type:** Group Meeting <br>
 **Present:** All <br>
@@ -238,13 +246,13 @@ Received feedback from Peter regarding project, ways of working, recommendations
 * Continued working on the given tasks for enhancements
 * Final report preparation all together.
 
-| Task                                                 | Responsible      |
-|------------------------------------------------------|------------------|
-| Classification design improvements for CNN model     | Ediz             |
-| Model evaluation, UI    | Renyuan    |
-| UI, Docker, Celery deployment    | Olga   |
-| Continuation on Docker tasks                         | Zubeen           |      
- | Continuation on Kubernetes tasks                     | Michael          |
+| Task                                                                                  | Responsible      |
+|---------------------------------------------------------------------------------------|------------------|
+| | Various architecture of CNN model studies and implementations, Kubernetes works     | Ediz             |
+| Model evaluation, UI                                                                  | Renyuan          |
+| UI, Docker, Celery deployment                                                         | Olga             |
+| Continuation on Docker tasks                                                          | Zubeen           |      
+ | Continuation on Kubernetes tasks                                                     | Michael          |
 
 
 #### Meeting 2 
@@ -257,18 +265,19 @@ Received feedback from Peter regarding project, ways of working, recommendations
 * Final report preparation all together.
 * Next week subjects were planned. 
 
-| Task                                                 | Responsible      |
-|------------------------------------------------------|------------------|
-| Classification design improvements for CNN model     | Ediz             |
-| Model evaluation, UI    | Renyuan    |
-| UI, Docker, Celery deployment    | Olga   |
-| Continuation on Docker tasks                         | Zubeen           |      
- | Continuation on Kubernetes tasks                     | Michael          |
+| Task                                                                                                | Responsible      |
+|-----------------------------------------------------------------------------------------------------|------------------|
+| Ethnicity feature added to CNN model for performance, evaluation and metrics, Kubernetes works      | Ediz             |
+| Model evaluation, UI                                                                                | Renyuan          |
+| UI, Docker, Celery deployment                                                                       | Olga             |
+| Continuation on Docker tasks                                                                        | Zubeen           |      
+| Continuation on Kubernetes tasks                                                                    | Michael          |
 
 ---
 
 ### **Week 1**
 
+#### Meeting 1
 **Date:**  2023-01-03 <br>
 **Type:** Group Meeting <br>
 **Present:** All <br>
@@ -280,9 +289,9 @@ Received feedback from Peter regarding project, ways of working, recommendations
 | Task                                                    | Responsible      |
 |---------------------------------------------------------|------------------|
 | Final report, CNN model plots and evaluation, Unit test | Ediz             |
-| Final report, UI tasks, code cleaning                                  | Olga, Renyuan    |
+| Final report, UI tasks, code cleaning                   | Olga, Renyuan    |
 | Final report, Unit test                                 | Zubeen           |      
- | Final report, bugs + evaluation func. for UI            | Michael          |
+| Final report, bugs + evaluation func. for UI            | Michael          |
 
 
 #### Meeting 2 
@@ -299,7 +308,7 @@ Received feedback from Peter regarding project, ways of working, recommendations
 | Final report, README.md, Weekly meetings note corrections, CNN model last configurations for better performance, Unit test | Ediz             |
 | Final report, UI tasks                                                                                                     | Olga, Renyuan    |
 | Final report, unit test                                                                                                    | Zubeen           |      
- | Final report, UI + enhancements                                                                                       | Michael          |
+ | Final report, UI + enhancements                                                                                           | Michael          |
 
 ---
 
