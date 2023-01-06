@@ -79,8 +79,8 @@ class GeneralTest(TestCase):
         img_path = './dataset/test_data/1_0_0_20161219140627985.jpg.chip.jpg'
         result = ml_pipeline.pipeline_model(img_path)
 
-        self.assert_(result['age'] is not None)
-        self.assert_(result['gender'] is not None)
+        self.assertTrue(result['age'] is not None)
+        self.assertTrue(result['gender'] is not None)
 
 
     def test_parse_dataset(self):
