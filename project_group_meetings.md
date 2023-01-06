@@ -2,6 +2,7 @@
 # **Group 3**
 ## **Project management**
 
+
 [Trello board](https://trello.com/invite/b/w6bgezh8/ATTI01dd1720d355f279d59a6e152abece334ED95C4C/dit-825)
 
 ---
@@ -89,7 +90,7 @@ Received feedback from Peter regarding project, ways of working, recommendations
 | Tasks             | Responsible            |
 |-------------------|------------------------|
 | Unit testing      | Ediz, Michael          |
-| Front-end         | Olga, Renyuan          |
+| Django application       | Olga, Renyuan          |
 | Docker, Kubernets | Ediz, Zubeen           |
 
 
@@ -107,7 +108,7 @@ Received feedback from Peter regarding project, ways of working, recommendations
 | Tasks                        | Responsible      |
 |------------------------------|------------------|
 | Figma, CNN model improvement | Ediz             |
-| Front-end tasks              | Olga, Renyuan    |
+| Django application              | Olga, Renyuan    |
 | Docker tasks                 | Zubeen           |      
  | Kubernetes tasks             | Michael          |
 
@@ -128,7 +129,7 @@ Received feedback from Peter regarding project, ways of working, recommendations
 |---------------------------------------|------------------|
 | Gitlab issues, CNN model, Unit test   | Ediz             |
 | Model connection to UI                | Renyuan    |
-| Front-end Django app              | Olga    |
+| Front-end Django application              | Olga    |
 | Continuation on Docker tasks          | Zubeen           |      
  | Continuation on Kubernetes tasks      | Michael          |
 
