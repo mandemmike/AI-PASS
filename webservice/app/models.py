@@ -38,7 +38,6 @@ class Dataset(models.Model):
 
         return dataset
 
-
 class MLModel(models.Model):
     class MLFormat(models.TextChoices):
         H5 = ('h5', 'H5')

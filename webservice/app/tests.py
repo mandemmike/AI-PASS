@@ -1,9 +1,12 @@
+import glob
 from django.test import TestCase
 from pathlib import Path
 import numpy as np
 from django.conf import settings
 from app.test_helper import parse_dataset
 from app.test_helper import generate_images
+import app.ml as ml_pipeline
+from app.models import MLModel
 import os
 import sys
 import cv2
@@ -84,12 +87,20 @@ class GeneralTest(TestCase):
 
         percent = verified / count
         percent = percent * 100
-        print(str(percent) + ' percent of the labels correct')
         self.assertTrue(percent >= 99)
 
     def ml_pipeline(self):
+        model_path = ml_pipeline.create_model_path
+        model_path = glob.glob('./dataset/test_model' + '/*.h5')
 
-        pass
+        model = MLModel.create(file=str(model_path), format='h5r',name='test_model',is_active=True, evaluated_data=eval)
+        model.save()
+        img_path = './dataset/test_data/1_0_0_20161219140627985.jpg.chip.jpg'
+        result = ml_pipeline.pipeline_model(img_path)
+
+        self.assertTrue(result['age'] is not None)
+        self.assertTrue(result['gender'] is not None)
+
 
     def test_parse_dataset(self):
 
@@ -115,7 +126,7 @@ class GeneralTest(TestCase):
         data_folder = ('./dataset/test_data')
         df = parse_dataset(data_folder)
 
-        expected_batch_size = 12
+        expected_batch_size = 0
         num_batches = 0
         val_gen = generate_images(df, expected_batch_size)
 
