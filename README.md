@@ -311,15 +311,21 @@ augmentation methods and apply to right age groups or apply to classes.
 
 ---
 
-#### Deployment Workflow
+#### Deployment 
 <img src="./Assets/Deployment_Workflow.png" width="789" height="450"><br>
 
 
 The deployment of our system is detailed above in the deployment diagram. Once we are done fully with the functionality 
 of the system parts implementation is ready, and it is pushed to the GitLab repository and merged through related ranches 
 to the main branch. The Gitlab repository has all the related configuration files in Dockerfile to dockerize our app.
-After locally dockerized the application, we basically use our private google cloud account to be able to deploy 
-the application through the Kubernetes interface. 
+
+
+Currently the application is being deployed manually using a cluster provided by Google Clouds Kubernetes engine.  For detailed instructions regarding the setup process and deployment please visit this website. https://cloud.google.com/kubernetes-engine/docs/deploy-app-cluster
+
+Application URL: http://35.228.181.116/
+
+Username: admin
+Password: admin 
 
 ---
 
