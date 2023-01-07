@@ -25,6 +25,8 @@ RUN chmod +x /entrypoint.sh
 
 COPY ./webservice .
 
+RUN python manage.py test
+
 EXPOSE 8000
 
 ENTRYPOINT ["/entrypoint.sh"]

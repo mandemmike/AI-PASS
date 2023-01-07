@@ -10,7 +10,6 @@ class EvaluatedModelDataAdmin(admin.ModelAdmin):
 class FaceRecognitionAdmin(admin.ModelAdmin):
     pass
 
-
 @admin.register(MLModel)
 class MLModelAdmin(admin.ModelAdmin):
     list_display = ('name', 'format', 'is_active')

@@ -34,7 +34,6 @@ def parse_dataset(path):
 
     for filename in filenames:
         if len(filename.split('_')) != 4:
-            print(f"Bad filename {filename}")
             continue
 
         age, gender, race, _ = filename.split('_')

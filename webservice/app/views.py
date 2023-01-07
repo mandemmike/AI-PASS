@@ -13,7 +13,7 @@ from app.forms import FaceRecognitionForm, DataSetUploadForm, ModelUploadForm, E
 from app.ml import pipeline_model
 from app.models import MLModel
 from dataset import dynamicTraining
-from .models import Dataset, EvaluatedModelData
+from app.models import Dataset, EvaluatedModelData
 from .tasks import dataset_preparation
 
 
@@ -74,7 +74,11 @@ class AdminUIView(View):
             context = {}
             return render(request, 'index.html', context)
         modelinfo = MLModel.objects.all().order_by("-id").values()
-        datasets = Dataset.objects.all()
+        try:
+
+            datasets = Dataset.objects.all()
+        except:
+            datasets = None
         try:
             current_model = MLModel.objects.get(is_active=True)
 
