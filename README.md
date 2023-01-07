@@ -312,12 +312,12 @@ augmentation methods and apply to right age groups or apply to classes.
 ---
 
 #### Deployment Workflow
-<img src="./Assets/Deployment_Workflow.png" width="789" height="350"><br>
+<img src="./Assets/Deployment_Workflow.png" width="789" height="450"><br>
 
 
 The deployment of our system is detailed above in the deployment diagram. Once we are done fully with the functionality 
 of the system parts implementation is ready, and it is pushed to the GitLab repository and merged through related ranches 
-to the main branch. The Gitlap repository has all the related configuration files in Dockerfile for dockerizing our app.
+to the main branch. The Gitlab repository has all the related configuration files in Dockerfile to dockerize our app.
 After locally dockerized the application, we basically use our private google cloud account to be able to deploy 
 the application through the Kubernetes interface. 
 
@@ -352,7 +352,7 @@ mkdir <directory name>
 cd <directory name>
 ```
 
-On Gitlab.com, navigate to the main page of the repository by following link. Above the list of files, click "CLONE",
+On Gitlab.com, navigate to the main page of the repository of your choice. Above the list of files, click "CLONE",
 
 Copy the URL for the repository,
 
@@ -360,28 +360,25 @@ Copy the URL for the repository,
 To clone the repository using HTTPS, under "HTTPS",
 To clone the repository using an SSH key, including a certificate issued by your organization's SSH certificate authority, click SSH,
 ```
-Open your terminal,
-
-Type git clone, and then paste the URL you copied earlier as follows,
+Open your terminal, type git clone, and then paste the URL you copied earlier as follows, press enter to create your local clone.
 ```
 git clone https://git.chalmers.se/courses/dit825/2022/group03/dit825-age-detection.git
 ```
 
-Press Enter to create your local clone. In case of using SSH key, enter your credentials when it is prompt.
+In case of using SSH key, enter your credentials when it is prompt.
 
 #### Running the application
 
 Install [Python](https://www.python.org/downloads/) of your choice after v3.XX
 
 Install Anaconda3
-- Go to [Anaconda](https://www.anaconda.com/distribution/) download page  and find the installer file that matches your system. 
+- Go to [Anaconda](https://www.anaconda.com/distribution/) download page and find the installer file that matches your system. 
 - Open file, start the installation wizard and follow the instructions.
 
-_Note: Note: Anaconda also creates a virtual environment called “base” (see below for details on virtual env)._
-
+_Note: Anaconda also creates a virtual environment called “base” (see below for details on virtual env)._
 
 If your Python environment does not have pip installed, there are 2 mechanisms to install pip supported directly by pip’s maintainers:
-Install and upgrade pip by the command below;
+Install and upgrade pip by the link below;
 
 Download and script [get-pip.py](https://bootstrap.pypa.io/get-pip.py)
 
@@ -456,7 +453,7 @@ or add all files by
 git add .
 ```
 
-Now we can commit the changes, and we do that with following a specific commit message or template:
+Now we can commit the changes, and do commit with following a specific commit message or template:
 
 ```
 git commit -m "<i.e.commit message or template >" .
@@ -467,7 +464,6 @@ If the branch created is new then we need to push the changes by the following c
 ```
 git push --set-upstream origin <branch name>
 ```
-
 
 Otherwise, if the branch already exits and when the member has committed the changes to the branch, the remote branch 
 shall be pulled and conflicts shall be resolved before pushing the new changes to this remote branch. To do this type 
@@ -483,20 +479,17 @@ load back the local working branch,
 git checkout <branchname> 
 ```
 
-Merge with the master/main as follows, to get the latest updates which has been added by the other members
+Merge with the master/main as follows, to get the latest updates which has been added by the other members,
 
 ```
 git merge main
 ```
 
 In case of conflicts there will be a message by the terminal which needs to be resolved. Follow and resolve the conflicts.
-i.e. git interface of the IDE your using. Otherwise, the working branch is updated with main and all main branch udates 
-will be pushed to git again in the next push. 
+i.e. git interface of the IDE your using. Otherwise, the working branch is updated with main and all main branch updates 
+will be pushed to git again in the next push.
 
-There will be a Discord channel in the team’s Discord server, where team members shall announce and notify pushing to a 
-specific remote branch, to avoid pushing to the remote branch at the same time from different team members. 
-
-When a green light is given to push to the remote branch,
+When all is good, and there is/are commit/s, push to the remote branch,
 
 ```
 git push origin <branch name>
