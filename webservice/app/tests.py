@@ -16,8 +16,8 @@ import matplotlib.pyplot as plt
 import unittest
 import random
 from unittest import TestCase
-from mock_cnn_model import UtkFaceDataGenerator
-from mock_cnn_model import parse_dataset, parse_info_from_file
+from app.mock_cnn_model import UtkFaceDataGenerator
+from app.mock_cnn_model import parse_dataset, parse_info_from_file
 
 filenames = []
 count = 0
