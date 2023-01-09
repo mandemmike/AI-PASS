@@ -24,7 +24,7 @@ count = 0
 percent = 0
 verified = 0
 notClear = 0
-
+"""
 dataset_path = '../webservice/dataset/test_data/'
 ds_list = os.listdir(dataset_path)
 img_path = dataset_path + ds_list[0]
@@ -32,7 +32,7 @@ training_split = 0, 8
 expected_train_percentage = 63  # 63% training dataset
 expected_valid_percentage = 17  # 17% validation dataset
 expected_test_percentage = 20  # 20% test dataset
-
+"""
 
 class GeneralTest(TestCase):
 
