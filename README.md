@@ -1,4 +1,4 @@
-## DIT825 - Software Engineering for Data-Intensive AI Applications
+## Software Engineering for Data-Intensive AI Applications
 
 <h1>Age and Gender Prediction</h1> 
 
